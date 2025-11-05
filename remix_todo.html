@@ -93,6 +93,29 @@
                     transform: rotate(360deg);
                 }
             }
+
+            /* Slide-in animation for execution panel */
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                }
+                to {
+                    transform: translateX(0);
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                }
+                to {
+                    transform: translateX(100%);
+                }
+            }
+
+            #execution-panel.slide-out {
+                animation: slideOut 0.3s ease-out forwards;
+            }
         </style>
     </head>
     <body class="bg-gray-50 text-gray-800 antialiased">
@@ -142,6 +165,152 @@
                         <span>New Task</span>
                     </button>
 
+                    <!-- Home Section -->
+                    <div class="pt-6">
+                        <a
+                            href="#"
+                            class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
+                            data-view="home"
+                            data-title="Home"
+                        >
+                            <!-- Home Icon -->
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                                />
+                                <polyline points="9 22 9 12 15 12 15 22" />
+                            </svg>
+                            <span class="text-sm">Home</span>
+                        </a>
+                    </div>
+
+                    <!-- Tasks Section -->
+                    <div class="pt-6">
+                        <div
+                            class="flex items-center justify-between px-3 py-2"
+                        >
+                            <span
+                                class="text-xs font-semibold text-gray-500 uppercase"
+                                >Tasks</span
+                            >
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <!-- Filter Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polygon
+                                        points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="space-y-1 mt-1">
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
+                                data-view="task"
+                                data-title="Inbox"
+                            >
+                                <!-- Inbox Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M22 12h-6l-2 3h-4l-2-3H2" />
+                                    <path
+                                        d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"
+                                    />
+                                </svg>
+                                <span class="text-sm">Inbox</span>
+                                <span
+                                    class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
+                                    >5</span
+                                >
+                            </a>
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
+                                data-view="task"
+                                data-title="Today"
+                            >
+                                <!-- Calendar Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <rect
+                                        width="18"
+                                        height="18"
+                                        x="3"
+                                        y="4"
+                                        rx="2"
+                                        ry="2"
+                                    />
+                                    <line x1="16" x2="16" y1="2" y2="6" />
+                                    <line x1="8" x2="8" y1="2" y2="6" />
+                                    <line x1="3" x2="21" y1="10" y2="10" />
+                                </svg>
+                                <span class="text-sm">Today</span>
+                            </a>
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                                data-view="task"
+                                data-title="Personal"
+                            >
+                                <span
+                                    class="w-2 h-2 rounded-full bg-red-500"
+                                ></span>
+                                <span class="text-sm font-medium"
+                                    >Personal</span
+                                >
+                            </a>
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                                data-view="task"
+                                data-title="Sales"
+                            >
+                                <span
+                                    class="w-2 h-2 rounded-full bg-green-500"
+                                ></span>
+                                <span class="text-sm font-medium">Sales</span>
+                            </a>
+                        </div>
+                    </div>
+
                     <!-- Dashboards Section -->
                     <div class="pt-6">
                         <div
@@ -170,10 +339,9 @@
                             </button>
                         </div>
                         <div class="space-y-1 mt-1">
-                            <!-- Changed active color to indigo and font size to sm -->
                             <a
                                 href="#"
-                                class="sidebar-link flex items-center space-x-3 px-3 py-2 bg-gray-100 text-indigo-600 rounded-lg font-semibold"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
                                 data-view="dashboard"
                                 data-title="Daily Briefing"
                             >
@@ -248,88 +416,26 @@
                         </div>
                     </div>
 
-                    <!-- Tasks (Builder) Section -->
+                    <!-- Running Section -->
                     <div class="pt-6">
                         <div
                             class="flex items-center justify-between px-3 py-2"
                         >
                             <span
                                 class="text-xs font-semibold text-gray-500 uppercase"
-                                >Tasks</span
+                                >Running</span
                             >
-                            <button class="text-gray-400 hover:text-gray-600">
-                                <!-- Filter Icon -->
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <polygon
-                                        points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
-                                    />
-                                </svg>
-                            </button>
+                            <span
+                                id="running-badge"
+                                class="hidden text-xs bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full font-semibold"
+                                >0</span
+                            >
                         </div>
-                        <div class="space-y-1 mt-1">
-                            <a
-                                href="#"
-                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
-                                data-view="task"
-                                data-title="Inbox"
-                            >
-                                <!-- Inbox Icon -->
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <path d="M22 12h-6l-2 3h-4l-2-3H2" />
-                                    <path
-                                        d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"
-                                    />
-                                </svg>
-                                <span class="text-sm">Inbox</span>
-                                <span
-                                    class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
-                                    >5</span
-                                >
-                            </a>
-                            <a
-                                href="#"
-                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
-                                data-view="task"
-                                data-title="Personal Tasks"
-                            >
-                                <span
-                                    class="w-2 h-2 rounded-full bg-red-500"
-                                ></span>
-                                <span class="text-sm font-medium"
-                                    >Personal</span
-                                >
-                            </a>
-                            <a
-                                href="#"
-                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
-                                data-view="task"
-                                data-title="Sales Tasks"
-                            >
-                                <span
-                                    class="w-2 h-2 rounded-full bg-green-500"
-                                ></span>
-                                <span class="text-sm font-medium">Sales</span>
-                            </a>
+                        <div id="running-list" class="space-y-1 mt-1">
+                            <!-- Running automations will appear here -->
+                            <div class="px-3 py-2 text-xs text-gray-400 italic">
+                                No running automations
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -622,7 +728,187 @@
                     </div>
 
                     <!--
-                  VIEW 2: TASKS (HIDDEN BY DEFAULT)
+                  VIEW 2: HOME VIEW (HIDDEN BY DEFAULT)
+                  Shows pinned dashboards and today's tasks
+                -->
+                    <div id="home-view" class="hidden space-y-6">
+                        <!-- Pinned Dashboards Section -->
+                        <div>
+                            <h2
+                                class="text-lg font-semibold text-gray-800 mb-4"
+                            >
+                                Pinned Dashboards
+                            </h2>
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                            >
+                                <!-- Compact Widget 1 -->
+                                <div
+                                    class="widget-card bg-white rounded-xl shadow-lg flex flex-col"
+                                >
+                                    <header
+                                        class="flex items-center justify-between p-3 border-b border-gray-100"
+                                    >
+                                        <h3 class="font-semibold text-sm">
+                                            Messages from Ruchika
+                                        </h3>
+                                    </header>
+                                    <div
+                                        class="widget-content p-3 h-32 overflow-y-auto space-y-2 text-xs"
+                                    >
+                                        <div>
+                                            <strong class="text-indigo-600"
+                                                >LinkedIn:</strong
+                                            >
+                                            "Hey, did you see the latest
+                                            designs?"
+                                        </div>
+                                        <div>
+                                            <strong class="text-red-600"
+                                                >Gmail:</strong
+                                            >
+                                            "Re: Project Alpha"
+                                        </div>
+                                    </div>
+                                    <footer
+                                        class="p-2 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl"
+                                    >
+                                        Last run: 2 mins ago
+                                    </footer>
+                                </div>
+
+                                <!-- Compact Widget 2 -->
+                                <div
+                                    class="widget-card bg-white rounded-xl shadow-lg flex flex-col"
+                                >
+                                    <header
+                                        class="flex items-center justify-between p-3 border-b border-gray-100"
+                                    >
+                                        <h3 class="font-semibold text-sm">
+                                            Latest AI News
+                                        </h3>
+                                    </header>
+                                    <div
+                                        class="widget-content p-3 h-32 overflow-y-auto space-y-2 text-xs"
+                                    >
+                                        <div
+                                            class="font-medium hover:text-indigo-600 cursor-pointer"
+                                        >
+                                            New Model Release Changes Everything
+                                        </div>
+                                        <p class="text-gray-500">
+                                            TechCrunch: 11:05 AM
+                                        </p>
+                                    </div>
+                                    <footer
+                                        class="p-2 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl"
+                                    >
+                                        Last run: 15 mins ago
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Due Today Section -->
+                        <div>
+                            <h2
+                                class="text-lg font-semibold text-gray-800 mb-4"
+                            >
+                                Due Today
+                            </h2>
+                            <div
+                                class="bg-white rounded-xl shadow p-4 space-y-3"
+                            >
+                                <!-- Task Item -->
+                                <div
+                                    class="flex items-center space-x-3 py-2 hover:bg-gray-50 rounded px-2 cursor-pointer"
+                                >
+                                    <button
+                                        class="w-5 h-5 border-2 border-gray-300 rounded-full flex-shrink-0"
+                                    ></button>
+                                    <div class="flex-grow">
+                                        <div class="text-sm">
+                                            Task: Pull all messages from Ruchika
+                                        </div>
+                                        <div
+                                            class="text-xs text-gray-500 mt-0.5"
+                                        >
+                                            <span
+                                                class="text-green-600 font-medium"
+                                                >Today</span
+                                            >
+                                            <span
+                                                class="ml-2 text-red-500 font-bold"
+                                                >P1</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Another Task -->
+                                <div
+                                    class="flex items-center space-x-3 py-2 hover:bg-gray-50 rounded px-2 cursor-pointer"
+                                >
+                                    <button
+                                        class="w-5 h-5 border-2 border-gray-300 rounded-full flex-shrink-0"
+                                    ></button>
+                                    <div class="flex-grow">
+                                        <div class="text-sm">
+                                            Review automation logs
+                                        </div>
+                                        <div
+                                            class="text-xs text-gray-500 mt-0.5"
+                                        >
+                                            <span
+                                                class="text-green-600 font-medium"
+                                                >Today</span
+                                            >
+                                            <span
+                                                class="ml-2 text-orange-500 font-bold"
+                                                >P2</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Overdue Section (if any) -->
+                        <div>
+                            <h2 class="text-lg font-semibold text-red-600 mb-4">
+                                Overdue
+                            </h2>
+                            <div
+                                class="bg-red-50 border border-red-200 rounded-xl shadow p-4 space-y-3"
+                            >
+                                <!-- Overdue Task -->
+                                <div
+                                    class="flex items-center space-x-3 py-2 hover:bg-red-100 rounded px-2 cursor-pointer"
+                                >
+                                    <button
+                                        class="w-5 h-5 border-2 border-red-400 rounded-full flex-shrink-0"
+                                    ></button>
+                                    <div class="flex-grow">
+                                        <div class="text-sm text-red-900">
+                                            Update client presentation
+                                        </div>
+                                        <div
+                                            class="text-xs text-red-600 mt-0.5"
+                                        >
+                                            <span class="font-medium"
+                                                >Yesterday</span
+                                            >
+                                            <span class="ml-2 font-bold"
+                                                >P1</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--
+                  VIEW 3: TASKS (HIDDEN BY DEFAULT)
                   This is the "builder" mode, our original todo list, now on a white "page".
                 -->
                     <div id="task-view" class="hidden space-y-1 max-w-[800px]">
@@ -1198,6 +1484,238 @@
                     </div>
                 </footer>
             </main>
+
+            <!-- Right-Side Execution Panel -->
+            <aside
+                id="execution-panel"
+                class="hidden fixed right-0 top-0 h-screen w-[450px] bg-white shadow-2xl border-l border-gray-200 z-20 flex flex-col"
+                style="animation: slideIn 0.3s ease-out"
+            >
+                <!-- Panel Header -->
+                <header
+                    class="flex-shrink-0 flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50"
+                >
+                    <div class="flex items-center space-x-3">
+                        <div
+                            class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+                        ></div>
+                        <div>
+                            <h3
+                                id="panel-task-name"
+                                class="font-semibold text-sm"
+                            >
+                                Task: Pull all messages from Ruchika
+                            </h3>
+                            <p class="text-xs text-gray-500">Running...</p>
+                        </div>
+                    </div>
+                    <button
+                        id="close-panel-btn"
+                        class="p-1 rounded hover:bg-gray-200 text-gray-600"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </header>
+
+                <!-- Panel Content -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <!-- Progress Steps -->
+                    <div>
+                        <h4
+                            class="text-xs font-semibold text-gray-500 uppercase mb-2"
+                        >
+                            Progress
+                        </h4>
+                        <div id="execution-steps" class="space-y-2">
+                            <!-- Step 1 - Completed -->
+                            <div class="flex items-start space-x-2">
+                                <div
+                                    class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="12"
+                                        height="12"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="white"
+                                        stroke-width="3"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <polyline
+                                            points="20 6 9 17 4 12"
+                                        ></polyline>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <p
+                                        class="text-sm font-medium text-gray-800"
+                                    >
+                                        Open LinkedIn Messages
+                                    </p>
+                                    <p class="text-xs text-gray-500">
+                                        Completed
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 2 - In Progress -->
+                            <div class="flex items-start space-x-2">
+                                <div
+                                    class="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5"
+                                >
+                                    <div
+                                        class="w-2 h-2 bg-white rounded-full animate-pulse"
+                                    ></div>
+                                </div>
+                                <div class="flex-1">
+                                    <p
+                                        class="text-sm font-medium text-gray-800"
+                                    >
+                                        Filter by "Ruchika"
+                                    </p>
+                                    <p class="text-xs text-indigo-600">
+                                        In progress...
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 3 - Pending -->
+                            <div class="flex items-start space-x-2">
+                                <div
+                                    class="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0 mt-0.5"
+                                ></div>
+                                <div class="flex-1">
+                                    <p
+                                        class="text-sm font-medium text-gray-400"
+                                    >
+                                        Extract latest message text
+                                    </p>
+                                    <p class="text-xs text-gray-400">Pending</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 4 - Pending -->
+                            <div class="flex items-start space-x-2">
+                                <div
+                                    class="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0 mt-0.5"
+                                ></div>
+                                <div class="flex-1">
+                                    <p
+                                        class="text-sm font-medium text-gray-400"
+                                    >
+                                        Open Gmail
+                                    </p>
+                                    <p class="text-xs text-gray-400">Pending</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Browser Preview -->
+                    <div>
+                        <h4
+                            class="text-xs font-semibold text-gray-500 uppercase mb-2"
+                        >
+                            Browser Preview
+                        </h4>
+                        <div
+                            class="bg-gray-100 rounded-lg p-3 border border-gray-200 aspect-video flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
+                        >
+                            <div class="text-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="32"
+                                    height="32"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="mx-auto mb-2 text-gray-400"
+                                >
+                                    <rect
+                                        width="18"
+                                        height="11"
+                                        x="3"
+                                        y="11"
+                                        rx="2"
+                                        ry="2"
+                                    ></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <p class="text-xs text-gray-500">
+                                    Click to expand view
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Section -->
+                    <div id="qa-section" class="hidden">
+                        <h4
+                            class="text-xs font-semibold text-gray-500 uppercase mb-2"
+                        >
+                            Question
+                        </h4>
+                        <div
+                            class="bg-yellow-50 border border-yellow-200 rounded-lg p-3"
+                        >
+                            <p class="text-sm font-medium text-gray-800 mb-2">
+                                Which account should I use?
+                            </p>
+                            <input
+                                type="text"
+                                placeholder="Enter your response..."
+                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent mb-2"
+                            />
+                            <button
+                                class="w-full px-3 py-1.5 bg-indigo-600 text-white text-sm font-semibold rounded hover:bg-indigo-700 transition-colors"
+                            >
+                                Submit Answer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Footer - Controls -->
+                <footer
+                    class="flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50 space-y-2"
+                >
+                    <div class="flex space-x-2">
+                        <button
+                            class="flex-1 px-3 py-2 bg-gray-600 text-white text-sm font-semibold rounded hover:bg-gray-700 transition-colors"
+                        >
+                            Pause
+                        </button>
+                        <button
+                            class="flex-1 px-3 py-2 bg-red-600 text-white text-sm font-semibold rounded hover:bg-red-700 transition-colors"
+                        >
+                            Stop
+                        </button>
+                    </div>
+                    <button
+                        class="w-full px-3 py-2 border border-gray-300 text-gray-700 text-sm font-semibold rounded hover:bg-gray-100 transition-colors"
+                    >
+                        Edit Plan
+                    </button>
+                </footer>
+            </aside>
         </div>
 
         <!-- Priority Selector Modal (Hidden) -->
@@ -1316,6 +1834,7 @@
                 const dashboardView = document.getElementById("dashboard-view");
                 const dashboardActions =
                     document.getElementById("dashboard-actions");
+                const homeView = document.getElementById("home-view");
 
                 const taskView = document.getElementById("task-view");
                 const taskActions = document.getElementById("task-actions");
@@ -1331,15 +1850,16 @@
 
                 // --- Store Dashboard Widgets HTML (simulating data) ---
                 const dailyBriefingDashboardHTML = dashboardView.innerHTML;
+                const homeViewHTML = homeView.innerHTML;
 
-                // --- Set Inbox as default view on page load ---
-                const inboxLink = document.querySelector(
-                    '.sidebar-link[data-title="Inbox"]',
+                // --- Set Home as default view on page load ---
+                const homeLink = document.querySelector(
+                    '.sidebar-link[data-title="Home"]',
                 );
-                if (inboxLink) {
-                    updateActiveLink(inboxLink);
-                    mainHeaderTitle.textContent = "Inbox";
-                    showTaskView("Inbox");
+                if (homeLink) {
+                    updateActiveLink(homeLink);
+                    mainHeaderTitle.textContent = "Home";
+                    showHomeView();
                 }
 
                 // --- Handle Sidebar Navigation ---
@@ -1359,6 +1879,8 @@
                         // 3. Toggle Main View Mode
                         if (viewType === "dashboard") {
                             showDashboardView(title);
+                        } else if (viewType === "home") {
+                            showHomeView();
                         } else {
                             // 'task'
                             showTaskView(title);
@@ -1388,11 +1910,23 @@
                     );
                 }
 
+                function showHomeView() {
+                    homeView.classList.remove("hidden");
+                    homeView.innerHTML = homeViewHTML;
+
+                    dashboardView.classList.add("hidden");
+                    dashboardActions.classList.add("hidden");
+                    taskView.classList.add("hidden");
+                    taskActions.classList.add("hidden");
+                    addTaskFooter.classList.add("hidden");
+                }
+
                 function showDashboardView(title) {
                     dashboardView.classList.remove("hidden");
                     dashboardActions.classList.remove("hidden");
                     dashboardActions.classList.add("flex");
 
+                    homeView.classList.add("hidden");
                     taskView.classList.add("hidden");
                     taskActions.classList.add("hidden");
                     addTaskFooter.classList.add("hidden");
@@ -1468,6 +2002,7 @@
                     dashboardView.classList.add("hidden");
                     dashboardActions.classList.add("hidden");
                     dashboardActions.classList.remove("flex");
+                    homeView.classList.add("hidden");
 
                     taskView.classList.remove("hidden");
                     taskActions.classList.remove("hidden");
@@ -1697,6 +2232,75 @@
                     taskView.insertAdjacentHTML("beforeend", newTaskHTML);
                 }
             });
+
+            // --- Handle "Do it for me" Button Click ---
+            document.addEventListener("click", (e) => {
+                const doItBtn = e.target.closest(".do-it-for-me-btn");
+                if (doItBtn) {
+                    e.preventDefault();
+                    openExecutionPanel();
+                }
+            });
+
+            // --- Execution Panel Functions ---
+            const executionPanel = document.getElementById("execution-panel");
+            const closePanelBtn = document.getElementById("close-panel-btn");
+
+            function openExecutionPanel() {
+                executionPanel.classList.remove("hidden", "slide-out");
+
+                // Update running badge
+                updateRunningBadge(1);
+
+                // Add to running list
+                addToRunningList("Pull all messages from Ruchika");
+            }
+
+            function closeExecutionPanel() {
+                executionPanel.classList.add("slide-out");
+                setTimeout(() => {
+                    executionPanel.classList.add("hidden");
+                    executionPanel.classList.remove("slide-out");
+                }, 300);
+
+                // Update running badge
+                updateRunningBadge(0);
+
+                // Clear running list
+                clearRunningList();
+            }
+
+            function updateRunningBadge(count) {
+                const badge = document.getElementById("running-badge");
+                if (count > 0) {
+                    badge.classList.remove("hidden");
+                    badge.textContent = count;
+                } else {
+                    badge.classList.add("hidden");
+                }
+            }
+
+            function addToRunningList(taskName) {
+                const runningList = document.getElementById("running-list");
+                runningList.innerHTML = `
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 bg-indigo-50 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-100">
+                        <div class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></div>
+                        <span>${taskName}</span>
+                    </a>
+                `;
+            }
+
+            function clearRunningList() {
+                const runningList = document.getElementById("running-list");
+                runningList.innerHTML = `
+                    <div class="px-3 py-2 text-xs text-gray-400 italic">
+                        No running automations
+                    </div>
+                `;
+            }
+
+            // Close panel button
+            closePanelBtn.addEventListener("click", closeExecutionPanel);
         </script>
     </body>
 </html>
