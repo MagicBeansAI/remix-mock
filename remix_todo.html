@@ -4436,6 +4436,9 @@
                             .querySelector(".task-content")
                             ?.textContent.trim();
 
+                        // Toggle the checkbox visually in home view
+                        toggleTaskCompletion(checkbox);
+
                         // Find and update the corresponding task in the main task view
                         const tempDiv = document.createElement("div");
                         tempDiv.innerHTML = inboxTasksHTML;
@@ -4445,7 +4448,6 @@
                             el.classList.contains("task-item-container"),
                         );
 
-                        let updated = false;
                         allTaskContainers.forEach((taskContainer) => {
                             const sourceTaskItem =
                                 taskContainer.querySelector(".task-item");
@@ -4460,19 +4462,47 @@
                                     sourceTaskItem.querySelector(
                                         ".task-checkbox",
                                     );
+                                const sourceTaskContentEl =
+                                    sourceTaskItem.querySelector(
+                                        ".task-content",
+                                    );
+                                const sourceCheckIcon =
+                                    sourceCheckbox?.querySelector("svg");
+
                                 if (sourceCheckbox) {
-                                    toggleTaskCompletion(sourceCheckbox);
-                                    updated = true;
+                                    // Update the source task to match
+                                    if (
+                                        checkbox.classList.contains("completed")
+                                    ) {
+                                        sourceCheckbox.classList.add(
+                                            "completed",
+                                        );
+                                        sourceTaskContentEl?.classList.add(
+                                            "completed",
+                                        );
+                                        sourceCheckIcon?.classList.remove(
+                                            "hidden",
+                                        );
+                                    } else {
+                                        sourceCheckbox.classList.remove(
+                                            "completed",
+                                        );
+                                        sourceTaskContentEl?.classList.remove(
+                                            "completed",
+                                        );
+                                        sourceCheckIcon?.classList.add(
+                                            "hidden",
+                                        );
+                                    }
                                 }
                             }
                         });
 
-                        if (updated) {
-                            // Update the stored HTML
-                            inboxTasksHTML = tempDiv.innerHTML;
-                            // Refresh home view
-                            populateHomeTasks();
-                        }
+                        // Update the stored HTML
+                        inboxTasksHTML = tempDiv.innerHTML;
+
+                        // Refresh home view after a short delay to show completion animation
+                        setTimeout(() => populateHomeTasks(), 300);
                     }
 
                     // --- Handle Expander Toggle ---
