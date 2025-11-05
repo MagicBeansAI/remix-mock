@@ -4426,6 +4426,15 @@
                     }
                 });
 
+                // Event listener for home view tasks
+                homeView.addEventListener("click", (e) => {
+                    // --- Handle Expander Toggle ---
+                    const expander = e.target.closest(".task-expander");
+                    if (expander && !expander.disabled) {
+                        toggleTaskExpansion(expander);
+                    }
+                });
+
                 // --- Function to Toggle Task Completion ---
                 function toggleTaskCompletion(checkbox) {
                     const taskItem = checkbox.closest(".task-item");
