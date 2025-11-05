@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monday, 9:15 AM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .browser-window {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .browser-chrome {
+            background: #e8e8e8;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .browser-dots {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot.red { background: #ff5f57; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #28ca42; }
+        
+        .address-bar {
+            flex: 1;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #666;
+            margin-left: 8px;
+        }
+        
+        .tabs-bar {
+            background: #d8d8d8;
+            display: flex;
+            overflow-x: auto;
+            border-bottom: 1px solid #c0c0c0;
+        }
+        
+        .tab {
+            background: #e8e8e8;
+            padding: 10px 16px;
+            border-right: 1px solid #d0d0d0;
+            font-size: 12px;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 180px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #000;
+        }
+        
+        .tab-icon {
+            font-size: 14px;
+        }
+        
+        .tab-badge {
+            background: #ff3b30;
+            color: white;
+            border-radius: 10px;
+            padding: 1px 6px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+        
+        .browser-content {
+            background: #f5f5f5;
+            height: 700px;
+            overflow: hidden;
+        }
+        
+        .tab-content {
+            height: 100%;
+            overflow: auto;
+        }
+        
+        /* WhatsApp Web UI */
+        .whatsapp-container {
+            display: flex;
+            height: 100%;
+            background: #f0f2f5;
+        }
+        
+        .whatsapp-sidebar {
+            width: 400px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .wa-header {
+            background: #f0f2f5;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .wa-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111;
+        }
+        
+        .wa-search {
+            padding: 8px 16px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .wa-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            background: #f0f2f5;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .wa-chats {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .chat-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            gap: 12px;
+            background: white;
+            transition: background 0.1s;
+        }
+        
+        .chat-item:hover {
+            background: #f5f5f5;
+        }
+        
+        .chat-item.active {
+            background: #f0f2f5;
+        }
+        
+        .chat-item.unread {
+            background: #fff;
+        }
+        
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .chat-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        
+        .chat-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #111;
+        }
+        
+        .chat-time {
+            font-size: 12px;
+            color: #667781;
+        }
+        
+        .chat-preview {
+            font-size: 13px;
+            color: #667781;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .unread .chat-preview {
+            color: #111;
+            font-weight: 500;
+        }
+        
+        .chat-badge {
+            width: 20px;
+            height: 20px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        
+        .whatsapp-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #efeae2;
+        }
+        
+        .wa-chat-header {
+            background: #f0f2f5;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .wa-chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #efeae2;
+        }
+        
+        .message {
+            margin-bottom: 12px;
+            display: flex;
+        }
+        
+        .message-bubble {
+            max-width: 65%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .message.received .message-bubble {
+            background: white;
+            margin-right: auto;
+        }
+        
+        .message.sent .message-bubble {
+            background: #d9fdd3;
+            margin-left: auto;
+        }
+        
+        .message-sender {
+            font-weight: 600;
+            font-size: 13px;
+            color: #667eea;
+            margin-bottom: 4px;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: #667781;
+            margin-top: 4px;
+            text-align: right;
+        }
+        
+        .cta-bar {
+            background: white;
+            padding: 24px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .cta-text {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .time-indicator {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #999;
+            background: #f5f5f5;
+            border-bottom: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="browser-window">
+        <div class="browser-chrome">
+            <div class="browser-dots">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="address-bar">web.whatsapp.com</div>
+        </div>
+        
+        <div class="tabs-bar">
+            <div class="tab active" onclick="switchTab('whatsapp')">
+                <span class="tab-icon">💬</span>
+                <span>WhatsApp</span>
+                <span class="tab-badge">47</span>
+            </div>
+            <div class="tab" onclick="switchTab('gmail')">
+                <span class="tab-icon">✉️</span>
+                <span>Gmail</span>
+                <span class="tab-badge">127</span>
+            </div>
+            <div class="tab" onclick="switchTab('shopify')">
+                <span class="tab-icon">🛒</span>
+                <span>Shopify Dashboard</span>
+            </div>
+            <div class="tab" onclick="switchTab('razorpay')">
+                <span class="tab-icon">💳</span>
+                <span>Razorpay</span>
+            </div>
+            <div class="tab" onclick="switchTab('sheets')">
+                <span class="tab-icon">📊</span>
+                <span>Revenue Sheet</span>
+            </div>
+            <div class="tab" onclick="switchTab('deck')">
+                <span class="tab-icon">📑</span>
+                <span>Investor Deck</span>
+            </div>
+            <div class="tab" onclick="switchTab('analytics')">
+                <span class="tab-icon">📈</span>
+                <span>Analytics</span>
+            </div>
+            <div class="tab" onclick="switchTab('inventory')">
+                <span class="tab-icon">📦</span>
+                <span>Inventory</span>
+            </div>
+        </div>
+
+        <div class="time-indicator">
+            Monday, 9:15 AM
+        </div>
+        
+        <div class="browser-content">
+            <div class="tab-content" id="whatsapp-content">
+            <div class="whatsapp-container">
+                <div class="whatsapp-sidebar">
+                    <div class="wa-header">
+                        <div class="wa-title">Chats</div>
+                    </div>
+                    <div class="wa-search">
+                        <input type="text" placeholder="Search or start new chat">
+                    </div>
+                    <div class="wa-chats">
+                        <div class="chat-item active unread">
+                            <div class="chat-avatar">WO</div>
+                            <div class="chat-info">
+                                <div class="chat-header">
+                                    <div class="chat-name">Warehouse Ops - Bangalore</div>
+                                    <div class="chat-time">9:12 AM</div>
+                                </div>
+                                <div class="chat-preview">Ramesh: Sir urgent - SKU #4782 out of stock, 47 pending orders</div>
+                            </div>
+                            <div class="chat-badge">8</div>
+                        </div>
+                        
+                        <div class="chat-item unread">
+                            <div class="chat-avatar">LT</div>
+                            <div class="chat-info">
+                                <div class="chat-header">
+                                    <div class="chat-name">Leadership Team</div>
+                                    <div class="chat-time">8:47 AM</div>
+                                </div>
+                                <div class="chat-preview">CFO: Q3 numbers ready for board review. Need your approval...</div>
+                            </div>
+                            <div class="chat-badge">3</div>
+                        </div>
+                        
+                        <div class="chat-item unread">
+                            <div class="chat-avatar">VC</div>
+                            <div class="chat-info">
+                                <div class="chat-header">
+                                    <div class="chat-name">Vendor Coordination</div>
+                                    <div class="chat-time">8:23 AM</div>
+                                </div>
+                                <div class="chat-preview">Supplier: Payment pending for last month invoice ₹8.4L</div>
+                            </div>
+                            <div class="chat-badge">12</div>
+                        </div>
+                        
+                        <div class="chat-item">
+                            <div class="chat-avatar">CS</div>
+                            <div class="chat-info">
+                                <div class="chat-header">
+                                    <div class="chat-name">Priya (Chief of Staff)</div>
+                                    <div class="chat-time">Yesterday</div>
+                                </div>
+                                <div class="chat-preview">Deck updated with latest metrics. Ready for investor call?</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-item unread">
+                            <div class="chat-avatar">CE</div>
+                            <div class="chat-info">
+                                <div class="chat-header">
+                                    <div class="chat-name">Customer Escalations</div>
+                                    <div class="chat-time">7:52 AM</div>
+                                </div>
+                                <div class="chat-preview">Support: High-value customer (₹2.1L orders) threatening cancellation</div>
+                            </div>
+                            <div class="chat-badge">5</div>
+                        </div>
+                        
+                        <div class="chat-item unread">
+                            <div class="chat-avatar">IN</div>
+                            <div class="chat-info">
+                                <div class="chat-header">
+                                    <div class="chat-name">Investor Network</div>
+                                    <div class="chat-time">Yesterday</div>
+                                </div>
+                                <div class="chat-preview">Rahul: Connecting you with Sequoia partner. Intro below 👇</div>
+                            </div>
+                            <div class="chat-badge">2</div>
+                        </div>
+                        
+                        <div class="chat-item">
+                            <div class="chat-avatar">MK</div>
+                            <div class="chat-info">
+                                <div class="chat-header">
+                                    <div class="chat-name">Marketing Team</div>
+                                    <div class="chat-time">Yesterday</div>
+                                </div>
+                                <div class="chat-preview">Campaign performance: 2.8x ROAS on Meta ads</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-item">
+                            <div class="chat-avatar">PM</div>
+                            <div class="chat-info">
+                                <div class="chat-header">
+                                    <div class="chat-name">Product & Tech</div>
+                                    <div class="chat-time">Yesterday</div>
+                                </div>
+                                <div class="chat-preview">Sprint planning for Q4 features</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-item unread">
+                            <div class="chat-avatar">PA</div>
+                            <div class="chat-info">
+                                <div class="chat-header">
+                                    <div class="chat-name">Partner Discussions</div>
+                                    <div class="chat-time">Yesterday</div>
+                                </div>
+                                <div class="chat-preview">Flipkart BD: Interested in exclusive partnership terms</div>
+                            </div>
+                            <div class="chat-badge">4</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="whatsapp-main">
+                    <div class="wa-chat-header">
+                        <div class="chat-avatar">WO</div>
+                        <div>
+                            <div class="chat-name">Warehouse Ops - Bangalore</div>
+                            <div class="chat-time" style="margin: 0;">24 participants</div>
+                        </div>
+                    </div>
+                    
+                    <div class="wa-chat-messages">
+                        <div class="message received">
+                            <div class="message-bubble">
+                                <div class="message-sender">Ramesh Kumar</div>
+                                Good morning sir. Yesterday's dispatch summary: 243 orders shipped, 12 RTO
+                                <div class="message-time">8:03 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="message received">
+                            <div class="message-bubble">
+                                <div class="message-sender">Suresh (Inventory)</div>
+                                Low stock alert: 8 SKUs below reorder level
+                                <div class="message-time">8:15 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="message received">
+                            <div class="message-bubble">
+                                <div class="message-sender">Pradeep (QC)</div>
+                                Quality check done for new batch from Vendor #23. All clear ✅
+                                <div class="message-time">8:34 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="message received">
+                            <div class="message-bubble">
+                                <div class="message-sender">Ramesh Kumar</div>
+                                Sir URGENT - SKU #4782 (bestseller tshirt) completely out of stock. We have 47 pending orders. Customer support is getting complaints. Expected restock on Friday but orders are for express delivery
+                                <div class="message-time">9:12 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="message received">
+                            <div class="message-bubble">
+                                <div class="message-sender">Amit (Logistics)</div>
+                                Can we transfer stock from Mumbai warehouse?
+                                <div class="message-time">9:13 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="message received">
+                            <div class="message-bubble">
+                                <div class="message-sender">Ramesh Kumar</div>
+                                Mumbai also low - only 12 units. Won't cover 47 orders
+                                <div class="message-time">9:14 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+            <!-- Gmail Content -->
+            <div class="tab-content" id="gmail-content" style="display: none;">
+                <div style="padding: 20px; background: white; height: 100%;">
+                    <div style="border-bottom: 1px solid #e0e0e0; padding-bottom: 16px; margin-bottom: 20px;">
+                        <h2 style="font-size: 20px; color: #202124;">Inbox (127)</h2>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1px; background: #f5f5f5;">
+                        <div style="background: white; padding: 16px; border-left: 4px solid #d93025; cursor: pointer;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">Sequoia Capital - Partner Introduction</span>
+                                <span style="color: #5f6368; font-size: 13px;">Yesterday</span>
+                            </div>
+                            <div style="color: #5f6368; font-size: 14px;">Rahul mentioned you're raising Series B. I'd love to learn more about your growth trajectory...</div>
+                        </div>
+                        <div style="background: white; padding: 16px; border-left: 4px solid #d93025;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">Board Member - Q3 Review Prep</span>
+                                <span style="color: #5f6368; font-size: 13px;">2 days ago</span>
+                            </div>
+                            <div style="color: #5f6368; font-size: 14px;">Need updated financials and unit economics before Thursday's board meeting...</div>
+                        </div>
+                        <div style="background: white; padding: 16px; border-left: 4px solid #d93025;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">CFO - Cash Flow Concerns</span>
+                                <span style="color: #5f6368; font-size: 13px;">3 days ago</span>
+                            </div>
+                            <div style="color: #5f6368; font-size: 14px;">Burn rate is tracking 18% higher than planned. We need to discuss vendor payment delays...</div>
+                        </div>
+                        <div style="background: white; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 500; color: #202124;">Amazon Business - Partnership Proposal</span>
+                                <span style="color: #5f6368; font-size: 13px;">4 days ago</span>
+                            </div>
+                            <div style="color: #5f6368; font-size: 14px;">Following up on our conversation about B2B distribution...</div>
+                        </div>
+                        <div style="background: white; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 500; color: #202124;">Legal - Contract Review Needed</span>
+                                <span style="color: #5f6368; font-size: 13px;">5 days ago</span>
+                            </div>
+                            <div style="color: #5f6368; font-size: 14px;">Vendor agreement needs your signature by EOW...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shopify Content -->
+            <div class="tab-content" id="shopify-content" style="display: none;">
+                <div style="padding: 24px; background: #f7f8f9; height: 100%; overflow-y: auto;">
+                    <h1 style="font-size: 24px; color: #202223; margin-bottom: 24px;">Dashboard</h1>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e1e3e5;">
+                            <div style="color: #6d7175; font-size: 13px; margin-bottom: 8px;">Today's Sales</div>
+                            <div style="font-size: 28px; font-weight: 600; color: #202223;">₹2,47,890</div>
+                            <div style="color: #008060; font-size: 13px; margin-top: 4px;">↑ 12% vs yesterday</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e1e3e5;">
+                            <div style="color: #6d7175; font-size: 13px; margin-bottom: 8px;">Orders</div>
+                            <div style="font-size: 28px; font-weight: 600; color: #202223;">143</div>
+                            <div style="color: #bf0711; font-size: 13px; margin-top: 4px;">↓ 8% vs yesterday</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e1e3e5;">
+                            <div style="color: #6d7175; font-size: 13px; margin-bottom: 8px;">Avg Order Value</div>
+                            <div style="font-size: 28px; font-weight: 600; color: #202223;">₹1,734</div>
+                            <div style="color: #008060; font-size: 13px; margin-top: 4px;">↑ 22% vs last week</div>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e1e3e5;">
+                        <h2 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #202223;">Recent Orders</h2>
+                        <div style="font-size: 14px; color: #6d7175; line-height: 2;">
+                            <div style="padding: 8px 0; border-bottom: 1px solid #e1e3e5;">#4892 - ₹2,340 - Processing</div>
+                            <div style="padding: 8px 0; border-bottom: 1px solid #e1e3e5;">#4891 - ₹1,580 - Paid</div>
+                            <div style="padding: 8px 0; border-bottom: 1px solid #e1e3e5;">#4890 - ₹890 - Fulfilled</div>
+                            <div style="padding: 8px 0; border-bottom: 1px solid #e1e3e5;">#4889 - ₹3,240 - Processing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Razorpay Content -->
+            <div class="tab-content" id="razorpay-content" style="display: none;">
+                <div style="padding: 24px; background: #f5f7fa; height: 100%; overflow-y: auto;">
+                    <h1 style="font-size: 24px; color: #1a1a1a; margin-bottom: 24px;">Payments Dashboard</h1>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
+                        <div style="background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Today's Collections</div>
+                            <div style="font-size: 32px; font-weight: 600; color: #1a1a1a;">₹2,12,450</div>
+                        </div>
+                        <div style="background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                            <div style="color: #666; font-size: 14px; margin-bottom: 8px;">Pending Settlements</div>
+                            <div style="font-size: 32px; font-weight: 600; color: #1a1a1a;">₹18,72,300</div>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                        <h2 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Recent Payments</h2>
+                        <div style="font-size: 14px; color: #666; line-height: 2.2;">
+                            <div>₹2,340 - Success - 2 mins ago</div>
+                            <div>₹1,580 - Success - 8 mins ago</div>
+                            <div>₹890 - Success - 12 mins ago</div>
+                            <div style="color: #ff3b30;">₹3,240 - Failed - 15 mins ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Google Sheets Content -->
+            <div class="tab-content" id="sheets-content" style="display: none;">
+                <div style="background: white; height: 100%; padding: 0;">
+                    <div style="padding: 12px 16px; border-bottom: 1px solid #e0e0e0; background: #f8f9fa;">
+                        <div style="font-size: 16px; font-weight: 500;">Q3 2024 - Revenue & Burn Model</div>
+                    </div>
+                    <div style="padding: 20px; overflow: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                            <thead>
+                                <tr style="background: #f8f9fa;">
+                                    <th style="padding: 12px; text-align: left; border: 1px solid #e0e0e0;">Metric</th>
+                                    <th style="padding: 12px; text-align: right; border: 1px solid #e0e0e0;">Jul</th>
+                                    <th style="padding: 12px; text-align: right; border: 1px solid #e0e0e0;">Aug</th>
+                                    <th style="padding: 12px; text-align: right; border: 1px solid #e0e0e0;">Sep</th>
+                                    <th style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; background: #fff3cd;">Oct (MTD)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid #e0e0e0; font-weight: 600;">Revenue</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0;">₹42.3L</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0;">₹48.7L</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0;">₹52.1L</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; background: #fff3cd;">₹12.4L</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid #e0e0e0;">Growth MoM</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0;">-</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #28a745;">+15%</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #28a745;">+7%</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; background: #fff3cd;">-</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid #e0e0e0; font-weight: 600;">Burn</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #dc3545;">₹38.2L</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #dc3545;">₹41.5L</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #dc3545;">₹45.8L</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #dc3545; background: #fff3cd;">₹14.2L</td>
+                                </tr>
+                                <tr style="background: #f8f9fa;">
+                                    <td style="padding: 12px; border: 1px solid #e0e0e0; font-weight: 600;">Net Cash Flow</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #28a745;">₹4.1L</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #28a745;">₹7.2L</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #28a745;">₹6.3L</td>
+                                    <td style="padding: 12px; text-align: right; border: 1px solid #e0e0e0; color: #dc3545; background: #fff3cd;">-₹1.8L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Investor Deck Content -->
+            <div class="tab-content" id="deck-content" style="display: none;">
+                <div style="background: #1a1a1a; height: 100%; padding: 0; display: flex; flex-direction: column;">
+                    <div style="padding: 12px 16px; background: #2a2a2a; border-bottom: 1px solid #3a3a3a; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="color: white; font-size: 14px;">Series B Fundraise - October 2024.pptx</div>
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <button style="background: #4285f4; color: white; border: none; padding: 6px 16px; border-radius: 4px; font-size: 13px; cursor: pointer;">Share</button>
+                            <button style="background: #5f6368; color: white; border: none; padding: 6px 16px; border-radius: 4px; font-size: 13px; cursor: pointer;">Present</button>
+                        </div>
+                    </div>
+                    <div style="flex: 1; overflow-y: auto; padding: 20px; background: #2a2a2a;">
+                        <!-- Slide thumbnails -->
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+                            <div style="background: white; aspect-ratio: 16/9; border-radius: 4px; padding: 20px; font-size: 11px; position: relative;">
+                                <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">FreshCart</div>
+                                <div style="color: #666;">D2C Grocery Platform</div>
+                                <div style="position: absolute; bottom: 8px; left: 8px; background: #1a1a1a; color: white; padding: 2px 6px; border-radius: 3px; font-size: 9px;">1</div>
+                            </div>
+                            <div style="background: white; aspect-ratio: 16/9; border-radius: 4px; padding: 16px; font-size: 10px; position: relative;">
+                                <div style="font-weight: 700; margin-bottom: 12px;">The Problem</div>
+                                <div style="font-size: 8px; line-height: 1.6; color: #666;">
+                                    • Urban consumers lack access to fresh groceries<br>
+                                    • Traditional retail has 40% spoilage<br>
+                                    • 2-day delivery is not fast enough
+                                </div>
+                                <div style="position: absolute; bottom: 8px; left: 8px; background: #1a1a1a; color: white; padding: 2px 6px; border-radius: 3px; font-size: 9px;">2</div>
+                            </div>
+                            <div style="background: white; aspect-ratio: 16/9; border-radius: 4px; padding: 16px; font-size: 10px; position: relative;">
+                                <div style="font-weight: 700; margin-bottom: 12px;">Our Solution</div>
+                                <div style="font-size: 8px; line-height: 1.6; color: #666;">
+                                    • Hyperlocal dark stores<br>
+                                    • 15-minute delivery guarantee<br>
+                                    • AI-powered inventory optimization
+                                </div>
+                                <div style="position: absolute; bottom: 8px; left: 8px; background: #1a1a1a; color: white; padding: 2px 6px; border-radius: 3px; font-size: 9px;">3</div>
+                            </div>
+                            <div style="background: white; aspect-ratio: 16/9; border-radius: 4px; padding: 16px; font-size: 10px; position: relative;">
+                                <div style="font-weight: 700; margin-bottom: 12px;">Market Size</div>
+                                <div style="font-size: 20px; font-weight: 700; color: #4285f4; margin: 8px 0;">$18B</div>
+                                <div style="font-size: 8px; color: #666;">TAM in India by 2027</div>
+                                <div style="position: absolute; bottom: 8px; left: 8px; background: #1a1a1a; color: white; padding: 2px 6px; border-radius: 3px; font-size: 9px;">4</div>
+                            </div>
+                            <div style="background: white; aspect-ratio: 16/9; border-radius: 4px; padding: 16px; font-size: 10px; position: relative;">
+                                <div style="font-weight: 700; margin-bottom: 12px;">Traction</div>
+                                <div style="font-size: 9px; line-height: 2; color: #333;">
+                                    <div><strong>₹52L</strong> MRR</div>
+                                    <div><strong>8,400+</strong> Active Customers</div>
+                                    <div><strong>12</strong> Dark Stores Live</div>
+                                </div>
+                                <div style="position: absolute; bottom: 8px; left: 8px; background: #1a1a1a; color: white; padding: 2px 6px; border-radius: 3px; font-size: 9px;">5</div>
+                            </div>
+                            <div style="background: white; aspect-ratio: 16/9; border-radius: 4px; padding: 16px; font-size: 10px; position: relative;">
+                                <div style="font-weight: 700; margin-bottom: 12px;">Unit Economics</div>
+                                <div style="font-size: 8px; line-height: 1.8; color: #333;">
+                                    AOV: ₹840<br>
+                                    Gross Margin: 22%<br>
+                                    CAC: ₹280<br>
+                                    LTV/CAC: 4.2x
+                                </div>
+                                <div style="position: absolute; bottom: 8px; left: 8px; background: #1a1a1a; color: white; padding: 2px 6px; border-radius: 3px; font-size: 9px;">6</div>
+                            </div>
+                            <div style="background: white; aspect-ratio: 16/9; border-radius: 4px; padding: 16px; font-size: 10px; position: relative;">
+                                <div style="font-weight: 700; margin-bottom: 12px;">Growth Strategy</div>
+                                <div style="font-size: 8px; line-height: 1.6; color: #666;">
+                                    • Expand to 8 new cities in Q4<br>
+                                    • Launch premium subscription tier<br>
+                                    • B2B partnerships with offices
+                                </div>
+                                <div style="position: absolute; bottom: 8px; left: 8px; background: #1a1a1a; color: white; padding: 2px 6px; border-radius: 3px; font-size: 9px;">7</div>
+                            </div>
+                            <div style="background: white; aspect-ratio: 16/9; border-radius: 4px; padding: 16px; font-size: 10px; position: relative;">
+                                <div style="font-weight: 700; margin-bottom: 12px;">The Ask</div>
+                                <div style="font-size: 18px; font-weight: 700; color: #4285f4; margin: 12px 0;">₹45 Cr</div>
+                                <div style="font-size: 8px; color: #666;">Series B Round</div>
+                                <div style="position: absolute; bottom: 8px; left: 8px; background: #1a1a1a; color: white; padding: 2px 6px; border-radius: 3px; font-size: 9px;">8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analytics Content -->
+            <div class="tab-content" id="analytics-content" style="display: none;">
+                <div style="padding: 24px; background: #f8f9fa; height: 100%; overflow-y: auto;">
+                    <div style="margin-bottom: 24px;">
+                        <h1 style="font-size: 24px; color: #202124; margin-bottom: 8px;">Website Analytics</h1>
+                        <div style="color: #5f6368; font-size: 14px;">Oct 1 - Oct 31, 2024</div>
+                    </div>
+                    
+                    <!-- Key Metrics -->
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <div style="color: #5f6368; font-size: 12px; margin-bottom: 8px;">USERS</div>
+                            <div style="font-size: 28px; font-weight: 600; color: #202124; margin-bottom: 4px;">128,493</div>
+                            <div style="color: #188038; font-size: 13px;">↑ 24.3%</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <div style="color: #5f6368; font-size: 12px; margin-bottom: 8px;">SESSIONS</div>
+                            <div style="font-size: 28px; font-weight: 600; color: #202124; margin-bottom: 4px;">247,892</div>
+                            <div style="color: #188038; font-size: 13px;">↑ 18.7%</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <div style="color: #5f6368; font-size: 12px; margin-bottom: 8px;">BOUNCE RATE</div>
+                            <div style="font-size: 28px; font-weight: 600; color: #202124; margin-bottom: 4px;">42.8%</div>
+                            <div style="color: #d93025; font-size: 13px;">↑ 3.2%</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <div style="color: #5f6368; font-size: 12px; margin-bottom: 8px;">AVG SESSION</div>
+                            <div style="font-size: 28px; font-weight: 600; color: #202124; margin-bottom: 4px;">4:23</div>
+                            <div style="color: #188038; font-size: 13px;">↑ 12.1%</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Traffic Sources -->
+                    <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #e0e0e0; margin-bottom: 24px;">
+                        <h2 style="font-size: 16px; font-weight: 600; margin-bottom: 20px; color: #202124;">Traffic Sources</h2>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div>
+                                    <div style="font-weight: 500; color: #202124; margin-bottom: 4px;">Organic Search</div>
+                                    <div style="font-size: 13px; color: #5f6368;">Google, Bing</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 20px; font-weight: 600; color: #202124;">87,234</div>
+                                    <div style="font-size: 13px; color: #188038;">↑ 28%</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div>
+                                    <div style="font-weight: 500; color: #202124; margin-bottom: 4px;">Direct</div>
+                                    <div style="font-size: 13px; color: #5f6368;">URL entry, bookmarks</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 20px; font-weight: 600; color: #202124;">52,108</div>
+                                    <div style="font-size: 13px; color: #188038;">↑ 15%</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div>
+                                    <div style="font-weight: 500; color: #202124; margin-bottom: 4px;">Social Media</div>
+                                    <div style="font-size: 13px; color: #5f6368;">Instagram, Facebook</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 20px; font-weight: 600; color: #202124;">34,892</div>
+                                    <div style="font-size: 13px; color: #188038;">↑ 42%</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                                <div>
+                                    <div style="font-weight: 500; color: #202124; margin-bottom: 4px;">Paid Search</div>
+                                    <div style="font-size: 13px; color: #5f6368;">Google Ads</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 20px; font-weight: 600; color: #202124;">21,347</div>
+                                    <div style="font-size: 13px; color: #d93025;">↓ 8%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Top Pages -->
+                    <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                        <h2 style="font-size: 16px; font-weight: 600; margin-bottom: 20px; color: #202124;">Top Landing Pages</h2>
+                        <div style="font-size: 14px;">
+                            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="color: #202124;">/</div>
+                                <div style="font-weight: 600; color: #202124;">42,893 sessions</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="color: #202124;">/products</div>
+                                <div style="font-weight: 600; color: #202124;">28,471 sessions</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <div style="color: #202124;">/offers</div>
+                                <div style="font-weight: 600; color: #202124;">18,234 sessions</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 12px 0;">
+                                <div style="color: #202124;">/about</div>
+                                <div style="font-weight: 600; color: #202124;">12,892 sessions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Inventory Dashboard Content -->
+            <div class="tab-content" id="inventory-content" style="display: none;">
+                <div style="padding: 24px; background: #f5f5f5; height: 100%; overflow-y: auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                        <h1 style="font-size: 24px; color: #1a1a1a;">Inventory Management</h1>
+                        <button style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;">+ Add Stock</button>
+                    </div>
+                    
+                    <!-- Alert Banner -->
+                    <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 24px;">⚠️</span>
+                        <div>
+                            <div style="font-weight: 600; color: #856404; margin-bottom: 4px;">Low Stock Alert</div>
+                            <div style="font-size: 14px; color: #856404;">8 products are below reorder level</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Summary Cards -->
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <div style="color: #666; font-size: 13px; margin-bottom: 8px;">TOTAL SKUS</div>
+                            <div style="font-size: 32px; font-weight: 700; color: #1a1a1a;">2,847</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <div style="color: #666; font-size: 13px; margin-bottom: 8px;">IN STOCK</div>
+                            <div style="font-size: 32px; font-weight: 700; color: #4CAF50;">2,531</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <div style="color: #666; font-size: 13px; margin-bottom: 8px;">LOW STOCK</div>
+                            <div style="font-size: 32px; font-weight: 700; color: #ff9800;">284</div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <div style="color: #666; font-size: 13px; margin-bottom: 8px;">OUT OF STOCK</div>
+                            <div style="font-size: 32px; font-weight: 700; color: #f44336;">32</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Inventory Table -->
+                    <div style="background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden;">
+                        <div style="padding: 20px; border-bottom: 1px solid #e0e0e0;">
+                            <h2 style="font-size: 18px; font-weight: 600; color: #1a1a1a;">Critical Items</h2>
+                        </div>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead style="background: #f8f9fa;">
+                                <tr>
+                                    <th style="padding: 12px 20px; text-align: left; font-size: 12px; color: #666; font-weight: 600;">SKU</th>
+                                    <th style="padding: 12px 20px; text-align: left; font-size: 12px; color: #666; font-weight: 600;">PRODUCT</th>
+                                    <th style="padding: 12px 20px; text-align: left; font-size: 12px; color: #666; font-weight: 600;">WAREHOUSE</th>
+                                    <th style="padding: 12px 20px; text-align: right; font-size: 12px; color: #666; font-weight: 600;">CURRENT STOCK</th>
+                                    <th style="padding: 12px 20px; text-align: right; font-size: 12px; color: #666; font-weight: 600;">REORDER LEVEL</th>
+                                    <th style="padding: 12px 20px; text-align: center; font-size: 12px; color: #666; font-weight: 600;">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #f0f0f0;">
+                                    <td style="padding: 16px 20px; font-size: 14px; font-weight: 600; color: #1a1a1a;">#4782</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #333;">Premium Cotton T-Shirt (M)</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #666;">Bangalore</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #f44336; font-weight: 600;">0</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #666;">50</td>
+                                    <td style="padding: 16px 20px; text-align: center;">
+                                        <span style="background: #ffebee; color: #c62828; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">OUT OF STOCK</span>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f0f0f0;">
+                                    <td style="padding: 16px 20px; font-size: 14px; font-weight: 600; color: #1a1a1a;">#3891</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #333;">Organic Rice 5kg</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #666;">Mumbai</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #ff9800; font-weight: 600;">12</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #666;">100</td>
+                                    <td style="padding: 16px 20px; text-align: center;">
+                                        <span style="background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">LOW STOCK</span>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f0f0f0;">
+                                    <td style="padding: 16px 20px; font-size: 14px; font-weight: 600; color: #1a1a1a;">#5621</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #333;">Fresh Milk 1L</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #666;">Delhi</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #ff9800; font-weight: 600;">28</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #666;">150</td>
+                                    <td style="padding: 16px 20px; text-align: center;">
+                                        <span style="background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">LOW STOCK</span>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f0f0f0;">
+                                    <td style="padding: 16px 20px; font-size: 14px; font-weight: 600; color: #1a1a1a;">#7234</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #333;">Pulses Mix Pack</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #666;">Bangalore</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #ff9800; font-weight: 600;">34</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #666;">80</td>
+                                    <td style="padding: 16px 20px; text-align: center;">
+                                        <span style="background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">LOW STOCK</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 16px 20px; font-size: 14px; font-weight: 600; color: #1a1a1a;">#9012</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #333;">Protein Powder 1kg</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; color: #666;">Mumbai</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #f44336; font-weight: 600;">3</td>
+                                    <td style="padding: 16px 20px; font-size: 14px; text-align: right; color: #666;">30</td>
+                                    <td style="padding: 16px 20px; text-align: center;">
+                                        <span style="background: #ffebee; color: #c62828; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600;">CRITICAL</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-bar">
+            <div class="cta-text">What if this could be different?</div>
+            <button class="cta-button" onclick="window.location.href='after.html'">See how →</button>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(tabName) {
+            // Hide all content
+            const allContent = document.querySelectorAll('.tab-content');
+            allContent.forEach(content => content.style.display = 'none');
+            
+            // Remove active class from all tabs
+            const allTabs = document.querySelectorAll('.tab');
+            allTabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected content
+            const selectedContent = document.getElementById(tabName + '-content');
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+            }
+            
+            // Add active class to clicked tab
+            event.currentTarget.classList.add('active');
+            
+            // Update address bar
+            const addressBar = document.querySelector('.address-bar');
+            const urls = {
+                'whatsapp': 'web.whatsapp.com',
+                'gmail': 'mail.google.com/mail/u/0/#inbox',
+                'shopify': 'admin.shopify.com/store/dashboard',
+                'razorpay': 'dashboard.razorpay.com',
+                'sheets': 'docs.google.com/spreadsheets/d/revenue-model',
+                'deck': 'docs.google.com/presentation/d/series-b-deck',
+                'analytics': 'analytics.google.com/overview',
+                'inventory': 'inventory.yourcompany.com/dashboard'
+            };
+            addressBar.textContent = urls[tabName] || 'loading...';
+        }
+    </script>
+</body>
+</html>

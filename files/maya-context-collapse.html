@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Context Collapse - No Safe Boundaries</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const ContextCollapse = () => {
+            return (
+                <div style={{
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                    minHeight: '100vh',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    padding: '40px 20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <div style={{
+                        maxWidth: '1400px',
+                        width: '100%'
+                    }}>
+                        {/* Header */}
+                        <div style={{
+                            textAlign: 'center',
+                            marginBottom: '40px',
+                            color: 'white'
+                        }}>
+                            <div style={{ fontSize: '48px', fontWeight: 'bold', marginBottom: '16px' }}>
+                                The Context Collapse
+                            </div>
+                            <div style={{ fontSize: '20px', opacity: 0.9 }}>
+                                6:00 PM - Maya wants to browse recipes. But her work life and personal life share the same browser.
+                            </div>
+                        </div>
+
+                        {/* Split Screen */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: '1fr 1fr',
+                            gap: '24px',
+                            marginBottom: '32px'
+                        }}>
+                            {/* Left: Work Browser */}
+                            <div>
+                                <div style={{
+                                    background: 'rgba(255, 255, 255, 0.95)',
+                                    borderRadius: '12px',
+                                    overflow: 'hidden',
+                                    boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+                                }}>
+                                    <div style={{
+                                        background: 'linear-gradient(180deg, #e8e8e8 0%, #d8d8d8 100%)',
+                                        padding: '8px',
+                                        borderBottom: '1px solid #c0c0c0'
+                                    }}>
+                                        <div style={{
+                                            background: 'white',
+                                            border: '1px solid #c0c0c0',
+                                            borderRadius: '6px',
+                                            padding: '8px 12px',
+                                            fontSize: '13px',
+                                            color: '#666',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px'
+                                        }}>
+                                            <span>🔒</span>
+                                            <span>app.slack.com/client/T024...</span>
+                                        </div>
+                                    </div>
+
+                                    <div style={{ padding: '20px' }}>
+                                        <div style={{
+                                            fontSize: '18px',
+                                            fontWeight: 'bold',
+                                            marginBottom: '16px',
+                                            color: '#f44336'
+                                        }}>
+                                            ⚠️ Still Logged Into Work
+                                        </div>
+                                        
+                                        <div style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '12px'
+                                        }}>
+                                            {[
+                                                { name: 'Slack', status: '🟢 Active', data: 'Work messages, DMs, notifications' },
+                                                { name: 'Gmail', status: '🟢 Active', data: 'Work email, calendar invites' },
+                                                { name: 'Zendesk', status: '🟢 Active', data: 'Support tickets, customer data' },
+                                                { name: 'Linear', status: '🟢 Active', data: 'Project tasks, sprints' },
+                                                { name: 'Notion', status: '🟢 Active', data: 'Company docs, meeting notes' }
+                                            ].map((service, idx) => (
+                                                <div key={idx} style={{
+                                                    padding: '12px',
+                                                    background: '#ffebee',
+                                                    border: '1px solid #ef5350',
+                                                    borderRadius: '6px'
+                                                }}>
+                                                    <div style={{
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        marginBottom: '4px'
+                                                    }}>
+                                                        <span style={{ fontWeight: '600', fontSize: '14px' }}>{service.name}</span>
+                                                        <span style={{ fontSize: '13px' }}>{service.status}</span>
+                                                    </div>
+                                                    <div style={{ fontSize: '12px', color: '#666' }}>
+                                                        {service.data}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style={{
+                                    marginTop: '16px',
+                                    padding: '16px',
+                                    background: 'rgba(255, 255, 255, 0.15)',
+                                    backdropFilter: 'blur(10px)',
+                                    borderRadius: '8px',
+                                    color: 'white',
+                                    fontSize: '14px',
+                                    textAlign: 'center'
+                                }}>
+                                    🔓 All work accounts are still logged in and tracking
+                                </div>
+                            </div>
+
+                            {/* Right: Personal Browsing Desire */}
+                            <div>
+                                <div style={{
+                                    background: 'rgba(255, 255, 255, 0.95)',
+                                    borderRadius: '12px',
+                                    overflow: 'hidden',
+                                    boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+                                }}>
+                                    <div style={{
+                                        background: 'linear-gradient(180deg, #e8e8e8 0%, #d8d8d8 100%)',
+                                        padding: '8px',
+                                        borderBottom: '1px solid #c0c0c0'
+                                    }}>
+                                        <div style={{
+                                            background: 'white',
+                                            border: '1px solid #c0c0c0',
+                                            borderRadius: '6px',
+                                            padding: '8px 12px',
+                                            fontSize: '13px',
+                                            color: '#666',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px'
+                                        }}>
+                                            <span>🔍</span>
+                                            <span style={{ color: '#999' }}>kitchen remodel ideas...</span>
+                                        </div>
+                                    </div>
+
+                                    <div style={{ padding: '20px' }}>
+                                        <div style={{
+                                            fontSize: '18px',
+                                            fontWeight: 'bold',
+                                            marginBottom: '16px',
+                                            color: '#ff9800'
+                                        }}>
+                                            ⚠️ Maya's Fears
+                                        </div>
+                                        
+                                        <div style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '16px'
+                                        }}>
+                                            <div style={{
+                                                padding: '16px',
+                                                background: '#fff3cd',
+                                                border: '1px solid #ffc107',
+                                                borderRadius: '8px'
+                                            }}>
+                                                <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>
+                                                    🍳 "Will work cookies see I'm browsing kitchens?"
+                                                </div>
+                                                <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.5' }}>
+                                                    Afraid her browsing history will somehow bleed into her work profile or show up in Slack's "recent activity"
+                                                </div>
+                                            </div>
+
+                                            <div style={{
+                                                padding: '16px',
+                                                background: '#fff3cd',
+                                                border: '1px solid #ffc107',
+                                                borderRadius: '8px'
+                                            }}>
+                                                <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>
+                                                    💼 "What if LinkedIn sees my searches?"
+                                                </div>
+                                                <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.5' }}>
+                                                    Worried that personal searches will influence her professional recommendations or ads
+                                                </div>
+                                            </div>
+
+                                            <div style={{
+                                                padding: '16px',
+                                                background: '#fff3cd',
+                                                border: '1px solid #ffc107',
+                                                borderRadius: '8px'
+                                            }}>
+                                                <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>
+                                                    📸 "Instagram will recommend kitchen content to work contacts"
+                                                </div>
+                                                <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.5' }}>
+                                                    Fears the algorithm will connect her personal interests to her professional network
+                                                </div>
+                                            </div>
+
+                                            <div style={{
+                                                padding: '16px',
+                                                background: '#ffebee',
+                                                border: '1px solid #f44336',
+                                                borderRadius: '8px'
+                                            }}>
+                                                <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px' }}>
+                                                    🚨 "Where are the walls?"
+                                                </div>
+                                                <div style={{ fontSize: '13px', color: '#666', lineHeight: '1.5' }}>
+                                                    She doesn't actually know what data crosses context boundaries. No visibility. No control. Just anxiety.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style={{
+                                    marginTop: '16px',
+                                    padding: '16px',
+                                    background: 'rgba(255, 255, 255, 0.15)',
+                                    backdropFilter: 'blur(10px)',
+                                    borderRadius: '8px',
+                                    color: 'white',
+                                    fontSize: '14px',
+                                    textAlign: 'center'
+                                }}>
+                                    😰 No safe boundaries. No clear separation.
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* The Solution She Chooses */}
+                        <div style={{
+                            background: 'rgba(0, 0, 0, 0.4)',
+                            backdropFilter: 'blur(10px)',
+                            borderRadius: '12px',
+                            padding: '32px',
+                            color: 'white',
+                            textAlign: 'center'
+                        }}>
+                            <div style={{ fontSize: '32px', marginBottom: '16px' }}>🕵️</div>
+                            <div style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px' }}>
+                                So Maya Opens an Incognito Window
+                            </div>
+                            <div style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '24px', opacity: 0.9 }}>
+                                To browse for kitchen ideas, she logs out of everything. But now she can't access her personal Gmail, her saved recipes, or her Pinterest boards.
+                            </div>
+                            <div style={{ fontSize: '18px', fontWeight: '600', opacity: 0.95 }}>
+                                So she gives up and orders takeout instead.
+                            </div>
+                        </div>
+
+                        {/* The Deeper Problem */}
+                        <div style={{
+                            marginTop: '32px',
+                            background: 'rgba(255, 255, 255, 0.95)',
+                            borderRadius: '12px',
+                            padding: '32px',
+                            boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+                        }}>
+                            <div style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '20px' }}>
+                                💔 The Deeper Problem
+                            </div>
+                            <div style={{ fontSize: '16px', lineHeight: '1.8', color: '#333' }}>
+                                This isn't just about browsing recipes. This is about <strong>psychological safety</strong>.
+                                <br /><br />
+                                Maya is a <strong>multifaceted human</strong>:
+                                <br />
+                                • A Product Manager at work<br />
+                                • A partner thinking about home renovations<br />
+                                • A professional managing her career on LinkedIn<br />
+                                • A friend on Instagram<br />
+                                • A person with private interests and hobbies
+                                <br /><br />
+                                But the modern browser <strong>collapses all these contexts into one flat space</strong>. There's no architecture for identity separation. No clear boundaries. No control.
+                                <br /><br />
+                                So Maya self-censors. She presents a "lowest common denominator" version of herself to a collapsed audience of bosses, coworkers, family, and the internet.
+                                <br /><br />
+                                <span style={{ fontSize: '18px', fontWeight: '600', color: '#f44336' }}>
+                                    The web, in its current form, lacks the architecture for psychological safety.
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* What She Needs */}
+                        <div style={{
+                            marginTop: '32px',
+                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            borderRadius: '12px',
+                            padding: '32px',
+                            color: 'white',
+                            textAlign: 'center'
+                        }}>
+                            <div style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '20px' }}>
+                                What Maya Actually Needs
+                            </div>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr 1fr',
+                                gap: '20px',
+                                marginTop: '24px'
+                            }}>
+                                <div style={{
+                                    background: 'rgba(255, 255, 255, 0.15)',
+                                    backdropFilter: 'blur(10px)',
+                                    padding: '24px',
+                                    borderRadius: '8px'
+                                }}>
+                                    <div style={{ fontSize: '36px', marginBottom: '12px' }}>👔</div>
+                                    <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>Work Persona</div>
+                                    <div style={{ fontSize: '14px', opacity: 0.9 }}>
+                                        Slack, Gmail, Zendesk, Linear, Notion. Nothing else.
+                                    </div>
+                                </div>
+                                <div style={{
+                                    background: 'rgba(255, 255, 255, 0.15)',
+                                    backdropFilter: 'blur(10px)',
+                                    padding: '24px',
+                                    borderRadius: '8px'
+                                }}>
+                                    <div style={{ fontSize: '36px', marginBottom: '12px' }}>🏡</div>
+                                    <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>Personal Persona</div>
+                                    <div style={{ fontSize: '14px', opacity: 0.9 }}>
+                                        Recipes, Pinterest, home projects. Firewall from work.
+                                    </div>
+                                </div>
+                                <div style={{
+                                    background: 'rgba(255, 255, 255, 0.15)',
+                                    backdropFilter: 'blur(10px)',
+                                    padding: '24px',
+                                    borderRadius: '8px'
+                                }}>
+                                    <div style={{ fontSize: '36px', marginBottom: '12px' }}>🌐</div>
+                                    <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>Social Persona</div>
+                                    <div style={{ fontSize: '14px', opacity: 0.9 }}>
+                                        Instagram, LinkedIn, Reddit. Separate from everything else.
+                                    </div>
+                                </div>
+                            </div>
+                            <div style={{
+                                marginTop: '32px',
+                                fontSize: '18px',
+                                fontWeight: '600',
+                                padding: '20px',
+                                background: 'rgba(255, 255, 255, 0.2)',
+                                borderRadius: '8px'
+                            }}>
+                                One-click switching. Hermetically sealed. Clear visibility into what crosses boundaries.
+                                <br />
+                                <strong>Psychological safety in a digital world.</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<ContextCollapse />, document.getElementById('root'));
+    </script>
+</body>
+</html>

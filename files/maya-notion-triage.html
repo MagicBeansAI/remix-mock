@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Feedback Triage - 45 Minutes of Copy-Paste</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const NotionTriage = () => {
+            return (
+                <div style={{
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                    minHeight: '100vh',
+                    background: '#f7f6f3',
+                    padding: '40px 20px'
+                }}>
+                    <div style={{
+                        maxWidth: '1000px',
+                        margin: '0 auto'
+                    }}>
+                        {/* Header Warning */}
+                        <div style={{
+                            background: '#fff4e6',
+                            border: '2px solid #ff9800',
+                            borderRadius: '12px',
+                            padding: '20px',
+                            marginBottom: '24px'
+                        }}>
+                            <div style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>
+                                🔍 Customer Feedback Triage Task
+                            </div>
+                            <div style={{ fontSize: '14px', color: '#666', marginBottom: '12px' }}>
+                                Goal: Collect all feedback about "checkout flow" from the last week
+                            </div>
+                            <div style={{ fontSize: '14px' }}>
+                                <strong>Sources to check:</strong> Zendesk tickets, Slack #customer-feedback, Email forwards from Sales, Loom videos from user interviews
+                            </div>
+                            <div style={{
+                                marginTop: '16px',
+                                padding: '12px',
+                                background: '#ffebee',
+                                border: '1px solid #f44336',
+                                borderRadius: '6px',
+                                fontSize: '13px'
+                            }}>
+                                ⏱️ <strong>Time required: 45 minutes</strong> of manual copy-paste across 5 tools
+                            </div>
+                        </div>
+
+                        {/* Notion Document */}
+                        <div style={{
+                            background: 'white',
+                            borderRadius: '12px',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                            overflow: 'hidden'
+                        }}>
+                            {/* Notion Header */}
+                            <div style={{
+                                padding: '40px 60px 24px 60px'
+                            }}>
+                                <div style={{
+                                    fontSize: '40px',
+                                    fontWeight: 'bold',
+                                    marginBottom: '12px'
+                                }}>
+                                    Checkout Issues - Oct 2024
+                                </div>
+                                <div style={{
+                                    fontSize: '14px',
+                                    color: '#999',
+                                    display: 'flex',
+                                    gap: '16px'
+                                }}>
+                                    <span>Created by Maya on Oct 31, 2024</span>
+                                    <span>•</span>
+                                    <span>Last edited 12 minutes ago</span>
+                                </div>
+                            </div>
+
+                            {/* Notion Content */}
+                            <div style={{ padding: '0 60px 40px 60px' }}>
+                                {/* From Zendesk */}
+                                <div style={{ marginBottom: '32px' }}>
+                                    <div style={{
+                                        fontSize: '24px',
+                                        fontWeight: 'bold',
+                                        marginBottom: '16px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px'
+                                    }}>
+                                        🎫 From Zendesk (12 tickets)
+                                    </div>
+                                    
+                                    <div style={{
+                                        padding: '16px',
+                                        background: '#fef7ff',
+                                        border: '1px solid #e1bee7',
+                                        borderRadius: '8px',
+                                        marginBottom: '12px'
+                                    }}>
+                                        <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
+                                            Ticket #4782 - Sarah Chen (sarah.chen@gmail.com)
+                                        </div>
+                                        <div style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>
+                                            Oct 29, 2024 3:42 PM
+                                        </div>
+                                        <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                                            "Payment button is completely broken on mobile. I tried 3 times and it just spins forever. Had to use my laptop instead."
+                                        </div>
+                                        <div style={{
+                                            marginTop: '8px',
+                                            display: 'inline-block',
+                                            background: '#f44336',
+                                            color: 'white',
+                                            padding: '4px 8px',
+                                            borderRadius: '4px',
+                                            fontSize: '12px',
+                                            fontWeight: '600'
+                                        }}>
+                                            HIGH PRIORITY
+                                        </div>
+                                    </div>
+
+                                    <div style={{
+                                        padding: '16px',
+                                        background: '#fef7ff',
+                                        border: '1px solid #e1bee7',
+                                        borderRadius: '8px',
+                                        marginBottom: '12px'
+                                    }}>
+                                        <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
+                                            Ticket #4801 - Alex Kumar (alex.k@yahoo.com)
+                                        </div>
+                                        <div style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>
+                                            Oct 30, 2024 10:15 AM
+                                        </div>
+                                        <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                                            "The promo code field disappeared when I tried to apply it. I refreshed and it was back, but then my cart was empty."
+                                        </div>
+                                    </div>
+
+                                    <div style={{ fontSize: '13px', color: '#999', fontStyle: 'italic' }}>
+                                        ... + 10 more tickets manually copied ...
+                                    </div>
+                                </div>
+
+                                {/* From Slack */}
+                                <div style={{ marginBottom: '32px' }}>
+                                    <div style={{
+                                        fontSize: '24px',
+                                        fontWeight: 'bold',
+                                        marginBottom: '16px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px'
+                                    }}>
+                                        💬 From Slack #customer-feedback
+                                    </div>
+                                    
+                                    <div style={{
+                                        padding: '16px',
+                                        background: '#f3e5f5',
+                                        border: '1px solid #ce93d8',
+                                        borderRadius: '8px',
+                                        marginBottom: '12px'
+                                    }}>
+                                        <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
+                                            @james-support posted Oct 29
+                                        </div>
+                                        <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                                            "Customer called in - she said the 'Continue to Payment' button wasn't clickable on Safari. Works fine on Chrome though."
+                                        </div>
+                                        <div style={{
+                                            marginTop: '8px',
+                                            fontSize: '13px',
+                                            color: '#666'
+                                        }}>
+                                            🔗 <a href="#" style={{ color: '#2196f3' }}>https://ecommco.slack.com/archives/C024F.../p1698...</a>
+                                        </div>
+                                    </div>
+
+                                    <div style={{
+                                        padding: '16px',
+                                        background: '#f3e5f5',
+                                        border: '1px solid #ce93d8',
+                                        borderRadius: '8px',
+                                        marginBottom: '12px'
+                                    }}>
+                                        <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
+                                            @priya-cs posted Oct 30
+                                        </div>
+                                        <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                                            "Multiple people reporting slow checkout - like 10-15 seconds after clicking 'Place Order' before anything happens"
+                                        </div>
+                                        <div style={{
+                                            marginTop: '8px',
+                                            fontSize: '13px',
+                                            color: '#666'
+                                        }}>
+                                            🔗 <a href="#" style={{ color: '#2196f3' }}>https://ecommco.slack.com/archives/C024F.../p1698...</a>
+                                        </div>
+                                    </div>
+
+                                    <div style={{ fontSize: '13px', color: '#999', fontStyle: 'italic' }}>
+                                        ... scrolled through 200+ messages, copied 8 relevant ones ...
+                                    </div>
+                                </div>
+
+                                {/* From Email */}
+                                <div style={{ marginBottom: '32px' }}>
+                                    <div style={{
+                                        fontSize: '24px',
+                                        fontWeight: 'bold',
+                                        marginBottom: '16px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px'
+                                    }}>
+                                        📧 From Email (Sales forwards)
+                                    </div>
+                                    
+                                    <div style={{
+                                        padding: '16px',
+                                        background: '#e3f2fd',
+                                        border: '1px solid #90caf9',
+                                        borderRadius: '8px',
+                                        marginBottom: '12px'
+                                    }}>
+                                        <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
+                                            From: Marcus (Sales) → Forwarded to Product
+                                        </div>
+                                        <div style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>
+                                            Oct 30, 2024 2:18 PM
+                                        </div>
+                                        <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                                            "Hey team - big enterprise customer just complained that their procurement team couldn't complete checkout because the 'Purchase Order' field wasn't showing up. They use Firefox. Can we fix ASAP?"
+                                        </div>
+                                    </div>
+
+                                    <div style={{ fontSize: '13px', color: '#999', fontStyle: 'italic' }}>
+                                        ... + 3 more forwarded emails ...
+                                    </div>
+                                </div>
+
+                                {/* From Loom */}
+                                <div style={{ marginBottom: '32px' }}>
+                                    <div style={{
+                                        fontSize: '24px',
+                                        fontWeight: 'bold',
+                                        marginBottom: '16px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px'
+                                    }}>
+                                        🎥 From User Interview Videos (Loom)
+                                    </div>
+                                    
+                                    <div style={{
+                                        padding: '16px',
+                                        background: '#f1f8e9',
+                                        border: '1px solid '#aed581',
+                                        borderRadius: '8px',
+                                        marginBottom: '12px'
+                                    }}>
+                                        <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
+                                            User Interview - Jessica W. (Oct 28)
+                                        </div>
+                                        <div style={{ fontSize: '14px', lineHeight: '1.6', marginBottom: '8px' }}>
+                                            At 4:32 - "I got confused when the page refreshed and I lost my shipping info. Had to re-enter everything."
+                                        </div>
+                                        <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                                            At 8:15 - "The error message was really vague - just said 'Payment failed' but didn't tell me why."
+                                        </div>
+                                        <div style={{
+                                            marginTop: '8px',
+                                            fontSize: '13px',
+                                            color: '#666'
+                                        }}>
+                                            🔗 <a href="#" style={{ color: '#2196f3' }}>https://loom.com/share/abc123...</a>
+                                        </div>
+                                    </div>
+
+                                    <div style={{ fontSize: '13px', color: '#999', fontStyle: 'italic' }}>
+                                        ... watched 6 videos, transcribed key moments ...
+                                    </div>
+                                </div>
+
+                                {/* Summary */}
+                                <div style={{
+                                    marginTop: '40px',
+                                    padding: '20px',
+                                    background: '#fff9c4',
+                                    border: '2px solid #fbc02d',
+                                    borderRadius: '8px'
+                                }}>
+                                    <div style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>
+                                        📊 Summary of Issues
+                                    </div>
+                                    <div style={{ fontSize: '14px', lineHeight: '1.8' }}>
+                                        • <strong>Mobile payment button</strong> - spinning/unresponsive (3 reports)<br />
+                                        • <strong>Safari browser issues</strong> - buttons not clickable (2 reports)<br />
+                                        • <strong>Slow checkout</strong> - 10-15s delays (4 reports)<br />
+                                        • <strong>Promo code bugs</strong> - field disappearing (2 reports)<br />
+                                        • <strong>Session loss</strong> - cart/shipping info lost on refresh (3 reports)<br />
+                                        • <strong>Error messages</strong> - too vague (5 reports)
+                                    </div>
+                                </div>
+
+                                {/* The Painful Truth */}
+                                <div style={{
+                                    marginTop: '24px',
+                                    padding: '20px',
+                                    background: '#ffebee',
+                                    border: '2px solid #f44336',
+                                    borderRadius: '8px'
+                                }}>
+                                    <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '12px' }}>
+                                        💔 The Painful Truth
+                                    </div>
+                                    <div style={{ fontSize: '14px', lineHeight: '1.6', marginBottom: '12px' }}>
+                                        <strong>45 minutes</strong> to create this document. And Maya knows she did the exact same exercise <strong>3 months ago</strong> for a different checkout issue... but she can't find that document anymore.
+                                    </div>
+                                    <div style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                                        Tomorrow, when someone asks "What are users saying about checkout?", she'll have to do this all over again.
+                                    </div>
+                                </div>
+
+                                {/* Lost Document */}
+                                <div style={{
+                                    marginTop: '16px',
+                                    padding: '16px',
+                                    background: '#f5f5f5',
+                                    border: '1px solid #e0e0e0',
+                                    borderRadius: '8px'
+                                }}>
+                                    <div style={{ fontSize: '13px', color: '#999', fontStyle: 'italic' }}>
+                                        📁 Somewhere in Notion: "Checkout Feedback - July 2024"<br />
+                                        📁 Somewhere in Notion: "Q3 Customer Issues Summary"<br />
+                                        📁 Somewhere in Google Docs: "Payment Flow User Research"<br />
+                                        <br />
+                                        All of these contain overlapping information. None are connected. All were painstakingly assembled the same way.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<NotionTriage />, document.getElementById('root'));
+    </script>
+</body>
+</html>

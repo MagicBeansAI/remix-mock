@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Manual Data Courier - 12 Minutes for a Yes/No Question</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        const DataCourierWorkflow = () => {
+            const [step, setStep] = useState(0);
+
+            const steps = [
+                {
+                    title: "Step 1: Shopify Admin (2 min)",
+                    tool: "Shopify",
+                    action: "Export cart abandonment data",
+                    content: (
+                        <div style={{ padding: '20px' }}>
+                            <div style={{
+                                background: '#95bf47',
+                                padding: '16px 20px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                borderBottom: '1px solid #7fa63e'
+                            }}>
+                                <div style={{
+                                    fontSize: '24px',
+                                    fontWeight: 'bold',
+                                    color: 'white'
+                                }}>
+                                    Shopify
+                                </div>
+                                <div style={{ flex: 1 }} />
+                                <div style={{
+                                    background: 'rgba(255,255,255,0.2)',
+                                    color: 'white',
+                                    padding: '6px 12px',
+                                    borderRadius: '4px',
+                                    fontSize: '13px'
+                                }}>
+                                    Analytics
+                                </div>
+                            </div>
+                            <div style={{ padding: '24px' }}>
+                                <div style={{
+                                    fontSize: '20px',
+                                    fontWeight: 'bold',
+                                    marginBottom: '20px'
+                                }}>
+                                    Cart Abandonment Report
+                                </div>
+                                <div style={{
+                                    background: '#f9f9f9',
+                                    border: '1px solid #e0e0e0',
+                                    borderRadius: '8px',
+                                    overflow: 'hidden'
+                                }}>
+                                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                        <thead>
+                                            <tr style={{ background: '#f0f0f0' }}>
+                                                <th style={{ padding: '12px', textAlign: 'left', fontSize: '13px', fontWeight: '600' }}>Date</th>
+                                                <th style={{ padding: '12px', textAlign: 'left', fontSize: '13px', fontWeight: '600' }}>Sessions</th>
+                                                <th style={{ padding: '12px', textAlign: 'left', fontSize: '13px', fontWeight: '600' }}>Abandoned</th>
+                                                <th style={{ padding: '12px', textAlign: 'left', fontSize: '13px', fontWeight: '600' }}>Rate</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style={{ borderBottom: '1px solid #e0e0e0' }}>
+                                                <td style={{ padding: '12px', fontSize: '14px' }}>Oct 31, 2024</td>
+                                                <td style={{ padding: '12px', fontSize: '14px' }}>1,247</td>
+                                                <td style={{ padding: '12px', fontSize: '14px' }}>842</td>
+                                                <td style={{ padding: '12px', fontSize: '14px' }}>67.5%</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: '1px solid #e0e0e0' }}>
+                                                <td style={{ padding: '12px', fontSize: '14px' }}>Nov 1, 2024</td>
+                                                <td style={{ padding: '12px', fontSize: '14px' }}>1,198</td>
+                                                <td style={{ padding: '12px', fontSize: '14px' }}>791</td>
+                                                <td style={{ padding: '12px', fontSize: '14px', fontWeight: 'bold', color: '#95bf47' }}>66.0%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button style={{
+                                    marginTop: '20px',
+                                    background: '#95bf47',
+                                    color: 'white',
+                                    border: 'none',
+                                    padding: '10px 20px',
+                                    borderRadius: '6px',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    cursor: 'pointer'
+                                }}>
+                                    📥 Export as CSV
+                                </button>
+                                <div style={{
+                                    marginTop: '16px',
+                                    padding: '12px',
+                                    background: '#fff3cd',
+                                    border: '1px solid #ffc107',
+                                    borderRadius: '6px',
+                                    fontSize: '13px'
+                                }}>
+                                    ⚠️ Problem: Date ranges show Oct 30 - Nov 1, but I need Oct 31 - Nov 2
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    title: "Step 2: Mixpanel (3 min)",
+                    tool: "Mixpanel",
+                    action: "Export conversion funnel data",
+                    content: (
+                        <div style={{ padding: '20px' }}>
+                            <div style={{
+                                background: '#7856ff',
+                                padding: '16px 20px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                borderBottom: '1px solid #6243d6'
+                            }}>
+                                <div style={{
+                                    fontSize: '24px',
+                                    fontWeight: 'bold',
+                                    color: 'white'
+                                }}>
+                                    Mixpanel
+                                </div>
+                                <div style={{ flex: 1 }} />
+                                <div style={{
+                                    background: 'rgba(255,255,255,0.2)',
+                                    color: 'white',
+                                    padding: '6px 12px',
+                                    borderRadius: '4px',
+                                    fontSize: '13px'
+                                }}>
+                                    Funnels
+                                </div>
+                            </div>
+                            <div style={{ padding: '24px' }}>
+                                <div style={{
+                                    fontSize: '20px',
+                                    fontWeight: 'bold',
+                                    marginBottom: '20px'
+                                }}>
+                                    Checkout Funnel Analysis
+                                </div>
+                                <div style={{
+                                    background: '#f9f9f9',
+                                    border: '1px solid #e0e0e0',
+                                    borderRadius: '8px',
+                                    padding: '20px'
+                                }}>
+                                    <div style={{ marginBottom: '16px' }}>
+                                        <div style={{ fontSize: '13px', color: '#666', marginBottom: '4px' }}>Date Range</div>
+                                        <div style={{ fontSize: '14px', fontWeight: '600' }}>Oct 29 - Nov 1, 2024</div>
+                                    </div>
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '16px',
+                                        marginTop: '20px'
+                                    }}>
+                                        <div style={{
+                                            flex: 1,
+                                            background: 'white',
+                                            border: '2px solid #7856ff',
+                                            borderRadius: '8px',
+                                            padding: '16px',
+                                            textAlign: 'center'
+                                        }}>
+                                            <div style={{ fontSize: '32px', fontWeight: 'bold', color: '#7856ff' }}>66.8%</div>
+                                            <div style={{ fontSize: '13px', color: '#666', marginTop: '4px' }}>Abandonment Rate</div>
+                                        </div>
+                                        <div style={{
+                                            flex: 1,
+                                            background: 'white',
+                                            border: '1px solid #e0e0e0',
+                                            borderRadius: '8px',
+                                            padding: '16px',
+                                            textAlign: 'center'
+                                        }}>
+                                            <div style={{ fontSize: '32px', fontWeight: 'bold' }}>2,847</div>
+                                            <div style={{ fontSize: '13px', color: '#666', marginTop: '4px' }}>Total Sessions</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button style={{
+                                    marginTop: '20px',
+                                    background: '#7856ff',
+                                    color: 'white',
+                                    border: 'none',
+                                    padding: '10px 20px',
+                                    borderRadius: '6px',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    cursor: 'pointer'
+                                }}>
+                                    📥 Export Data
+                                </button>
+                                <div style={{
+                                    marginTop: '16px',
+                                    padding: '12px',
+                                    background: '#fff3cd',
+                                    border: '1px solid #ffc107',
+                                    borderRadius: '6px',
+                                    fontSize: '13px'
+                                }}>
+                                    ⚠️ Problem: Date ranges don't match Shopify. Need to re-export both.
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    title: "Step 3: Google Sheets (7 min)",
+                    tool: "Google Sheets",
+                    action: "Manual copy-paste and calculate delta",
+                    content: (
+                        <div style={{ padding: '20px' }}>
+                            <div style={{
+                                background: '#0f9d58',
+                                padding: '16px 20px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                borderBottom: '1px solid #0d8547'
+                            }}>
+                                <div style={{
+                                    fontSize: '24px',
+                                    fontWeight: 'bold',
+                                    color: 'white'
+                                }}>
+                                    📊 Google Sheets
+                                </div>
+                                <div style={{ flex: 1 }} />
+                                <div style={{
+                                    background: 'rgba(255,255,255,0.2)',
+                                    color: 'white',
+                                    padding: '6px 12px',
+                                    borderRadius: '4px',
+                                    fontSize: '13px'
+                                }}>
+                                    Cart Analysis Nov 2024
+                                </div>
+                            </div>
+                            <div style={{ padding: '24px' }}>
+                                <div style={{
+                                    background: 'white',
+                                    border: '1px solid #e0e0e0',
+                                    borderRadius: '8px',
+                                    overflow: 'hidden'
+                                }}>
+                                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                        <thead>
+                                            <tr style={{ background: '#f0f0f0' }}>
+                                                <th style={{ padding: '10px', textAlign: 'left', fontSize: '12px', fontWeight: '600', borderRight: '1px solid #e0e0e0' }}>Source</th>
+                                                <th style={{ padding: '10px', textAlign: 'left', fontSize: '12px', fontWeight: '600', borderRight: '1px solid #e0e0e0' }}>Date</th>
+                                                <th style={{ padding: '10px', textAlign: 'left', fontSize: '12px', fontWeight: '600', borderRight: '1px solid #e0e0e0' }}>Sessions</th>
+                                                <th style={{ padding: '10px', textAlign: 'left', fontSize: '12px', fontWeight: '600', borderRight: '1px solid #e0e0e0' }}>Abandoned</th>
+                                                <th style={{ padding: '10px', textAlign: 'left', fontSize: '12px', fontWeight: '600' }}>Rate</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style={{ borderBottom: '1px solid #e0e0e0' }}>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0', background: '#e8f5e9' }}>Shopify</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>Oct 31</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>1,247</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>842</td>
+                                                <td style={{ padding: '10px', fontSize: '13px' }}>67.5%</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: '1px solid #e0e0e0' }}>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0', background: '#e8f5e9' }}>Shopify</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>Nov 1</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>1,198</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>791</td>
+                                                <td style={{ padding: '10px', fontSize: '13px' }}>66.0%</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: '1px solid #e0e0e0' }}>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0', background: '#ede7f6' }}>Mixpanel</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>Oct 31</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>1,419</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>948</td>
+                                                <td style={{ padding: '10px', fontSize: '13px' }}>66.8%</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: '2px solid #333' }}>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0', background: '#ede7f6' }}>Mixpanel</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>Nov 1</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>1,428</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>911</td>
+                                                <td style={{ padding: '10px', fontSize: '13px' }}>63.8%</td>
+                                            </tr>
+                                            <tr style={{ background: '#fff9c4' }}>
+                                                <td style={{ padding: '10px', fontSize: '13px', fontWeight: 'bold', borderRight: '1px solid #e0e0e0' }}>Delta</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>-</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>-</td>
+                                                <td style={{ padding: '10px', fontSize: '13px', borderRight: '1px solid #e0e0e0' }}>-</td>
+                                                <td style={{ padding: '10px', fontSize: '14px', fontWeight: 'bold', color: '#0f9d58' }}>-2.2%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style={{
+                                    marginTop: '20px',
+                                    padding: '16px',
+                                    background: '#e8f5e9',
+                                    border: '1px solid #0f9d58',
+                                    borderRadius: '8px'
+                                }}>
+                                    <div style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '8px' }}>✅ Answer Ready</div>
+                                    <div style={{ fontSize: '13px' }}>
+                                        Cart abandonment rate <strong>decreased by 2.2%</strong> (from 66.0% to 63.8%) after yesterday's deploy.
+                                    </div>
+                                </div>
+                                <div style={{
+                                    marginTop: '16px',
+                                    padding: '12px',
+                                    background: '#ffebee',
+                                    border: '1px solid #f44336',
+                                    borderRadius: '6px',
+                                    fontSize: '13px'
+                                }}>
+                                    ⏱️ <strong>Total Time: 12 minutes</strong> for a simple yes/no question
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+            ];
+
+            return (
+                <div style={{
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                    minHeight: '100vh',
+                    background: '#f5f5f5',
+                    padding: '40px 20px'
+                }}>
+                    <div style={{
+                        maxWidth: '1200px',
+                        margin: '0 auto'
+                    }}>
+                        {/* Header */}
+                        <div style={{
+                            background: 'white',
+                            borderRadius: '12px',
+                            padding: '24px',
+                            marginBottom: '24px',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                        }}>
+                            <div style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '12px' }}>
+                                🔄 The Manual Data Courier
+                            </div>
+                            <div style={{ fontSize: '16px', color: '#666', marginBottom: '16px' }}>
+                                Sarah asks: "Can you check if the cart abandonment rate changed after yesterday's deploy?"
+                            </div>
+                            <div style={{ fontSize: '14px', color: '#999' }}>
+                                Simple question. Requires data from 2 tools. Takes 12 minutes.
+                            </div>
+                        </div>
+
+                        {/* Step Navigator */}
+                        <div style={{
+                            display: 'flex',
+                            gap: '16px',
+                            marginBottom: '24px'
+                        }}>
+                            {steps.map((s, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setStep(idx)}
+                                    style={{
+                                        flex: 1,
+                                        padding: '16px',
+                                        background: step === idx ? '#2196f3' : 'white',
+                                        color: step === idx ? 'white' : '#333',
+                                        border: step === idx ? 'none' : '2px solid #e0e0e0',
+                                        borderRadius: '8px',
+                                        fontSize: '14px',
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s'
+                                    }}
+                                >
+                                    <div>{s.title}</div>
+                                    <div style={{
+                                        fontSize: '12px',
+                                        marginTop: '4px',
+                                        opacity: 0.8
+                                    }}>
+                                        {s.action}
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Content */}
+                        <div style={{
+                            background: 'white',
+                            borderRadius: '12px',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                            overflow: 'hidden'
+                        }}>
+                            {steps[step].content}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<DataCourierWorkflow />, document.getElementById('root'));
+    </script>
+</body>
+</html>

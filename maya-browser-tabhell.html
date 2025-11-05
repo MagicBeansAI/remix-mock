@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maya's Browser - Tab Hell</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const BrowserTabHell = () => {
+            const tabs = [
+                { title: "Inbox (247) - maya@ecomm...", favicon: "📧", active: false },
+                { title: "Team Inbox (89) - maya@ec...", favicon: "📧", active: false },
+                { title: "Slack - #product-team", favicon: "💬", active: true },
+                { title: "Slack - #engineering", favicon: "💬", active: false },
+                { title: "Slack - Customer Success", favicon: "💬", active: false },
+                { title: "Linear - Q4 Roadmap", favicon: "📋", active: false },
+                { title: "Notion - PRD: Checkout v2", favicon: "📝", active: false },
+                { title: "Shopify Admin - Analytics", favicon: "🛒", active: false },
+                { title: "Mixpanel - Conversion Fun...", favicon: "📊", active: false },
+                { title: "Looker - Revenue Dashboard", favicon: "📈", active: false },
+                { title: "Zendesk - Support Tickets", favicon: "🎫", active: false },
+                { title: "Figma - Mobile App Redesign", favicon: "🎨", active: false },
+                { title: "Product Spec - Google Docs", favicon: "📄", active: false },
+                { title: "Brainstorm - Miro", favicon: "🖼️", active: false },
+            ];
+
+            return (
+                <div style={{ 
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                    height: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    background: '#f5f5f5'
+                }}>
+                    {/* Browser Chrome */}
+                    <div style={{
+                        background: 'linear-gradient(180deg, #e8e8e8 0%, #d8d8d8 100%)',
+                        padding: '8px 8px 0 8px',
+                        borderBottom: '1px solid #c0c0c0'
+                    }}>
+                        {/* URL Bar */}
+                        <div style={{
+                            background: 'white',
+                            border: '1px solid #c0c0c0',
+                            borderRadius: '6px',
+                            padding: '8px 12px',
+                            marginBottom: '8px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px'
+                        }}>
+                            <span style={{ fontSize: '14px' }}>🔒</span>
+                            <span style={{ fontSize: '13px', color: '#666' }}>app.slack.com/client/T024F8Q.../C024F9A...</span>
+                        </div>
+
+                        {/* Tabs */}
+                        <div style={{
+                            display: 'flex',
+                            gap: '0px',
+                            overflowX: 'auto',
+                            position: 'relative'
+                        }}>
+                            {tabs.map((tab, idx) => (
+                                <div key={idx} style={{
+                                    background: tab.active ? 'white' : '#d0d0d0',
+                                    border: '1px solid #c0c0c0',
+                                    borderBottom: tab.active ? 'none' : '1px solid #c0c0c0',
+                                    borderRadius: '8px 8px 0 0',
+                                    padding: '6px 10px',
+                                    minWidth: '180px',
+                                    maxWidth: '180px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    fontSize: '12px',
+                                    color: '#333',
+                                    position: 'relative',
+                                    cursor: 'pointer',
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    boxShadow: tab.active ? '0 -2px 4px rgba(0,0,0,0.1)' : 'none'
+                                }}>
+                                    <span>{tab.favicon}</span>
+                                    <span style={{ 
+                                        flex: 1, 
+                                        overflow: 'hidden', 
+                                        textOverflow: 'ellipsis',
+                                        fontWeight: tab.active ? '500' : '400'
+                                    }}>
+                                        {tab.title}
+                                    </span>
+                                    <span style={{ 
+                                        fontSize: '16px', 
+                                        color: '#999',
+                                        cursor: 'pointer'
+                                    }}>×</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Slack Content */}
+                    <div style={{
+                        flex: 1,
+                        background: 'white',
+                        display: 'flex',
+                        overflow: 'hidden'
+                    }}>
+                        {/* Slack Sidebar */}
+                        <div style={{
+                            width: '260px',
+                            background: '#3f0e40',
+                            color: 'white',
+                            padding: '12px',
+                            overflowY: 'auto'
+                        }}>
+                            <div style={{ 
+                                fontSize: '18px', 
+                                fontWeight: 'bold', 
+                                marginBottom: '20px',
+                                padding: '8px'
+                            }}>
+                                EcommCo Workspace
+                            </div>
+                            
+                            <div style={{ fontSize: '13px' }}>
+                                <div style={{ 
+                                    padding: '6px 8px', 
+                                    background: '#1164a3',
+                                    borderRadius: '4px',
+                                    marginBottom: '4px',
+                                    fontWeight: '500'
+                                }}>
+                                    # product-team
+                                </div>
+                                <div style={{ padding: '6px 8px', opacity: 0.8 }}># engineering</div>
+                                <div style={{ padding: '6px 8px', opacity: 0.8 }}># design</div>
+                                <div style={{ padding: '6px 8px', opacity: 0.8 }}># customer-feedback</div>
+                                <div style={{ padding: '6px 8px', opacity: 0.8 }}># analytics</div>
+                                
+                                <div style={{ 
+                                    marginTop: '20px', 
+                                    marginBottom: '8px',
+                                    opacity: 0.7,
+                                    fontSize: '12px'
+                                }}>
+                                    Direct Messages
+                                </div>
+                                <div style={{ padding: '6px 8px', opacity: 0.8 }}>👤 Sarah (CEO)</div>
+                                <div style={{ padding: '6px 8px', opacity: 0.8 }}>👤 Alex (Eng Lead)</div>
+                                <div style={{ padding: '6px 8px', opacity: 0.8 }}>👤 Priya (Designer)</div>
+                            </div>
+                        </div>
+
+                        {/* Slack Messages */}
+                        <div style={{
+                            flex: 1,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            background: 'white'
+                        }}>
+                            <div style={{
+                                padding: '16px 20px',
+                                borderBottom: '1px solid #e0e0e0',
+                                fontSize: '18px',
+                                fontWeight: 'bold'
+                            }}>
+                                # product-team
+                            </div>
+
+                            <div style={{
+                                flex: 1,
+                                overflowY: 'auto',
+                                padding: '20px'
+                            }}>
+                                <div style={{ marginBottom: '16px' }}>
+                                    <div style={{ display: 'flex', gap: '12px' }}>
+                                        <div style={{
+                                            width: '36px',
+                                            height: '36px',
+                                            borderRadius: '4px',
+                                            background: '#e91e63',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: 'white',
+                                            fontWeight: 'bold',
+                                            fontSize: '14px'
+                                        }}>S</div>
+                                        <div style={{ flex: 1 }}>
+                                            <div style={{ marginBottom: '4px' }}>
+                                                <span style={{ fontWeight: 'bold', marginRight: '8px' }}>Sarah Chen</span>
+                                                <span style={{ fontSize: '12px', color: '#616061' }}>8:07 AM</span>
+                                            </div>
+                                            <div style={{ fontSize: '15px', lineHeight: '1.5' }}>
+                                                @Maya can you check if the cart abandonment rate changed after yesterday's deploy?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style={{ marginBottom: '16px' }}>
+                                    <div style={{ display: 'flex', gap: '12px' }}>
+                                        <div style={{
+                                            width: '36px',
+                                            height: '36px',
+                                            borderRadius: '4px',
+                                            background: '#2196f3',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: 'white',
+                                            fontWeight: 'bold',
+                                            fontSize: '14px'
+                                        }}>A</div>
+                                        <div style={{ flex: 1 }}>
+                                            <div style={{ marginBottom: '4px' }}>
+                                                <span style={{ fontWeight: 'bold', marginRight: '8px' }}>Alex Kumar</span>
+                                                <span style={{ fontSize: '12px', color: '#616061' }}>8:14 AM</span>
+                                            </div>
+                                            <div style={{ fontSize: '15px', lineHeight: '1.5' }}>
+                                                The payment gateway integration is having issues in production. Can we prioritize a fix?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style={{
+                                    background: '#fff4e6',
+                                    border: '1px solid #ffe0b2',
+                                    borderRadius: '4px',
+                                    padding: '12px',
+                                    marginBottom: '16px',
+                                    fontSize: '14px'
+                                }}>
+                                    <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>⚠️ Reminder</div>
+                                    Weekly planning meeting in 15 minutes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Stress Indicator */}
+                    <div style={{
+                        position: 'fixed',
+                        top: '20px',
+                        right: '20px',
+                        background: 'rgba(244, 67, 54, 0.95)',
+                        color: 'white',
+                        padding: '12px 20px',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        animation: 'pulse 2s infinite'
+                    }}>
+                        🔥 14 tabs open • Context switching in progress
+                    </div>
+
+                    <style>{`
+                        @keyframes pulse {
+                            0%, 100% { opacity: 1; }
+                            50% { opacity: 0.7; }
+                        }
+                    `}</style>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<BrowserTabHell />, document.getElementById('root'));
+    </script>
+</body>
+</html>

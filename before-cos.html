@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monday, 10:30 AM - Chief of Staff</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .browser-window {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .browser-chrome {
+            background: #e8e8e8;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #d0d0d0;
+        }
+        
+        .browser-dots {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot.red { background: #ff5f57; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #28ca42; }
+        
+        .address-bar {
+            flex: 1;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #666;
+            margin-left: 8px;
+        }
+        
+        .tabs-bar {
+            background: #d8d8d8;
+            display: flex;
+            overflow-x: auto;
+            border-bottom: 1px solid #c0c0c0;
+        }
+        
+        .tab {
+            background: #e8e8e8;
+            padding: 10px 16px;
+            border-right: 1px solid #d0d0d0;
+            font-size: 12px;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 200px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #000;
+        }
+        
+        .tab-icon {
+            font-size: 14px;
+        }
+        
+        .tab-badge {
+            background: #ff3b30;
+            color: white;
+            border-radius: 10px;
+            padding: 1px 6px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+        
+        .browser-content {
+            background: #f5f5f5;
+            height: 700px;
+            overflow: hidden;
+        }
+        
+        .tab-content {
+            height: 100%;
+            overflow: auto;
+        }
+        
+        .time-indicator {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #999;
+            background: #f5f5f5;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .cta-bar {
+            background: white;
+            padding: 24px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .cta-text {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="browser-window">
+        <div class="browser-chrome">
+            <div class="browser-dots">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="address-bar">notion.so/projects-tracker</div>
+        </div>
+        
+        <div class="tabs-bar">
+            <div class="tab" onclick="switchTab('notion')">
+                <span class="tab-icon">📝</span>
+                <span>Project Tracker</span>
+            </div>
+            <div class="tab" onclick="switchTab('whatsapp')">
+                <span class="tab-icon">💬</span>
+                <span>WhatsApp</span>
+                <span class="tab-badge">63</span>
+            </div>
+            <div class="tab" onclick="switchTab('gmail')">
+                <span class="tab-icon">✉️</span>
+                <span>Gmail</span>
+                <span class="tab-badge">89</span>
+            </div>
+            <div class="tab" onclick="switchTab('calendar')">
+                <span class="tab-icon">📅</span>
+                <span>CEO Calendar</span>
+            </div>
+            <div class="tab active" onclick="switchTab('asana')">
+                <span class="tab-icon">✓</span>
+                <span>Task Board</span>
+                <span class="tab-badge">24</span>
+            </div>
+            <div class="tab" onclick="switchTab('drive')">
+                <span class="tab-icon">📁</span>
+                <span>Drive - Board Deck</span>
+            </div>
+        </div>
+
+        <div class="time-indicator">
+            Monday, 10:30 AM • CEO's investor call starts in 30 minutes
+        </div>
+        
+        <div class="browser-content">
+            <!-- Asana/Task Board Content (Active) -->
+            <div class="tab-content" id="asana-content">
+                <div style="display: flex; height: 100%; background: #fafbfc;">
+                    <!-- Sidebar -->
+                    <div style="width: 250px; background: #363d47; color: white; padding: 20px;">
+                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 24px;">Workspace</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
+                            <div style="padding: 8px 12px; background: #4a5568; border-radius: 6px; cursor: pointer;">📋 CEO Priority Tasks</div>
+                            <div style="padding: 8px 12px; opacity: 0.7; cursor: pointer;">🚀 Q4 Initiatives</div>
+                            <div style="padding: 8px 12px; opacity: 0.7; cursor: pointer;">💼 Fundraise Workstream</div>
+                            <div style="padding: 8px 12px; opacity: 0.7; cursor: pointer;">🏢 Operations</div>
+                            <div style="padding: 8px 12px; opacity: 0.7; cursor: pointer;">👥 People & Hiring</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div style="flex: 1; padding: 24px; overflow-y: auto;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <h1 style="font-size: 24px; font-weight: 600; color: #1a1a1a;">CEO Priority Tasks</h1>
+                            <button style="background: #667eea; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer;">+ Add Task</button>
+                        </div>
+                        
+                        <!-- OVERDUE Section -->
+                        <div style="margin-bottom: 32px;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                                <div style="font-size: 14px; font-weight: 700; color: #f44336; text-transform: uppercase; letter-spacing: 0.5px;">⚠️ Overdue (5)</div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div style="background: white; border: 2px solid #f44336; border-radius: 8px; padding: 16px;">
+                                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                        <input type="checkbox" style="margin-top: 4px;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">Finalize Board Deck - Legal review pending</div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">Marketing finished design, but Legal hasn't reviewed compliance language</div>
+                                            <div style="display: flex; gap: 12px; font-size: 12px;">
+                                                <span style="background: #f44336; color: white; padding: 4px 8px; border-radius: 4px;">Due: Oct 28</span>
+                                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 4px;">@Legal Team</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 2px solid #f44336; border-radius: 8px; padding: 16px;">
+                                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                        <input type="checkbox" style="margin-top: 4px;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">Sequoia intro - CEO needs briefing doc</div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">Call is tomorrow morning. Need to prepare 1-pager on their portfolio strategy</div>
+                                            <div style="display: flex; gap: 12px; font-size: 12px;">
+                                                <span style="background: #f44336; color: white; padding: 4px 8px; border-radius: 4px;">Due: Oct 29</span>
+                                                <span style="background: #fff3e0; color: #e65100; padding: 4px 8px; border-radius: 4px;">Assigned to me</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 2px solid #f44336; border-radius: 8px; padding: 16px;">
+                                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                        <input type="checkbox" style="margin-top: 4px;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">Q3 Financial Summary for Board</div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">CFO sent raw data, needs formatting + executive summary</div>
+                                            <div style="display: flex; gap: 12px; font-size: 12px;">
+                                                <span style="background: #f44336; color: white; padding: 4px 8px; border-radius: 4px;">Due: Oct 27</span>
+                                                <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px;">@CFO</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 2px solid #f44336; border-radius: 8px; padding: 16px;">
+                                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                        <input type="checkbox" style="margin-top: 4px;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">Vendor contract signatures - 3 pending</div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">Sent to CEO for signature 4 days ago, still waiting</div>
+                                            <div style="display: flex; gap: 12px; font-size: 12px;">
+                                                <span style="background: #f44336; color: white; padding: 4px 8px; border-radius: 4px;">Due: Oct 26</span>
+                                                <span style="background: #fff3e0; color: #e65100; padding: 4px 8px; border-radius: 4px;">Blocked by CEO</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 2px solid #f44336; border-radius: 8px; padding: 16px;">
+                                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                        <input type="checkbox" style="margin-top: 4px;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">Engineering hiring plan approval</div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">CTO waiting on budget approval to post 5 open roles</div>
+                                            <div style="display: flex; gap: 12px; font-size: 12px;">
+                                                <span style="background: #f44336; color: white; padding: 4px 8px; border-radius: 4px;">Due: Oct 25</span>
+                                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 4px;">@CTO</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- TODAY Section -->
+                        <div style="margin-bottom: 32px;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                                <div style="font-size: 14px; font-weight: 700; color: #ff9800; text-transform: uppercase; letter-spacing: 0.5px;">📌 Due Today (4)</div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px;">
+                                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                        <input type="checkbox" style="margin-top: 4px;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">Prep CEO for 11am investor call</div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">Need: deck, talking points, investor background</div>
+                                            <div style="display: flex; gap: 12px; font-size: 12px;">
+                                                <span style="background: #ff9800; color: white; padding: 4px 8px; border-radius: 4px;">Due: Today 10:45am</span>
+                                                <span style="background: #fff3e0; color: #e65100; padding: 4px 8px; border-radius: 4px;">HIGH PRIORITY</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px;">
+                                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                        <input type="checkbox" style="margin-top: 4px;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">Follow up: Why is warehouse SKU still out of stock?</div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">CEO asked about this yesterday. Need update from Operations</div>
+                                            <div style="display: flex; gap: 12px; font-size: 12px;">
+                                                <span style="background: #ff9800; color: white; padding: 4px 8px; border-radius: 4px;">Due: Today 5pm</span>
+                                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 4px;">@Ops Team</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px;">
+                                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                        <input type="checkbox" style="margin-top: 4px;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">Reschedule Thursday's board meeting</div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">2 board members can't make it. Need new time that works for everyone</div>
+                                            <div style="display: flex; gap: 12px; font-size: 12px;">
+                                                <span style="background: #ff9800; color: white; padding: 4px 8px; border-radius: 4px;">Due: Today</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px;">
+                                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                        <input type="checkbox" style="margin-top: 4px;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1a1a1a; margin-bottom: 4px;">Chase Marketing for campaign performance data</div>
+                                            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">Promised last week, CEO needs it for investor update</div>
+                                            <div style="display: flex; gap: 12px; font-size: 12px;">
+                                                <span style="background: #ff9800; color: white; padding: 4px 8px; border-radius: 4px;">Due: Today</span>
+                                                <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px;">@Marketing</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- THIS WEEK Section -->
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                                <div style="font-size: 14px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">📅 This Week (15 more)</div>
+                            </div>
+                            <div style="color: #999; font-size: 14px;">Click to expand...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notion Project Tracker Content -->
+            <div class="tab-content" id="notion-content" style="display: none;">
+                <div style="display: flex; height: 100%; background: white;">
+                    <!-- Sidebar -->
+                    <div style="width: 240px; background: #f7f6f3; border-right: 1px solid #e9e9e7; padding: 16px;">
+                        <div style="font-weight: 600; font-size: 14px; margin-bottom: 16px; color: #37352f;">Projects</div>
+                        <div style="display: flex; flex-direction: column; gap: 4px; font-size: 14px;">
+                            <div style="padding: 6px 8px; background: white; border-radius: 4px; font-weight: 500; color: #37352f;">🎯 Active Projects</div>
+                            <div style="padding: 6px 8px; opacity: 0.6; color: #37352f; cursor: pointer;">📊 Fundraise Tracker</div>
+                            <div style="padding: 6px 8px; opacity: 0.6; color: #37352f; cursor: pointer;">🚀 Product Roadmap</div>
+                            <div style="padding: 6px 8px; opacity: 0.6; color: #37352f; cursor: pointer;">👥 Hiring Pipeline</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div style="flex: 1; padding: 48px 64px; overflow-y: auto;">
+                        <div style="max-width: 900px;">
+                            <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 24px; color: #37352f;">Active Projects Dashboard</h1>
+                            
+                            <!-- Status Summary -->
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;">
+                                <div style="background: #fff3e0; padding: 20px; border-radius: 8px;">
+                                    <div style="font-size: 28px; font-weight: 700; color: #e65100; margin-bottom: 4px;">7</div>
+                                    <div style="font-size: 13px; color: #666;">Blocked</div>
+                                </div>
+                                <div style="background: #ffebee; padding: 20px; border-radius: 8px;">
+                                    <div style="font-size: 28px; font-weight: 700; color: #c62828; margin-bottom: 4px;">12</div>
+                                    <div style="font-size: 13px; color: #666;">Overdue</div>
+                                </div>
+                                <div style="background: #fff9c4; padding: 20px; border-radius: 8px;">
+                                    <div style="font-size: 28px; font-weight: 700; color: #f57f17; margin-bottom: 4px;">18</div>
+                                    <div style="font-size: 13px; color: #666;">In Progress</div>
+                                </div>
+                                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px;">
+                                    <div style="font-size: 28px; font-weight: 700; color: #2e7d32; margin-bottom: 4px;">23</div>
+                                    <div style="font-size: 13px; color: #666;">On Track</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Projects Table -->
+                            <div style="background: white; border: 1px solid #e9e9e7; border-radius: 8px; overflow: hidden;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead style="background: #f7f6f3;">
+                                        <tr>
+                                            <th style="padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #666;">PROJECT</th>
+                                            <th style="padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #666;">OWNER</th>
+                                            <th style="padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #666;">STATUS</th>
+                                            <th style="padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #666;">DUE</th>
+                                            <th style="padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #666;">NOTES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="font-size: 14px;">
+                                        <tr style="border-top: 1px solid #e9e9e7;">
+                                            <td style="padding: 16px; font-weight: 500; color: #37352f;">Board Meeting Prep</td>
+                                            <td style="padding: 16px; color: #666;">CFO</td>
+                                            <td style="padding: 16px;"><span style="background: #fff3e0; color: #e65100; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">BLOCKED</span></td>
+                                            <td style="padding: 16px; color: #f44336; font-weight: 600;">Oct 30</td>
+                                            <td style="padding: 16px; color: #666; font-size: 13px;">Legal review pending on financials</td>
+                                        </tr>
+                                        <tr style="border-top: 1px solid #e9e9e7;">
+                                            <td style="padding: 16px; font-weight: 500; color: #37352f;">Series B Fundraise</td>
+                                            <td style="padding: 16px; color: #666;">CEO</td>
+                                            <td style="padding: 16px;"><span style="background: #fff9c4; color: #f57f17; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">IN PROGRESS</span></td>
+                                            <td style="padding: 16px; color: #666;">Nov 15</td>
+                                            <td style="padding: 16px; color: #666; font-size: 13px;">3 investor meetings this week</td>
+                                        </tr>
+                                        <tr style="border-top: 1px solid #e9e9e7;">
+                                            <td style="padding: 16px; font-weight: 500; color: #37352f;">Warehouse Automation</td>
+                                            <td style="padding: 16px; color: #666;">Ops Head</td>
+                                            <td style="padding: 16px;"><span style="background: #fff3e0; color: #e65100; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">BLOCKED</span></td>
+                                            <td style="padding: 16px; color: #f44336; font-weight: 600;">Oct 25</td>
+                                            <td style="padding: 16px; color: #666; font-size: 13px;">Budget approval stuck with CFO</td>
+                                        </tr>
+                                        <tr style="border-top: 1px solid #e9e9e7;">
+                                            <td style="padding: 16px; font-weight: 500; color: #37352f;">Marketing Campaign Q4</td>
+                                            <td style="padding: 16px; color: #666;">Marketing Head</td>
+                                            <td style="padding: 16px;"><span style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">ON TRACK</span></td>
+                                            <td style="padding: 16px; color: #666;">Nov 1</td>
+                                            <td style="padding: 16px; color: #666; font-size: 13px;">Creative approved, launching Monday</td>
+                                        </tr>
+                                        <tr style="border-top: 1px solid #e9e9e7;">
+                                            <td style="padding: 16px; font-weight: 500; color: #37352f;">Engineering Hiring</td>
+                                            <td style="padding: 16px; color: #666;">CTO</td>
+                                            <td style="padding: 16px;"><span style="background: #fff3e0; color: #e65100; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">BLOCKED</span></td>
+                                            <td style="padding: 16px; color: #f44336; font-weight: 600;">Oct 20</td>
+                                            <td style="padding: 16px; color: #666; font-size: 13px;">Waiting on headcount approval from CEO</td>
+                                        </tr>
+                                        <tr style="border-top: 1px solid #e9e9e7;">
+                                            <td style="padding: 16px; font-weight: 500; color: #37352f;">Mumbai Office Lease</td>
+                                            <td style="padding: 16px; color: #666;">Me</td>
+                                            <td style="padding: 16px;"><span style="background: #ffebee; color: #c62828; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">OVERDUE</span></td>
+                                            <td style="padding: 16px; color: #f44336; font-weight: 600;">Oct 15</td>
+                                            <td style="padding: 16px; color: #666; font-size: 13px;">Landlord asking for decision by EOW</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="whatsapp-content" style="display: none;">
+                <div style="display: flex; height: 100%; background: #f0f2f5;">
+                    <!-- WhatsApp Sidebar -->
+                    <div style="width: 400px; background: white; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column;">
+                        <div style="background: #f0f2f5; padding: 16px; border-bottom: 1px solid #e0e0e0;">
+                            <div style="font-size: 16px; font-weight: 600; color: #111;">Chats</div>
+                        </div>
+                        <div style="padding: 8px 16px; background: white; border-bottom: 1px solid #e0e0e0;">
+                            <input type="text" placeholder="Search or start new chat" style="width: 100%; padding: 8px 12px; border: none; background: #f0f2f5; border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <div style="flex: 1; overflow-y: auto;">
+                            <!-- Chat List -->
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 12px; background: #f0f2f5;">
+                                <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 16px; flex-shrink: 0;">LT</div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-size: 15px; font-weight: 500; color: #111;">Legal Team</div>
+                                        <div style="font-size: 12px; color: #667781;">9:47 AM</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #111; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Reviewing board deck now, will have comments by noon</div>
+                                </div>
+                                <div style="width: 20px; height: 20px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-top: 4px;">3</div>
+                            </div>
+                            
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 12px;">
+                                <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 16px; flex-shrink: 0;">AR</div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-size: 15px; font-weight: 500; color: #111;">Arjun (CFO)</div>
+                                        <div style="font-size: 12px; color: #667781;">9:23 AM</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #111; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Q3 numbers are ready. Where do you want me to send?</div>
+                                </div>
+                                <div style="width: 20px; height: 20px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-top: 4px;">2</div>
+                            </div>
+                            
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 12px;">
+                                <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 16px; flex-shrink: 0;">MK</div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-size: 15px; font-weight: 500; color: #111;">Marketing Team</div>
+                                        <div style="font-size: 12px; color: #667781;">8:52 AM</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #111; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Campaign data attached. Should we present this to CEO today?</div>
+                                </div>
+                                <div style="width: 20px; height: 20px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-top: 4px;">5</div>
+                            </div>
+                            
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 12px;">
+                                <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 16px; flex-shrink: 0;">RV</div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-size: 15px; font-weight: 500; color: #111;">Rahul (CTO)</div>
+                                        <div style="font-size: 12px; color: #667781;">8:15 AM</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Any update on hiring approval? Team is waiting...</div>
+                                </div>
+                                <div style="width: 20px; height: 20px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-top: 4px;">4</div>
+                            </div>
+                            
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 12px;">
+                                <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 16px; flex-shrink: 0;">OP</div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-size: 15px; font-weight: 500; color: #111;">Operations Team</div>
+                                        <div style="font-size: 12px; color: #667781;">Yesterday</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Warehouse manager: SKU will be restocked Friday morning</div>
+                                </div>
+                                <div style="width: 20px; height: 20px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-top: 4px;">8</div>
+                            </div>
+                            
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 12px;">
+                                <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 16px; flex-shrink: 0;">BD</div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-size: 15px; font-weight: 500; color: #111;">Board Members</div>
+                                        <div style="font-size: 12px; color: #667781;">Yesterday</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Anjali: Can we reschedule Thursday? Have conflict</div>
+                                </div>
+                                <div style="width: 20px; height: 20px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-top: 4px;">6</div>
+                            </div>
+                            
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 12px;">
+                                <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 16px; flex-shrink: 0;">HR</div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-size: 15px; font-weight: 500; color: #111;">HR Team</div>
+                                        <div style="font-size: 12px; color: #667781;">Yesterday</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Offer letters ready for 3 candidates. Need CEO approval</div>
+                                </div>
+                                <div style="width: 20px; height: 20px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-top: 4px;">4</div>
+                            </div>
+                            
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; gap: 12px;">
+                                <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 16px; flex-shrink: 0;">VC</div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-size: 15px; font-weight: 500; color: #111;">Vendors Coordination</div>
+                                        <div style="font-size: 12px; color: #667781;">Oct 29</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #667781; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">3 contracts need signatures this week</div>
+                                </div>
+                                <div style="width: 20px; height: 20px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-top: 4px;">7</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- WhatsApp Main Chat Area -->
+                    <div style="flex: 1; display: flex; flex-direction: column; background: #efeae2;">
+                        <div style="background: #f0f2f5; padding: 12px 16px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px;">LT</div>
+                            <div>
+                                <div style="font-size: 15px; font-weight: 500; color: #111;">Legal Team</div>
+                                <div style="font-size: 13px; color: #667781;">4 members</div>
+                            </div>
+                        </div>
+                        
+                        <div style="flex: 1; padding: 20px; overflow-y: auto;">
+                            <div style="margin-bottom: 12px; display: flex;">
+                                <div style="max-width: 65%; background: white; padding: 8px 12px; border-radius: 8px; font-size: 14px;">
+                                    <div style="font-weight: 600; font-size: 13px; color: #667eea; margin-bottom: 4px;">Meera (Legal)</div>
+                                    <div style="line-height: 1.5;">Morning! Got the board deck from Marketing. Starting review now.</div>
+                                    <div style="font-size: 11px; color: #667781; margin-top: 4px; text-align: right;">9:12 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px; display: flex; justify-content: flex-end;">
+                                <div style="max-width: 65%; background: #d9fdd3; padding: 8px 12px; border-radius: 8px; font-size: 14px;">
+                                    <div style="line-height: 1.5;">Perfect! CEO needs it by 11am for investor call. Can you prioritize?</div>
+                                    <div style="font-size: 11px; color: #667781; margin-top: 4px; text-align: right;">9:13 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px; display: flex;">
+                                <div style="max-width: 65%; background: white; padding: 8px 12px; border-radius: 8px; font-size: 14px;">
+                                    <div style="font-weight: 600; font-size: 13px; color: #667eea; margin-bottom: 4px;">Meera (Legal)</div>
+                                    <div style="line-height: 1.5;">On it! Quick question - the revenue projections on slide 12, do we have backup data for those numbers?</div>
+                                    <div style="font-size: 11px; color: #667781; margin-top: 4px; text-align: right;">9:28 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px; display: flex; justify-content: flex-end;">
+                                <div style="max-width: 65%; background: #d9fdd3; padding: 8px 12px; border-radius: 8px; font-size: 14px;">
+                                    <div style="line-height: 1.5;">Let me check with CFO. One sec...</div>
+                                    <div style="font-size: 11px; color: #667781; margin-top: 4px; text-align: right;">9:29 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px; display: flex;">
+                                <div style="max-width: 65%; background: white; padding: 8px 12px; border-radius: 8px; font-size: 14px;">
+                                    <div style="font-weight: 600; font-size: 13px; color: #667eea; margin-bottom: 4px;">Vikram (Legal)</div>
+                                    <div style="line-height: 1.5;">Also checking the customer testimonial on slide 8 - did we get written permission to use that?</div>
+                                    <div style="font-size: 11px; color: #667781; margin-top: 4px; text-align: right;">9:35 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px; display: flex; justify-content: flex-end;">
+                                <div style="max-width: 65%; background: #d9fdd3; padding: 8px 12px; border-radius: 8px; font-size: 14px;">
+                                    <div style="line-height: 1.5;">😰 Let me check with Marketing. This is getting tight...</div>
+                                    <div style="font-size: 11px; color: #667781; margin-top: 4px; text-align: right;">9:36 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px; display: flex;">
+                                <div style="max-width: 65%; background: white; padding: 8px 12px; border-radius: 8px; font-size: 14px;">
+                                    <div style="font-weight: 600; font-size: 13px; color: #667eea; margin-bottom: 4px;">Meera (Legal)</div>
+                                    <div style="line-height: 1.5;">We'll work fast. Aiming to have clean version by 10:30. Will that work?</div>
+                                    <div style="font-size: 11px; color: #667781; margin-top: 4px; text-align: right;">9:47 AM</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px; display: flex; justify-content: flex-end;">
+                                <div style="max-width: 65%; background: #d9fdd3; padding: 8px 12px; border-radius: 8px; font-size: 14px;">
+                                    <div style="line-height: 1.5;">Yes perfect! Thank you both 🙏</div>
+                                    <div style="font-size: 11px; color: #667781; margin-top: 4px; text-align: right;">9:48 AM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="gmail-content" style="display: none;">
+                <div style="padding: 20px; background: white; height: 100%; overflow-y: auto;">
+                    <div style="border-bottom: 1px solid #e0e0e0; padding-bottom: 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                        <h2 style="font-size: 20px; color: #202124;">Inbox (89)</h2>
+                        <button style="background: #1a73e8; color: white; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;">Compose</button>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1px; background: #f5f5f5;">
+                        <!-- Urgent emails -->
+                        <div style="background: #fff4e5; padding: 16px; border-left: 4px solid #ff9800; cursor: pointer;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">Board Member - Anjali Sharma</span>
+                                <span style="color: #5f6368; font-size: 13px;">10:15 AM</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px; font-weight: 500;">RE: Thursday Board Meeting - Need to Reschedule</div>
+                            <div style="color: #5f6368; font-size: 14px;">Unfortunately I have a conflict that day. Can we find alternative dates? Also need updated financials before we meet...</div>
+                        </div>
+                        
+                        <div style="background: white; padding: 16px; border-left: 4px solid #d93025; cursor: pointer;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">Sequoia Capital - Investor Relations</span>
+                                <span style="color: #5f6368; font-size: 13px;">9:52 AM</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px; font-weight: 500;">Tomorrow's call - Materials needed</div>
+                            <div style="color: #5f6368; font-size: 14px;">Hi! Looking forward to our call tomorrow at 10am. Could you send over the latest deck and unit economics breakdown? Also...</div>
+                        </div>
+                        
+                        <div style="background: white; padding: 16px; border-left: 4px solid #d93025;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">Legal - Contract Review</span>
+                                <span style="color: #5f6368; font-size: 13px;">Yesterday</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px; font-weight: 500;">Vendor contracts - 3 need CEO signature</div>
+                            <div style="color: #5f6368; font-size: 14px;">Hi Priya, These have been pending since last week. The vendors are following up. Can you get CEO to sign today?</div>
+                        </div>
+                        
+                        <div style="background: white; padding: 16px; border-left: 4px solid #d93025;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">CTO - Rahul Verma</span>
+                                <span style="color: #5f6368; font-size: 13px;">Yesterday</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px; font-weight: 500;">URGENT: Hiring Approval Needed</div>
+                            <div style="color: #5f6368; font-size: 14px;">Priya, we have 2 senior engineers ready to accept offers but I need headcount approval first. This is blocking us for 2 weeks now...</div>
+                        </div>
+                        
+                        <div style="background: white; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">CFO - Arjun Reddy</span>
+                                <span style="color: #5f6368; font-size: 13px;">Yesterday</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px; font-weight: 500;">Q3 Financial Summary - Ready for review</div>
+                            <div style="color: #5f6368; font-size: 14px;">Attached the Q3 numbers. Revenue at ₹1.43Cr (23% growth MoM), but burn is up. Need to discuss before board meeting...</div>
+                        </div>
+                        
+                        <div style="background: white; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">Marketing Head - Sneha Kapoor</span>
+                                <span style="color: #5f6368; font-size: 13px;">Oct 29</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px; font-weight: 500;">Campaign Performance Data - Q4</div>
+                            <div style="color: #5f6368; font-size: 14px;">Hi Priya, Here's the performance breakdown you requested. Instagram ROAS at 2.8x, Meta ads performing well. Should we scale budget?</div>
+                        </div>
+                        
+                        <div style="background: white; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 600; color: #202124;">Operations - Mumbai Warehouse</span>
+                                <span style="color: #5f6368; font-size: 13px;">Oct 29</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px; font-weight: 500;">RE: SKU #4782 Stockout - Update</div>
+                            <div style="color: #5f6368; font-size: 14px;">New shipment arriving Friday morning. We've expedited with supplier. Meanwhile transferred 12 units from Delhi to cover urgent orders...</div>
+                        </div>
+                        
+                        <div style="background: white; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 500; color: #202124;">HR - Talent Acquisition</span>
+                                <span style="color: #5f6368; font-size: 13px;">Oct 28</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px;">Offer Letters - 3 candidates ready</div>
+                            <div style="color: #5f6368; font-size: 14px;">Offer letters drafted for Product Manager, Senior Designer, and Backend Engineer. Need CEO approval to send...</div>
+                        </div>
+                        
+                        <div style="background: white; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 500; color: #202124;">Vendor - Logistics Partner</span>
+                                <span style="color: #5f6368; font-size: 13px;">Oct 28</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px;">Following up: Contract renewal</div>
+                            <div style="color: #5f6368; font-size: 14px;">Hi, Haven't heard back on the contract we sent 2 weeks ago. Our rates increase 15% if not signed by month end...</div>
+                        </div>
+                        
+                        <div style="background: white; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-weight: 500; color: #202124;">Real Estate - Mumbai Office</span>
+                                <span style="color: #5f6368; font-size: 13px;">Oct 27</span>
+                            </div>
+                            <div style="color: #202124; font-size: 14px; margin-bottom: 4px;">Lease Agreement - Decision needed by Friday</div>
+                            <div style="color: #5f6368; font-size: 14px;">The landlord needs confirmation by end of week or the space goes to another tenant. Please advise...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="calendar-content" style="display: none;">
+                <div style="height: 100%; background: white; display: flex; flex-direction: column;">
+                    <div style="padding: 20px 24px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;">
+                        <h2 style="font-size: 20px; color: #3c4043;">CEO Calendar - This Week</h2>
+                        <button style="background: #1a73e8; color: white; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;">+ New Event</button>
+                    </div>
+                    
+                    <div style="flex: 1; overflow-y: auto; padding: 24px;">
+                        <!-- Monday -->
+                        <div style="margin-bottom: 32px;">
+                            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 12px; color: #70757a; text-transform: uppercase;">MON</div>
+                                    <div style="font-size: 24px; font-weight: 600; color: #1a73e8;">30</div>
+                                </div>
+                                <div style="flex: 1; height: 1px; background: #e0e0e0;"></div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 16px; border-radius: 4px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-weight: 600; color: #202124; font-size: 15px;">Investor Call - Sequoia</div>
+                                        <div style="background: #ff9800; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">IN 15 MIN</div>
+                                    </div>
+                                    <div style="color: #5f6368; font-size: 14px; margin-bottom: 8px;">11:00 AM - 12:00 PM</div>
+                                    <div style="color: #5f6368; font-size: 13px;">📹 Zoom Meeting • Needs: Deck, unit economics, growth projections</div>
+                                    <div style="margin-top: 8px; background: #fff; padding: 8px; border-radius: 4px; font-size: 12px; color: #d93025;">⚠️ PREP NOT COMPLETE - Missing investor brief</div>
+                                </div>
+                                
+                                <div style="background: #f8f9fa; border-left: 4px solid #5f6368; padding: 16px; border-radius: 4px;">
+                                    <div style="font-weight: 600; color: #202124; font-size: 15px; margin-bottom: 4px;">Weekly Leadership Sync</div>
+                                    <div style="color: #5f6368; font-size: 14px; margin-bottom: 8px;">2:00 PM - 3:00 PM</div>
+                                    <div style="color: #5f6368; font-size: 13px;">📍 Conference Room A • CFO, CTO, COO, Marketing Head</div>
+                                </div>
+                                
+                                <div style="background: #f8f9fa; border-left: 4px solid #5f6368; padding: 16px; border-radius: 4px;">
+                                    <div style="font-weight: 600; color: #202124; font-size: 15px; margin-bottom: 4px;">1:1 with Chief of Staff</div>
+                                    <div style="color: #5f6368; font-size: 14px; margin-bottom: 8px;">4:30 PM - 5:00 PM</div>
+                                    <div style="color: #5f6368; font-size: 13px;">📍 CEO Office • Weekly priorities review</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tuesday -->
+                        <div style="margin-bottom: 32px;">
+                            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 12px; color: #70757a; text-transform: uppercase;">TUE</div>
+                                    <div style="font-size: 24px; font-weight: 600; color: #3c4043;">31</div>
+                                </div>
+                                <div style="flex: 1; height: 1px; background: #e0e0e0;"></div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div style="background: #f8f9fa; border-left: 4px solid #5f6368; padding: 16px; border-radius: 4px;">
+                                    <div style="font-weight: 600; color: #202124; font-size: 15px; margin-bottom: 4px;">Product Roadmap Review</div>
+                                    <div style="color: #5f6368; font-size: 14px; margin-bottom: 8px;">10:00 AM - 11:30 AM</div>
+                                    <div style="color: #5f6368; font-size: 13px;">📍 Conference Room B • CTO, Product Team</div>
+                                </div>
+                                
+                                <div style="background: #e8f5e9; border-left: 4px solid #1e8e3e; padding: 16px; border-radius: 4px;">
+                                    <div style="font-weight: 600; color: #202124; font-size: 15px; margin-bottom: 4px;">Customer Visit - Enterprise Client</div>
+                                    <div style="color: #5f6368; font-size: 14px; margin-bottom: 8px;">2:00 PM - 4:00 PM</div>
+                                    <div style="color: #5f6368; font-size: 13px;">📍 Client Office, BKC • Sales Head + CTO joining</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Wednesday -->
+                        <div style="margin-bottom: 32px;">
+                            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 12px; color: #70757a; text-transform: uppercase;">WED</div>
+                                    <div style="font-size: 24px; font-weight: 600; color: #3c4043;">1</div>
+                                </div>
+                                <div style="flex: 1; height: 1px; background: #e0e0e0;"></div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div style="background: #f8f9fa; border-left: 4px solid #5f6368; padding: 16px; border-radius: 4px;">
+                                    <div style="font-weight: 600; color: #202124; font-size: 15px; margin-bottom: 4px;">All Hands Meeting</div>
+                                    <div style="color: #5f6368; font-size: 14px; margin-bottom: 8px;">11:00 AM - 12:00 PM</div>
+                                    <div style="color: #5f6368; font-size: 13px;">📍 Main Office • Entire company</div>
+                                </div>
+                                
+                                <div style="background: #f3e8fd; border-left: 4px solid #9334e6; padding: 16px; border-radius: 4px;">
+                                    <div style="font-weight: 600; color: #202124; font-size: 15px; margin-bottom: 4px;">Investor Lunch - Lightspeed</div>
+                                    <div style="color: #5f6368; font-size: 14px; margin-bottom: 8px;">1:00 PM - 2:30 PM</div>
+                                    <div style="color: #5f6368; font-size: 13px;">📍 The Table, BKC • Series B discussion</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Thursday -->
+                        <div style="margin-bottom: 32px;">
+                            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 12px; color: #70757a; text-transform: uppercase;">THU</div>
+                                    <div style="font-size: 24px; font-weight: 600; color: #3c4043;">2</div>
+                                </div>
+                                <div style="flex: 1; height: 1px; background: #e0e0e0;"></div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div style="background: #ffebee; border-left: 4px solid #d93025; padding: 16px; border-radius: 4px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-weight: 600; color: #202124; font-size: 15px;">Board Meeting</div>
+                                        <div style="background: #d93025; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">NEEDS RESCHEDULE</div>
+                                    </div>
+                                    <div style="color: #5f6368; font-size: 14px; margin-bottom: 8px;">9:00 AM - 12:00 PM</div>
+                                    <div style="color: #5f6368; font-size: 13px;">📍 Conference Room A • All Board Members</div>
+                                    <div style="margin-top: 8px; background: #fff; padding: 8px; border-radius: 4px; font-size: 12px; color: #d93025;">⚠️ 2 board members can't make it - find new time</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Friday -->
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 12px; color: #70757a; text-transform: uppercase;">FRI</div>
+                                    <div style="font-size: 24px; font-weight: 600; color: #3c4043;">3</div>
+                                </div>
+                                <div style="flex: 1; height: 1px; background: #e0e0e0;"></div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div style="background: #f8f9fa; border-left: 4px solid #5f6368; padding: 16px; border-radius: 4px;">
+                                    <div style="font-weight: 600; color: #202124; font-size: 15px; margin-bottom: 4px;">Strategy Planning Session</div>
+                                    <div style="color: #5f6368; font-size: 14px; margin-bottom: 8px;">10:00 AM - 1:00 PM</div>
+                                    <div style="color: #5f6368; font-size: 13px;">📍 Offsite • Leadership Team - Q4 priorities</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="drive-content" style="display: none;">
+                <div style="height: 100%; background: white; display: flex; flex-direction: column;">
+                    <div style="padding: 12px 16px; background: #f1f3f4; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="font-size: 16px; font-weight: 500; color: #202124;">Board Meeting Deck - Q3 2024</div>
+                            <div style="background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;">IN REVIEW</div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button style="background: #f1f3f4; color: #5f6368; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer;">Comments (8)</button>
+                            <button style="background: #1a73e8; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer;">Share</button>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1; overflow-y: auto; padding: 20px; background: #f8f9fa;">
+                        <div style="max-width: 900px; margin: 0 auto;">
+                            <!-- Version History -->
+                            <div style="background: #fff3e0; border: 1px solid #ffc107; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+                                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                                    <span style="font-size: 20px;">⏱️</span>
+                                    <div>
+                                        <div style="font-weight: 600; color: #856404;">Last edited 23 minutes ago by Marketing</div>
+                                        <div style="font-size: 13px; color: #856404;">Waiting on Legal review before sharing with CEO</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Comments & Issues -->
+                            <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #202124;">Open Issues (8)</h3>
+                                
+                                <div style="border-left: 3px solid #d93025; padding-left: 12px; margin-bottom: 16px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-weight: 600; color: #202124; font-size: 14px;">Slide 12 - Revenue Projections</div>
+                                        <div style="background: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">CRITICAL</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #5f6368; margin-bottom: 4px;">Legal team: "Need backup data sources for these numbers"</div>
+                                    <div style="font-size: 12px; color: #1a73e8; font-weight: 500;">→ Assigned to CFO</div>
+                                </div>
+                                
+                                <div style="border-left: 3px solid #d93025; padding-left: 12px; margin-bottom: 16px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-weight: 600; color: #202124; font-size: 14px;">Slide 8 - Customer Testimonial</div>
+                                        <div style="background: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">BLOCKER</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #5f6368; margin-bottom: 4px;">Legal team: "Did we get written permission to use this quote?"</div>
+                                    <div style="font-size: 12px; color: #1a73e8; font-weight: 500;">→ Assigned to Marketing</div>
+                                </div>
+                                
+                                <div style="border-left: 3px solid #ff9800; padding-left: 12px; margin-bottom: 16px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-weight: 600; color: #202124; font-size: 14px;">Slide 15 - Burn Rate Chart</div>
+                                        <div style="background: #fff3e0; color: #e65100; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">NEEDS REVIEW</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #5f6368; margin-bottom: 4px;">CFO: "Should we include projections or just actuals?"</div>
+                                    <div style="font-size: 12px; color: #1a73e8; font-weight: 500;">→ Waiting on CEO decision</div>
+                                </div>
+                                
+                                <div style="border-left: 3px solid #ff9800; padding-left: 12px; margin-bottom: 16px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-weight: 600; color: #202124; font-size: 14px;">Slide 3 - Market Size</div>
+                                        <div style="background: #fff3e0; color: #e65100; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">NEEDS UPDATE</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #5f6368; margin-bottom: 4px;">Board member: "These numbers are from 2023, do we have 2024 data?"</div>
+                                    <div style="font-size: 12px; color: #1a73e8; font-weight: 500;">→ Assigned to Strategy Team</div>
+                                </div>
+                                
+                                <div style="border-left: 3px solid #1e8e3e; padding-left: 12px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <div style="font-weight: 600; color: #202124; font-size: 14px;">Slide 20 - Team Structure</div>
+                                        <div style="background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">APPROVED</div>
+                                    </div>
+                                    <div style="font-size: 13px; color: #5f6368;">Marketing: "Updated with latest headcount"</div>
+                                </div>
+                            </div>
+                            
+                            <!-- File Info -->
+                            <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #202124;">File Information</h3>
+                                
+                                <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px; font-size: 14px;">
+                                    <div style="color: #5f6368;">Created:</div>
+                                    <div style="color: #202124;">Oct 15, 2024</div>
+                                    
+                                    <div style="color: #5f6368;">Last Modified:</div>
+                                    <div style="color: #202124;">Oct 30, 10:07 AM by sneha@company.com</div>
+                                    
+                                    <div style="color: #5f6368;">Shared with:</div>
+                                    <div style="color: #202124;">
+                                        <div style="margin-bottom: 4px;">• CEO (Owner)</div>
+                                        <div style="margin-bottom: 4px;">• CFO (Editor)</div>
+                                        <div style="margin-bottom: 4px;">• Legal Team (Commenter)</div>
+                                        <div style="margin-bottom: 4px;">• Marketing Team (Editor)</div>
+                                        <div>• Chief of Staff (Editor)</div>
+                                    </div>
+                                    
+                                    <div style="color: #5f6368;">Version:</div>
+                                    <div style="color: #202124;">v47 (23 revisions today)</div>
+                                    
+                                    <div style="color: #5f6368;">Due Date:</div>
+                                    <div style="color: #d93025; font-weight: 600;">Board Meeting: Nov 2, 9:00 AM</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Required -->
+                            <div style="background: #ffebee; border: 2px solid #d93025; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                    <span style="font-size: 24px;">🚨</span>
+                                    <div style="font-weight: 700; color: #c62828; font-size: 16px;">ACTION REQUIRED</div>
+                                </div>
+                                <div style="font-size: 14px; color: #c62828; line-height: 1.6;">
+                                    <div style="margin-bottom: 8px;">• Resolve 2 critical blockers before 11am</div>
+                                    <div style="margin-bottom: 8px;">• Get final Legal approval (Meera reviewing now)</div>
+                                    <div style="margin-bottom: 8px;">• Send to CEO for investor call prep</div>
+                                    <div>• Schedule board meeting reschedule (2 members unavailable Thu)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-bar">
+            <div class="cta-text">What if you could see what's actually blocking, in one place?</div>
+            <button class="cta-button" onclick="window.location.href='after-cos.html'">See how →</button>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(tabName) {
+            // Hide all content
+            const allContent = document.querySelectorAll('.tab-content');
+            allContent.forEach(content => content.style.display = 'none');
+            
+            // Remove active class from all tabs
+            const allTabs = document.querySelectorAll('.tab');
+            allTabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected content
+            const selectedContent = document.getElementById(tabName + '-content');
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+            }
+            
+            // Add active class to clicked tab
+            event.currentTarget.classList.add('active');
+            
+            // Update address bar
+            const addressBar = document.querySelector('.address-bar');
+            const urls = {
+                'notion': 'notion.so/projects-tracker',
+                'whatsapp': 'web.whatsapp.com',
+                'gmail': 'mail.google.com/mail/u/0/#inbox',
+                'calendar': 'calendar.google.com',
+                'asana': 'app.asana.com/ceo-priorities',
+                'drive': 'drive.google.com/board-deck'
+            };
+            addressBar.textContent = urls[tabName] || 'loading...';
+        }
+    </script>
+</body>
+</html>

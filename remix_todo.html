@@ -1,0 +1,1628 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Done. - Your Automation Dashboard</title>
+        <!-- 1. Load Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- 2. Load Google Font (Lexend) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <!-- Changed font from Inter to Lexend -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <style>
+            /* Use the Lexend font family */
+            body {
+                font-family: "Lexend", sans-serif;
+            }
+
+            /* Custom styles for a cleaner look */
+
+            /* Workflowy-style bullet/expander */
+            .task-expander {
+                transition: transform 0.15s ease-in-out;
+            }
+            .task-expander.collapsed svg {
+                transform: rotate(-90deg);
+            }
+
+            /* Todoist-style checkbox */
+            .task-checkbox {
+                transition: all 0.2s ease;
+            }
+            .task-checkbox:hover {
+                transform: scale(1.1);
+                border-color: #4f46e5; /* indigo-600 */
+            }
+            .task-checkbox.completed {
+                background-color: #4f46e5;
+                border-color: #4f46e5;
+            }
+
+            /* Strike-through for completed task text */
+            .task-content.completed {
+                text-decoration: line-through;
+                color: #9ca3af; /* gray-400 */
+            }
+
+            /* Subtle focus for contenteditable */
+            .task-content:focus {
+                outline: none;
+                background-color: #f3f4f6; /* gray-100 */
+                border-radius: 4px;
+            }
+
+            /* Hide scrollbar but allow scrolling */
+            .sidebar-scroll::-webkit-scrollbar {
+                display: none;
+            }
+            .sidebar-scroll {
+                -ms-overflow-style: none; /* IE and Edge */
+                scrollbar-width: none; /* Firefox */
+            }
+
+            /* Custom priority classes */
+            .priority-p1 {
+                color: #ef4444; /* red-500 */
+            }
+            .priority-p2 {
+                color: #f97316; /* orange-500 */
+            }
+            /* Changed from blue to indigo */
+            .priority-p3 {
+                color: #6366f1; /* indigo-500 */
+            }
+            .priority-p4 {
+                color: #6b7280; /* gray-500 */
+            }
+
+            /* Animation for widget refresh */
+            .widget-refresh-icon.refreshing {
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 text-gray-800 antialiased">
+        <!-- Main App Layout -->
+        <div class="flex h-screen overflow-hidden">
+            <!-- Sidebar (Todoist Style) -->
+            <nav
+                class="hidden md:flex w-72 flex-col bg-white border-r border-gray-200"
+            >
+                <!-- Sidebar Header -->
+                <div
+                    class="p-4 flex items-center justify-between border-b border-gray-100"
+                    style="height: 65px"
+                >
+                    <div class="flex items-center space-x-2">
+                        <img
+                            src="https://placehold.co/32x32/4f46e5/white?text=D"
+                            alt="Logo"
+                            class="rounded-full w-8 h-8"
+                        />
+                        <span class="font-bold text-lg">Done.</span>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div
+                    class="flex-1 overflow-y-auto sidebar-scroll p-4 space-y-1"
+                >
+                    <!-- Restyled "New Task" button -->
+                    <button
+                        class="w-full flex items-center justify-center space-x-2 bg-gray-900 text-white font-semibold px-4 py-2.5 rounded-lg shadow-sm hover:bg-gray-700 transition-colors"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <line x1="12" x2="12" y1="5" y2="19" />
+                            <line x1="5" x2="19" y1="12" y2="12" />
+                        </svg>
+                        <span>New Task</span>
+                    </button>
+
+                    <!-- Dashboards Section -->
+                    <div class="pt-6">
+                        <div
+                            class="flex items-center justify-between px-3 py-2"
+                        >
+                            <span
+                                class="text-xs font-semibold text-gray-500 uppercase"
+                                >Dashboards</span
+                            >
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <!-- Plus Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <line x1="12" x2="12" y1="5" y2="19" />
+                                    <line x1="5" x2="19" y1="12" y2="12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="space-y-1 mt-1">
+                            <!-- Changed active color to indigo and font size to sm -->
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 bg-gray-100 text-indigo-600 rounded-lg font-semibold"
+                                data-view="dashboard"
+                                data-title="Daily Briefing"
+                            >
+                                <!-- Grid Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <rect
+                                        width="7"
+                                        height="7"
+                                        x="3"
+                                        y="3"
+                                        rx="1"
+                                    />
+                                    <rect
+                                        width="7"
+                                        height="7"
+                                        x="14"
+                                        y="3"
+                                        rx="1"
+                                    />
+                                    <rect
+                                        width="7"
+                                        height="7"
+                                        x="14"
+                                        y="14"
+                                        rx="1"
+                                    />
+                                    <rect
+                                        width="7"
+                                        height="7"
+                                        x="3"
+                                        y="14"
+                                        rx="1"
+                                    />
+                                </svg>
+                                <span class="text-sm">Daily Briefing</span>
+                            </a>
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
+                                data-view="dashboard"
+                                data-title="Social Media"
+                            >
+                                <!-- Thumbs Up Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M7 10v12" />
+                                    <path
+                                        d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a2 2 0 0 1 3 1.88Z"
+                                    />
+                                </svg>
+                                <span class="text-sm">Social Media</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Tasks (Builder) Section -->
+                    <div class="pt-6">
+                        <div
+                            class="flex items-center justify-between px-3 py-2"
+                        >
+                            <span
+                                class="text-xs font-semibold text-gray-500 uppercase"
+                                >Tasks</span
+                            >
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <!-- Filter Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polygon
+                                        points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="space-y-1 mt-1">
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
+                                data-view="task"
+                                data-title="Inbox"
+                            >
+                                <!-- Inbox Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M22 12h-6l-2 3h-4l-2-3H2" />
+                                    <path
+                                        d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"
+                                    />
+                                </svg>
+                                <span class="text-sm">Inbox</span>
+                                <span
+                                    class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
+                                    >5</span
+                                >
+                            </a>
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                                data-view="task"
+                                data-title="Personal Tasks"
+                            >
+                                <span
+                                    class="w-2 h-2 rounded-full bg-red-500"
+                                ></span>
+                                <span class="text-sm font-medium"
+                                    >Personal</span
+                                >
+                            </a>
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                                data-view="task"
+                                data-title="Sales Tasks"
+                            >
+                                <span
+                                    class="w-2 h-2 rounded-full bg-green-500"
+                                ></span>
+                                <span class="text-sm font-medium">Sales</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="flex-1 flex flex-col bg-gray-50 overflow-hidden">
+                <!-- Main Header -->
+                <header
+                    class="flex-shrink-0 flex items-center justify-between p-4 bg-white border-b border-gray-200"
+                    style="height: 65px"
+                >
+                    <h1 id="main-header-title" class="text-2xl font-bold">
+                        Daily Briefing
+                    </h1>
+
+                    <!-- Dashboard Actions (shown only for dashboards) -->
+                    <div
+                        id="dashboard-actions"
+                        class="flex items-center space-x-2"
+                    >
+                        <!-- Changed button color to indigo -->
+                        <button
+                            class="flex items-center space-x-2 bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg shadow-sm hover:bg-indigo-700 transition-colors"
+                        >
+                            <!-- Refresh Icon -->
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <polyline points="23 4 23 10 17 10" />
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                            </svg>
+                            <span>Refresh All</span>
+                        </button>
+                        <button
+                            class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                        >
+                            <!-- More Horizontal Icon -->
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle cx="12" cy="12" r="1" />
+                                <circle cx="19" cy="12" r="1" />
+                                <circle cx="5" cy="12" r="1" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Task Actions (hidden by default) -->
+                    <div
+                        id="task-actions"
+                        class="hidden items-center space-x-2"
+                    >
+                        <button
+                            class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                        >
+                            <!-- Search Icon -->
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle cx="11" cy="11" r="8" />
+                                <line x1="21" x2="16.65" y1="21" y2="16.65" />
+                            </svg>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Main Content Area -->
+                <div class="flex-1 overflow-y-auto p-6 md:p-8">
+                    <!--
+                  VIEW 1: DASHBOARD (DEFAULT SHOWN)
+                  This is the "viewer" mode with widgets.
+                -->
+                    <div
+                        id="dashboard-view"
+                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    >
+                        <!-- Widget 1: Messages -->
+                        <div
+                            class="widget-card bg-white rounded-xl shadow-lg flex flex-col"
+                        >
+                            <header
+                                class="flex items-center justify-between p-4 border-b border-gray-100"
+                            >
+                                <h3 class="font-semibold">
+                                    Messages from Ruchika
+                                </h3>
+                                <div class="flex items-center space-x-1">
+                                    <button
+                                        class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                    >
+                                        <svg
+                                            class="widget-refresh-icon"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <polyline
+                                                points="23 4 23 10 17 10"
+                                            />
+                                            <path
+                                                d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <circle cx="12" cy="12" r="1" />
+                                            <circle cx="19" cy="12" r="1" />
+                                            <circle cx="5" cy="12" r="1" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </header>
+                            <div
+                                class="widget-content p-4 h-48 overflow-y-auto space-y-3"
+                            >
+                                <!-- Automation results would go here -->
+                                <div class="text-sm">
+                                    <!-- Changed text color to indigo -->
+                                    <strong class="text-indigo-600"
+                                        >LinkedIn:</strong
+                                    >
+                                    "Hey, did you see the latest designs?"
+                                </div>
+                                <div class="text-sm">
+                                    <strong class="text-red-600">Gmail:</strong>
+                                    "Re: Project Alpha - Attaching the deck."
+                                </div>
+                                <div class="text-sm">
+                                    <strong class="text-pink-500"
+                                        >Instagram:</strong
+                                    >
+                                    "OMG that photo! 🔥"
+                                </div>
+                            </div>
+                            <footer
+                                class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl"
+                            >
+                                Last run: 2 mins ago
+                            </footer>
+                        </div>
+
+                        <!-- Widget 2: News -->
+                        <div
+                            class="widget-card bg-white rounded-xl shadow-lg flex flex-col"
+                        >
+                            <header
+                                class="flex items-center justify-between p-4 border-b border-gray-100"
+                            >
+                                <h3 class="font-semibold">Latest AI News</h3>
+                                <div class="flex items-center space-x-1">
+                                    <button
+                                        class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                    >
+                                        <svg
+                                            class="widget-refresh-icon"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <polyline
+                                                points="23 4 23 10 17 10"
+                                            />
+                                            <path
+                                                d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <circle cx="12" cy="12" r="1" />
+                                            <circle cx="19" cy="12" r="1" />
+                                            <circle cx="5" cy="12" r="1" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </header>
+                            <div
+                                class="widget-content p-4 h-48 overflow-y-auto space-y-3"
+                            >
+                                <!-- Automation results would go here -->
+                                <!-- Changed hover color to indigo -->
+                                <div
+                                    class="text-sm font-medium hover:text-indigo-600 cursor-pointer"
+                                >
+                                    New Model Release Changes Everything
+                                </div>
+                                <p class="text-xs text-gray-500">
+                                    TechCrunch: 11:05 AM
+                                </p>
+                                <div
+                                    class="text-sm font-medium hover:text-indigo-600 cursor-pointer"
+                                >
+                                    OpenAI Dev Day Key Takeaways
+                                </div>
+                                <p class="text-xs text-gray-500">
+                                    The Verge: 10:30 AM
+                                </p>
+                            </div>
+                            <footer
+                                class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl"
+                            >
+                                Last run: 15 mins ago
+                            </footer>
+                        </div>
+
+                        <!-- Widget 3: Add New -->
+                        <button
+                            class="flex items-center justify-center space-x-2 bg-gray-50/50 border-2 border-gray-300 border-dashed rounded-xl text-gray-500 hover:bg-white hover:border-gray-400 hover:text-gray-700 transition-colors"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <line x1="12" x2="12" y1="5" y2="19" />
+                                <line x1="5" x2="19" y1="12" y2="12" />
+                            </svg>
+                            <span class="font-semibold"
+                                >Add Task to Dashboard</span
+                            >
+                        </button>
+                    </div>
+
+                    <!--
+                  VIEW 2: TASKS (HIDDEN BY DEFAULT)
+                  This is the "builder" mode, our original todo list, now on a white "page".
+                -->
+                    <div
+                        id="task-view"
+                        class="hidden bg-white rounded-xl shadow-lg p-6 md:p-8 space-y-1"
+                    >
+                        <!-- Task Item 1 (with children) -->
+                        <div class="task-item-container">
+                            <!-- Task Row -->
+                            <div
+                                class="task-item flex items-start space-x-2 py-2 group"
+                            >
+                                <!-- Expander (Workflowy) -->
+                                <button
+                                    class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 mt-0.5"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="3"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <polyline
+                                            points="6 9 12 15 18 9"
+                                        ></polyline>
+                                    </svg>
+                                </button>
+                                <!-- Checkbox (Todoist) -->
+                                <button
+                                    class="task-checkbox flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center"
+                                >
+                                    <!-- Check Icon (hidden) -->
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="12"
+                                        height="12"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="white"
+                                        stroke-width="3"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="hidden"
+                                    >
+                                        <polyline
+                                            points="20 6 9 17 4 12"
+                                        ></polyline>
+                                    </svg>
+                                </button>
+                                <!-- Content -->
+                                <div class="flex-grow">
+                                    <!-- Changed font size from text-base to text-sm -->
+                                    <div
+                                        class="task-content text-sm"
+                                        contenteditable="true"
+                                    >
+                                        Task: Pull all messages from Ruchika
+                                    </div>
+                                    <div
+                                        class="flex items-center space-x-3 text-xs text-gray-500 mt-1"
+                                    >
+                                        <span
+                                            class="due-date text-green-600 font-medium"
+                                            >Today</span
+                                        >
+                                        <span
+                                            class="priority priority-p1 font-bold"
+                                            >P1</span
+                                        >
+                                        <!-- We can add automation-specific metadata here later -->
+                                        <!-- <span class="text-indigo-600">Automation Attached</span> -->
+                                    </div>
+                                </div>
+                                <!-- Hover Actions (Todoist) -->
+                                <div
+                                    class="flex-shrink-0 flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                >
+                                    <button
+                                        class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                        title="Add to Dashboard"
+                                    >
+                                        <!-- Dashboard Icon -->
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <rect
+                                                width="7"
+                                                height="9"
+                                                x="3"
+                                                y="3"
+                                                rx="1"
+                                            />
+                                            <rect
+                                                width="7"
+                                                height="5"
+                                                x="14"
+                                                y="3"
+                                                rx="1"
+                                            />
+                                            <rect
+                                                width="7"
+                                                height="9"
+                                                x="14"
+                                                y="12"
+                                                rx="1"
+                                            />
+                                            <rect
+                                                width="7"
+                                                height="5"
+                                                x="3"
+                                                y="16"
+                                                rx="1"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                        title="Set Due Date"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <rect
+                                                width="18"
+                                                height="18"
+                                                x="3"
+                                                y="4"
+                                                rx="2"
+                                                ry="2"
+                                            />
+                                            <line
+                                                x1="16"
+                                                x2="16"
+                                                y1="2"
+                                                y2="6"
+                                            />
+                                            <line x1="8" x2="8" y1="2" y2="6" />
+                                            <line
+                                                x1="3"
+                                                x2="21"
+                                                y1="10"
+                                                y2="10"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                        title="Set Priority"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path
+                                                d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
+                                            />
+                                            <line
+                                                x1="4"
+                                                x2="4"
+                                                y1="22"
+                                                y2="15"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                        title="More Actions"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <circle cx="12" cy="12" r="1" />
+                                            <circle cx="19" cy="12" r="1" />
+                                            <circle cx="5" cy="12" r="1" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Nested Tasks (Workflowy) -->
+                            <div
+                                class="nested-tasks pl-8 ml-3.5 border-l border-gray-200"
+                            >
+                                <!-- Nested Task 1 -->
+                                <div class="task-item-container">
+                                    <div
+                                        class="task-item flex items-start space-x-2 py-2 group"
+                                    >
+                                        <button
+                                            class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-gray-400 mt-0.5"
+                                            disabled
+                                        >
+                                            <!-- Simple bullet for item with no children -->
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="8"
+                                                height="8"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <circle
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="10"
+                                                ></circle>
+                                            </svg>
+                                        </button>
+                                        <button
+                                            class="task-checkbox flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="12"
+                                                height="12"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="white"
+                                                stroke-width="3"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="hidden"
+                                            >
+                                                <polyline
+                                                    points="20 6 9 17 4 12"
+                                                ></polyline>
+                                            </svg>
+                                        </button>
+                                        <div class="flex-grow">
+                                            <div
+                                                class="task-content text-sm"
+                                                contenteditable="true"
+                                            >
+                                                Step 1: Open LinkedIn Messages
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nested Task 2 -->
+                                <div class="task-item-container">
+                                    <div
+                                        class="task-item flex items-start space-x-2 py-2 group"
+                                    >
+                                        <button
+                                            class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-gray-400 mt-0.5"
+                                            disabled
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="8"
+                                                height="8"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <circle
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="10"
+                                                ></circle>
+                                            </svg>
+                                        </button>
+                                        <button
+                                            class="task-checkbox flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="12"
+                                                height="12"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="white"
+                                                stroke-width="3"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="hidden"
+                                            >
+                                                <polyline
+                                                    points="20 6 9 17 4 12"
+                                                ></polyline>
+                                            </svg>
+                                        </button>
+                                        <div class="flex-grow">
+                                            <div
+                                                class="task-content text-sm"
+                                                contenteditable="true"
+                                            >
+                                                Step 2: Filter by "Ruchika"
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nested Task 3 -->
+                                <div class="task-item-container">
+                                    <div
+                                        class="task-item flex items-start space-x-2 py-2 group"
+                                    >
+                                        <button
+                                            class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-gray-400 mt-0.5"
+                                            disabled
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="8"
+                                                height="8"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <circle
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="10"
+                                                ></circle>
+                                            </svg>
+                                        </button>
+                                        <button
+                                            class="task-checkbox flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="12"
+                                                height="12"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="white"
+                                                stroke-width="3"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="hidden"
+                                            >
+                                                <polyline
+                                                    points="20 6 9 17 4 12"
+                                                ></polyline>
+                                            </svg>
+                                        </button>
+                                        <div class="flex-grow">
+                                            <div
+                                                class="task-content text-sm"
+                                                contenteditable="true"
+                                            >
+                                                Step 3: Extract latest message
+                                                text
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nested Task 4 -->
+                                <div class="task-item-container">
+                                    <div
+                                        class="task-item flex items-start space-x-2 py-2 group"
+                                    >
+                                        <button
+                                            class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-gray-400 mt-0.5"
+                                            disabled
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="8"
+                                                height="8"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <circle
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="10"
+                                                ></circle>
+                                            </svg>
+                                        </button>
+                                        <button
+                                            class="task-checkbox flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="12"
+                                                height="12"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="white"
+                                                stroke-width="3"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="hidden"
+                                            >
+                                                <polyline
+                                                    points="20 6 9 17 4 12"
+                                                ></polyline>
+                                            </svg>
+                                        </button>
+                                        <div class="flex-grow">
+                                            <div
+                                                class="task-content text-sm"
+                                                contenteditable="true"
+                                            >
+                                                Step 4: Open Gmail
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ... etc ... -->
+                            </div>
+                        </div>
+
+                        <!-- Task Item 2 (Completed) -->
+                        <div class="task-item-container">
+                            <div
+                                class="task-item flex items-start space-x-2 py-2 group"
+                            >
+                                <button
+                                    class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-gray-400 mt-0.5"
+                                    disabled
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="8"
+                                        height="8"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                </button>
+                                <button
+                                    class="task-checkbox completed flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="12"
+                                        height="12"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="white"
+                                        stroke-width="3"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <polyline
+                                            points="20 6 9 17 4 12"
+                                        ></polyline>
+                                    </svg>
+                                </button>
+                                <div class="flex-grow">
+                                    <div
+                                        class="task-content text-sm completed"
+                                        contenteditable="true"
+                                    >
+                                        Task: Fetch latest AI News
+                                    </div>
+                                    <div
+                                        class="flex items-center space-x-3 text-xs text-gray-500 mt-1"
+                                    >
+                                        <span class="due-date">Yesterday</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Task Bar (Hidden in Dashboard mode) -->
+                <footer
+                    id="add-task-footer"
+                    class="hidden flex-shrink-0 p-4 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)]"
+                >
+                    <div class="flex items-center space-x-3">
+                        <!-- Changed button color to indigo -->
+                        <button
+                            class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <line x1="12" x2="12" y1="5" y2="19" />
+                                <line x1="5" x2="19" y1="12" y2="12" />
+                            </svg>
+                        </button>
+                        <input
+                            id="add-task-input"
+                            type="text"
+                            placeholder="Add task... e.g., 'Team meeting tomorrow at 10am #Work P1'"
+                            class="w-full bg-transparent border-none p-0 focus:ring-0"
+                        />
+                    </div>
+                </footer>
+            </main>
+        </div>
+
+        <!-- Priority Selector Modal (Hidden) -->
+        <div
+            id="priority-modal"
+            class="hidden absolute z-10 w-48 bg-white shadow-xl rounded-lg border border-gray-200 p-2"
+        >
+            <button
+                class="priority-select-option w-full flex items-center space-x-2 px-3 py-1.5 hover:bg-gray-100 rounded text-left"
+                data-priority="1"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#ef4444"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path
+                        d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
+                    />
+                    <line x1="4" x2="4" y1="22" y2="15" />
+                </svg>
+                <span class="text-sm">Priority 1</span>
+            </button>
+            <button
+                class="priority-select-option w-full flex items-center space-x-2 px-3 py-1.5 hover:bg-gray-100 rounded text-left"
+                data-priority="2"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#f97316"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path
+                        d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
+                    />
+                    <line x1="4" x2="4" y1="22" y2="15" />
+                </svg>
+                <span class="text-sm">Priority 2</span>
+            </button>
+            <!-- Changed P3 color to indigo -->
+            <button
+                class="priority-select-option w-full flex items-center space-x-2 px-3 py-1.5 hover:bg-gray-100 rounded text-left"
+                data-priority="3"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#6366f1"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path
+                        d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
+                    />
+                    <line x1="4" x2="4" y1="22" y2="15" />
+                </svg>
+                <span class="text-sm">Priority 3</span>
+            </button>
+            <button
+                class="priority-select-option w-full flex items-center space-x-2 px-3 py-1.5 hover:bg-gray-100 rounded text-left"
+                data-priority="4"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#6b7280"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path
+                        d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
+                    />
+                    <line x1="4" x2="4" y1="22" y2="15" />
+                </svg>
+                <span class="text-sm">Priority 4</span>
+            </button>
+            <hr class="my-1" />
+            <button
+                class="priority-select-option w-full flex items-center space-x-2 px-3 py-1.5 hover:bg-gray-100 rounded text-left"
+                data-priority="0"
+            >
+                <span class="text-sm">Remove priority</span>
+            </button>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // --- Page Elements ---
+                const sidebarLinks = document.querySelectorAll(".sidebar-link");
+                const mainHeaderTitle =
+                    document.getElementById("main-header-title");
+
+                const mainContentArea = document.querySelector(
+                    ".flex-1.overflow-y-auto",
+                );
+                const dashboardView = document.getElementById("dashboard-view");
+                const dashboardActions =
+                    document.getElementById("dashboard-actions");
+
+                const taskView = document.getElementById("task-view");
+                const taskActions = document.getElementById("task-actions");
+                const addTaskFooter =
+                    document.getElementById("add-task-footer");
+                const addTaskInput = document.getElementById("add-task-input");
+
+                const priorityModal = document.getElementById("priority-modal");
+                let currentPriorityTarget = null;
+
+                // --- Store Task List HTML (simulating data) ---
+                const inboxTasksHTML = taskView.innerHTML;
+
+                // --- Store Dashboard Widgets HTML (simulating data) ---
+                const dailyBriefingDashboardHTML = dashboardView.innerHTML;
+
+                // --- Handle Sidebar Navigation ---
+                sidebarLinks.forEach((link) => {
+                    link.addEventListener("click", (e) => {
+                        e.preventDefault();
+
+                        const viewType = link.dataset.view;
+                        const title = link.dataset.title;
+
+                        // 1. Update Active Link Style
+                        updateActiveLink(link);
+
+                        // 2. Update Header
+                        mainHeaderTitle.textContent = title;
+
+                        // 3. Toggle Main View Mode
+                        if (viewType === "dashboard") {
+                            showDashboardView(title);
+                        } else {
+                            // 'task'
+                            showTaskView(title);
+                        }
+                    });
+                });
+
+                function updateActiveLink(activeLink) {
+                    sidebarLinks.forEach((l) => {
+                        // Changed from blue to indigo
+                        l.classList.remove(
+                            "bg-gray-100",
+                            "text-indigo-600",
+                            "font-semibold",
+                        );
+                        l.classList.add("text-gray-600", "hover:bg-gray-100");
+                    });
+                    // Changed from blue to indigo
+                    activeLink.classList.add(
+                        "bg-gray-100",
+                        "text-indigo-600",
+                        "font-semibold",
+                    );
+                    activeLink.classList.remove(
+                        "text-gray-600",
+                        "hover:bg-gray-100",
+                    );
+                }
+
+                function showDashboardView(title) {
+                    dashboardView.classList.remove("hidden");
+                    dashboardActions.classList.remove("hidden");
+                    dashboardActions.classList.add("flex");
+
+                    taskView.classList.add("hidden");
+                    taskActions.classList.add("hidden");
+                    addTaskFooter.classList.add("hidden");
+
+                    // --- Load Data (Simulated) ---
+                    if (title === "Daily Briefing") {
+                        dashboardView.innerHTML = dailyBriefingDashboardHTML;
+                    } else if (title === "Social Media") {
+                        dashboardView.innerHTML = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Widget 1: New Followers -->
+                            <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col">
+                                <header class="flex items-center justify-between p-4 border-b border-gray-100">
+                                    <h3 class="font-semibold">New Instagram Followers</h3>
+                                    <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                                        <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                                    </button>
+                                </header>
+                                <div class="widget-content p-4 h-48 overflow-y-auto space-y-2">
+                                    <p class="text-sm"><strong>@user123</strong> started following you.</p>
+                                    <p class="text-sm"><strong>@design_pro</strong> started following you.</p>
+                                </div>
+                                <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
+                                    Last run: 1 hour ago
+                                </footer>
+                            </div>
+                            <!-- Add New Widget -->
+                            <button class="flex items-center justify-center space-x-2 bg-gray-50/50 border-2 border-gray-300 border-dashed rounded-xl text-gray-500 hover:bg-white hover:border-gray-400 hover:text-gray-700 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                                <span class="font-semibold">Add Task</span>
+                            </button>
+                        </div>`;
+                    }
+                }
+
+                function showTaskView(title) {
+                    dashboardView.classList.add("hidden");
+                    dashboardActions.classList.add("hidden");
+                    dashboardActions.classList.remove("flex");
+
+                    taskView.classList.remove("hidden");
+                    taskActions.classList.remove("hidden");
+                    taskActions.classList.add("flex");
+                    addTaskFooter.classList.remove("hidden");
+
+                    // --- Load Data (Simulated) ---
+                    if (title === "Inbox") {
+                        taskView.innerHTML = inboxTasksHTML;
+                    } else {
+                        taskView.innerHTML = `<p class="text-gray-500 italic p-4">Tasks for ${title} would load here...</p>`;
+                    }
+                }
+
+                // --- Handle Dashboard Widget Refresh ---
+                mainContentArea.addEventListener("click", (e) => {
+                    const refreshButton = e.target.closest(".widget-refresh");
+                    if (refreshButton) {
+                        const icon = refreshButton.querySelector(
+                            ".widget-refresh-icon",
+                        );
+                        const widgetContent = refreshButton
+                            .closest(".widget-card")
+                            .querySelector(".widget-content");
+                        const widgetFooter = refreshButton
+                            .closest(".widget-card")
+                            .querySelector("footer");
+
+                        // 1. Start loading state
+                        icon.classList.add("refreshing");
+                        widgetContent.innerHTML = `<div class="flex items-center justify-center h-full text-gray-500"><p>Running automation...</p></div>`;
+
+                        // 2. Simulate automation run (e.g., 1.5 seconds)
+                        setTimeout(() => {
+                            // 3. Stop loading state
+                            icon.classList.remove("refreshing");
+
+                            // 4. Show new results (in a real app, this data would be fetched)
+                            widgetContent.innerHTML = `
+                            <div class="text-sm">
+                                <!-- Changed color to indigo -->
+                                <strong class="text-indigo-600">LinkedIn:</strong> "Just saw it, looks great!"
+                            </div>
+                            <div class="text-sm">
+                                <strong class="text-red-600">Gmail:</strong> "Re: Project Alpha - Perfect, no notes."
+                            </div>
+                        `;
+                            widgetFooter.textContent = "Last run: Just now";
+                        }, 1500);
+                    }
+                });
+
+                // --- Handle Task View Interactions (from todo_app.html) ---
+                taskView.addEventListener("click", (e) => {
+                    // --- Handle Checkbox Toggle ---
+                    const checkbox = e.target.closest(".task-checkbox");
+                    if (checkbox) {
+                        toggleTaskCompletion(checkbox);
+                    }
+
+                    // --- Handle Expander Toggle ---
+                    const expander = e.target.closest(".task-expander");
+                    if (expander && !expander.disabled) {
+                        toggleTaskExpansion(expander);
+                    }
+
+                    // --- Handle Priority Button Click ---
+                    const priorityBtn = e.target.closest(".priority-btn");
+                    if (priorityBtn) {
+                        openPriorityModal(priorityBtn);
+                    }
+                });
+
+                // --- Function to Toggle Task Completion ---
+                function toggleTaskCompletion(checkbox) {
+                    const taskItem = checkbox.closest(".task-item");
+                    const taskContent = taskItem.querySelector(".task-content");
+                    const checkIcon = checkbox.querySelector("svg");
+
+                    checkbox.classList.toggle("completed");
+                    taskContent.classList.toggle("completed");
+                    checkIcon.classList.toggle("hidden");
+
+                    // --- FUTURE ---
+                    // This is where you could trigger the automation!
+                    // if (checkbox.classList.contains('completed')) {
+                    //    runAutomation(taskItem);
+                    // }
+                }
+
+                // --- Function to Toggle Task Expansion (Workflowy Style) ---
+                function toggleTaskExpansion(expander) {
+                    const taskContainer = expander.closest(
+                        ".task-item-container",
+                    );
+                    const nestedTasks =
+                        taskContainer.querySelector(".nested-tasks");
+
+                    if (nestedTasks) {
+                        expander.classList.toggle("collapsed");
+                        nestedTasks.classList.toggle("hidden");
+                    }
+                }
+
+                // --- Function to Open Priority Modal ---
+                function openPriorityModal(button) {
+                    currentPriorityTarget = button
+                        .closest(".task-item")
+                        .querySelector(".priority");
+                    if (!currentPriorityTarget) return; // Safety check
+
+                    const rect = button.getBoundingClientRect();
+                    priorityModal.style.top = `${rect.bottom + 8}px`;
+                    priorityModal.style.left = `${rect.left - priorityModal.offsetWidth / 2}px`;
+                    priorityModal.classList.remove("hidden");
+                }
+
+                // --- Handle Priority Selection ---
+                priorityModal.addEventListener("click", (e) => {
+                    const selectedOption = e.target.closest(
+                        ".priority-select-option",
+                    );
+                    if (!selectedOption || !currentPriorityTarget) return;
+
+                    const priority = selectedOption.dataset.priority;
+                    const priorityText = currentPriorityTarget;
+
+                    priorityText.classList.remove(
+                        "priority-p1",
+                        "priority-p2",
+                        "priority-p3",
+                        "priority-p4",
+                    );
+
+                    if (priority === "0") {
+                        priorityText.textContent = "";
+                    } else {
+                        priorityText.textContent = `P${priority}`;
+                        priorityText.classList.add(`priority-p${priority}`);
+                    }
+
+                    closePriorityModal();
+                });
+
+                // --- Close Modal on Outside Click ---
+                document.addEventListener("click", (e) => {
+                    if (
+                        !priorityModal.classList.contains("hidden") &&
+                        !priorityModal.contains(e.target) &&
+                        !e.target.closest(".priority-btn")
+                    ) {
+                        closePriorityModal();
+                    }
+                });
+
+                function closePriorityModal() {
+                    priorityModal.classList.add("hidden");
+                    currentPriorityTarget = null;
+                }
+
+                // --- Handle "Add Task" (Basic) ---
+                addTaskInput.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" && addTaskInput.value.trim() !== "") {
+                        e.preventDefault();
+                        const taskText = addTaskInput.value.trim();
+
+                        // Check if we are on the "Inbox" task view
+                        const activeLink = document.querySelector(
+                            ".sidebar-link.bg-gray-100",
+                        );
+                        if (
+                            activeLink.dataset.view !== "task" ||
+                            activeLink.dataset.title !== "Inbox"
+                        ) {
+                            // Find the Inbox link and click it to switch
+                            document
+                                .querySelector(
+                                    '.sidebar-link[data-title="Inbox"]',
+                                )
+                                .click();
+                        } else if (taskView.querySelector("p.italic")) {
+                            // If we are on Inbox but the placeholder is showing
+                            taskView.innerHTML = "";
+                        }
+
+                        addNewTask(taskText);
+                        addTaskInput.value = "";
+                    }
+                });
+
+                // --- Function to create and add a new task ---
+                function addNewTask(text) {
+                    const newTaskHTML = `
+                <div class="task-item-container">
+                    <div class="task-item flex items-start space-x-2 py-2 group">
+                        <button class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-gray-400 mt-0.5" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>
+                        </button>
+                        <button class="task-checkbox flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="hidden"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </button>
+                        <div class="flex-grow">
+                            <!-- Changed font size from text-base to text-sm -->
+                            <div class="task-content text-sm" contenteditable="true">${text}</div>
+                            <div class="flex items-center space-x-3 text-xs text-gray-500 mt-1">
+                                <span class="due-date"></span>
+                                <span class="priority font-bold"></span>
+                            </div>
+                        </div>
+                        <div class="flex-shrink-0 flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Add to Dashboard">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                            </button>
+                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Due Date">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                            </button>
+                            <button class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Priority">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+                            </button>
+                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="More Actions">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+                    taskView.insertAdjacentHTML("beforeend", newTaskHTML);
+                }
+            });
+        </script>
+    </body>
+</html>

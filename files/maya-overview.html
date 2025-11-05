@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maya's Day: The "Before" Life</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const OverviewPage = () => {
+            const screens = [
+                {
+                    id: 1,
+                    title: "Tab Hell",
+                    subtitle: "7:45 AM - Opening 14 tabs before the day begins",
+                    icon: "🔥",
+                    color: "#f44336",
+                    time: "Ongoing",
+                    file: "maya-browser-tabhell.html",
+                    description: "Maya's browser becomes a fragile cathedral of 14+ tabs across Gmail, Slack, Linear, Notion, Shopify, Mixpanel, Looker, Zendesk, and Figma. One misclick collapses everything."
+                },
+                {
+                    id: 2,
+                    title: "Notification Chaos",
+                    subtitle: "12:03 PM - Work and personal life collapse on her phone",
+                    icon: "📱",
+                    color: "#ff9800",
+                    time: "All day",
+                    file: "maya-phone-chaos.html",
+                    description: "Work notifications (Slack, Gmail, Linear) mixed with personal life (LinkedIn recruiter, partner's text, friend's birthday). No separation. No boundaries."
+                },
+                {
+                    id: 3,
+                    title: "The Manual Data Courier",
+                    subtitle: "8:15 AM - 12 minutes to answer a yes/no question",
+                    icon: "🔄",
+                    color: "#2196f3",
+                    time: "12 minutes",
+                    file: "maya-data-courier.html",
+                    description: "Sarah asks: 'Did cart abandonment change after yesterday's deploy?' Maya exports from Shopify, re-exports from Mixpanel (date ranges don't match), manually calculates in Google Sheets."
+                },
+                {
+                    id: 4,
+                    title: "The VLOOKUP Hell",
+                    subtitle: "4:30 PM - 55 minutes for one number",
+                    icon: "🔗",
+                    color: "#9c27b0",
+                    time: "55 minutes",
+                    file: "maya-vlookup-hell.html",
+                    description: "CEO asks: 'How many users abandoned cart AND contacted support?' Two systems. No shared ID. Excel VLOOKUP with case-sensitivity bugs and data cleaning. Answer: 47 users."
+                },
+                {
+                    id: 5,
+                    title: "The Feedback Triage",
+                    subtitle: "10:30 AM - 45 minutes of copy-paste archaeology",
+                    icon: "📋",
+                    color: "#00bcd4",
+                    time: "45 minutes",
+                    file: "maya-notion-triage.html",
+                    description: "Collecting all 'checkout flow' feedback from Zendesk (12 tickets), Slack (200+ messages), email forwards, and Loom videos. Manual copy-paste into Notion. She did this same exercise 3 months ago but can't find that doc."
+                },
+                {
+                    id: 6,
+                    title: "The Context Collapse",
+                    subtitle: "6:00 PM - Can't safely browse recipes",
+                    icon: "💔",
+                    color: "#e91e63",
+                    time: "Indefinite",
+                    file: "maya-context-collapse.html",
+                    description: "Maya wants to browse kitchen remodel ideas but fears work cookies will see her personal browsing. Work Slack, Gmail, and Zendesk still logged in. No safe boundaries. She goes incognito and loses access to everything."
+                }
+            ];
+
+            return (
+                <div style={{
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                    minHeight: '100vh',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    padding: '60px 20px'
+                }}>
+                    <div style={{
+                        maxWidth: '1200px',
+                        margin: '0 auto'
+                    }}>
+                        {/* Hero Section */}
+                        <div style={{
+                            textAlign: 'center',
+                            color: 'white',
+                            marginBottom: '60px'
+                        }}>
+                            <div style={{ fontSize: '64px', fontWeight: 'bold', marginBottom: '20px' }}>
+                                Maya's Day
+                            </div>
+                            <div style={{ fontSize: '32px', marginBottom: '16px', opacity: 0.95 }}>
+                                Senior PM at an Ecommerce Scale-up
+                            </div>
+                            <div style={{ fontSize: '20px', opacity: 0.85, maxWidth: '800px', margin: '0 auto', lineHeight: '1.6' }}>
+                                A day in the life of a high-performing knowledge worker trapped in Tab Hell, battling Context Collapse, and spending 40% of her time manually shuttling data between tools that refuse to cooperate.
+                            </div>
+                        </div>
+
+                        {/* Stats Banner */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                            gap: '20px',
+                            marginBottom: '48px'
+                        }}>
+                            {[
+                                { label: "Tabs Open Daily", value: "14+", icon: "🔥" },
+                                { label: "Context Switches", value: "~50", icon: "🔄" },
+                                { label: "Time Lost", value: "40%", icon: "⏱️" },
+                                { label: "Manual Data Courier Work", value: "Daily", icon: "📊" }
+                            ].map((stat, idx) => (
+                                <div key={idx} style={{
+                                    background: 'rgba(255, 255, 255, 0.95)',
+                                    padding: '24px',
+                                    borderRadius: '12px',
+                                    textAlign: 'center',
+                                    boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+                                }}>
+                                    <div style={{ fontSize: '32px', marginBottom: '8px' }}>{stat.icon}</div>
+                                    <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#333', marginBottom: '8px' }}>
+                                        {stat.value}
+                                    </div>
+                                    <div style={{ fontSize: '14px', color: '#666' }}>{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Screen Grid */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+                            gap: '24px',
+                            marginBottom: '48px'
+                        }}>
+                            {screens.map(screen => (
+                                <a 
+                                    key={screen.id}
+                                    href={screen.file}
+                                    target="_blank"
+                                    style={{
+                                        textDecoration: 'none',
+                                        display: 'block'
+                                    }}
+                                >
+                                    <div style={{
+                                        background: 'white',
+                                        borderRadius: '12px',
+                                        padding: '24px',
+                                        boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+                                        transition: 'transform 0.2s, box-shadow 0.2s',
+                                        cursor: 'pointer',
+                                        height: '100%',
+                                        display: 'flex',
+                                        flexDirection: 'column'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-4px)';
+                                        e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.3)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.2)';
+                                    }}
+                                    >
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '12px',
+                                            marginBottom: '16px'
+                                        }}>
+                                            <div style={{
+                                                fontSize: '36px',
+                                                width: '60px',
+                                                height: '60px',
+                                                background: screen.color,
+                                                borderRadius: '12px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                flexShrink: 0
+                                            }}>
+                                                {screen.icon}
+                                            </div>
+                                            <div style={{ flex: 1 }}>
+                                                <div style={{
+                                                    fontSize: '20px',
+                                                    fontWeight: 'bold',
+                                                    color: '#333',
+                                                    marginBottom: '4px'
+                                                }}>
+                                                    {screen.title}
+                                                </div>
+                                                <div style={{
+                                                    fontSize: '13px',
+                                                    color: '#999'
+                                                }}>
+                                                    {screen.subtitle}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style={{
+                                            fontSize: '14px',
+                                            color: '#666',
+                                            lineHeight: '1.6',
+                                            marginBottom: '16px',
+                                            flex: 1
+                                        }}>
+                                            {screen.description}
+                                        </div>
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            paddingTop: '16px',
+                                            borderTop: '1px solid #f0f0f0'
+                                        }}>
+                                            <div style={{
+                                                fontSize: '13px',
+                                                color: '#999',
+                                                fontWeight: '600'
+                                            }}>
+                                                ⏱️ {screen.time}
+                                            </div>
+                                            <div style={{
+                                                fontSize: '14px',
+                                                color: screen.color,
+                                                fontWeight: '600'
+                                            }}>
+                                                View Screen →
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+
+                        {/* Summary Card */}
+                        <div style={{
+                            background: 'rgba(0, 0, 0, 0.5)',
+                            backdropFilter: 'blur(20px)',
+                            borderRadius: '12px',
+                            padding: '40px',
+                            color: 'white',
+                            boxShadow: '0 8px 40px rgba(0,0,0,0.4)'
+                        }}>
+                            <div style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '24px', textAlign: 'center' }}>
+                                This is the "Before"
+                            </div>
+                            <div style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px' }}>
+                                Maya is a <strong>Senior PM at a Series B startup</strong>. She uses "best-in-class" tools. She's organized, competent, and high-performing.
+                                <br /><br />
+                                And yet, she spends <strong>~40% of her day</strong> not building product, not talking to customers, not thinking strategically—but <strong>manually shuttling data between tabs that refuse to cooperate</strong>.
+                                <br /><br />
+                                The tab hell. The context collapse. The manual courier work. The cognitive load that has nothing to do with the <em>actual work</em>.
+                            </div>
+                            <div style={{
+                                background: 'rgba(244, 67, 54, 0.2)',
+                                border: '2px solid #f44336',
+                                borderRadius: '8px',
+                                padding: '24px',
+                                marginBottom: '24px'
+                            }}>
+                                <div style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '12px' }}>
+                                    💔 The Core Problems
+                                </div>
+                                <div style={{ fontSize: '16px', lineHeight: '1.8' }}>
+                                    <strong>1. Fragmentation:</strong> Her workflow is scattered across incompatible, walled-off applications that refuse to speak to each other.
+                                    <br /><br />
+                                    <strong>2. Context Collapse:</strong> Her professional, social, and personal identities are forced into a single, flat online space with no separation or boundaries.
+                                    <br /><br />
+                                    <strong>3. Manual Labor:</strong> She's a human API, manually copying data between systems because they won't integrate.
+                                </div>
+                            </div>
+                            <div style={{
+                                background: 'rgba(76, 175, 80, 0.2)',
+                                border: '2px solid #4caf50',
+                                borderRadius: '8px',
+                                padding: '24px',
+                                textAlign: 'center'
+                            }}>
+                                <div style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '12px' }}>
+                                    This is what the Personal Web OS is built to destroy.
+                                </div>
+                                <div style={{ fontSize: '16px', opacity: 0.9 }}>
+                                    To return control over data, attention, and identity back to the user.
+                                    <br />
+                                    To solve fragmentation with composable surfaces.
+                                    <br />
+                                    To solve context collapse with secure personas.
+                                    <br />
+                                    To stop passively browsing and start actively building.
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Footer */}
+                        <div style={{
+                            textAlign: 'center',
+                            color: 'white',
+                            marginTop: '48px',
+                            opacity: 0.8
+                        }}>
+                            <div style={{ fontSize: '16px' }}>
+                                Click any card above to explore Maya's "before" life in detail
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<OverviewPage />, document.getElementById('root'));
+    </script>
+</body>
+</html>
