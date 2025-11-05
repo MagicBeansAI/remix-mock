@@ -3964,6 +3964,317 @@
         </div>
 
         <script>
+            // ============================================
+            // TASK DATA MODEL & STORAGE
+            // ============================================
+
+            /**
+             * Generate unique task ID (short, base36)
+             * Format: ~8 chars, e.g., "k7x2m9p1"
+             */
+            function generateTaskId() {
+                const timestamp = Date.now();
+                const random = Math.random().toString(36).substring(2, 8);
+                return `${random}${timestamp.toString(36).slice(-4)}`;
+            }
+
+            /**
+             * Convert title to URL-friendly slug
+             */
+            function slugify(text) {
+                return text
+                    .toLowerCase()
+                    .replace(/[^\w\s-]/g, "")
+                    .replace(/\s+/g, "-")
+                    .replace(/-+/g, "-")
+                    .trim();
+            }
+
+            /**
+             * Task class representing a single task
+             */
+            class Task {
+                constructor(data = {}) {
+                    this.id = data.id || generateTaskId();
+                    this.title = data.title || "";
+                    this.dueDate = data.dueDate || "";
+                    this.priority = data.priority || "";
+                    this.status = data.status || "active"; // active, completed
+                    this.tags = data.tags || [];
+                    this.aiStatus = data.aiStatus || "";
+                    this.aiPlan = data.aiPlan || false;
+                    this.subtasks = data.subtasks || [];
+                    this.notes = data.notes || "";
+                    this.created = data.created || new Date().toISOString();
+                    this.updated = data.updated || new Date().toISOString();
+                }
+
+                /**
+                 * Convert task to markdown format
+                 */
+                toMarkdown() {
+                    const frontmatter = `---
+id: ${this.id}
+title: ${this.title}
+dueDate: ${this.dueDate}
+priority: ${this.priority}
+status: ${this.status}
+tags: [${this.tags.join(", ")}]
+aiStatus: ${this.aiStatus}
+aiPlan: ${this.aiPlan}
+created: ${this.created}
+updated: ${this.updated}
+---
+
+# ${this.title}
+`;
+
+                    let markdown = frontmatter;
+
+                    if (this.subtasks.length > 0) {
+                        markdown += "\n## AI Subtasks\n\n";
+                        this.subtasks.forEach((subtask) => {
+                            const checked = subtask.completed ? "x" : " ";
+                            markdown += `- [${checked}] ${subtask.text}\n`;
+                        });
+                    }
+
+                    if (this.notes) {
+                        markdown += "\n## Notes\n\n";
+                        markdown += this.notes;
+                    }
+
+                    return markdown;
+                }
+
+                /**
+                 * Get filename for this task
+                 */
+                getFilename() {
+                    const slug = slugify(this.title);
+                    return `task-${this.id}-${slug}.md`;
+                }
+
+                /**
+                 * Parse markdown back to Task object
+                 */
+                static fromMarkdown(markdown) {
+                    const frontmatterMatch = markdown.match(
+                        /^---\n([\s\S]*?)\n---/,
+                    );
+                    if (!frontmatterMatch) return null;
+
+                    const frontmatter = frontmatterMatch[1];
+                    const data = {};
+
+                    // Parse YAML frontmatter
+                    frontmatter.split("\n").forEach((line) => {
+                        const match = line.match(/^(\w+):\s*(.+)$/);
+                        if (match) {
+                            const key = match[1];
+                            let value = match[2].trim();
+
+                            // Parse arrays
+                            if (value.startsWith("[") && value.endsWith("]")) {
+                                value = value
+                                    .slice(1, -1)
+                                    .split(",")
+                                    .map((v) => v.trim())
+                                    .filter((v) => v);
+                            }
+                            // Parse booleans
+                            else if (value === "true") value = true;
+                            else if (value === "false") value = false;
+
+                            data[key] = value;
+                        }
+                    });
+
+                    // Parse subtasks from markdown
+                    const subtasksMatch = markdown.match(
+                        /## AI Subtasks\n\n([\s\S]*?)(?=\n##|$)/,
+                    );
+                    if (subtasksMatch) {
+                        data.subtasks = [];
+                        const subtaskLines = subtasksMatch[1]
+                            .trim()
+                            .split("\n");
+                        subtaskLines.forEach((line) => {
+                            const match = line.match(/^- \[([ x])\] (.+)$/);
+                            if (match) {
+                                data.subtasks.push({
+                                    text: match[2],
+                                    completed: match[1] === "x",
+                                });
+                            }
+                        });
+                    }
+
+                    // Parse notes
+                    const notesMatch = markdown.match(
+                        /## Notes\n\n([\s\S]*?)$/,
+                    );
+                    if (notesMatch) {
+                        data.notes = notesMatch[1].trim();
+                    }
+
+                    return new Task(data);
+                }
+            }
+
+            /**
+             * TaskStorage - Handles loading/saving tasks using File System Access API
+             */
+            class TaskStorage {
+                constructor() {
+                    this.directoryHandle = null;
+                    this.tasks = new Map(); // id -> Task
+                }
+
+                /**
+                 * Request access to a local directory
+                 */
+                async requestDirectory() {
+                    try {
+                        this.directoryHandle = await window.showDirectoryPicker(
+                            {
+                                mode: "readwrite",
+                            },
+                        );
+                        localStorage.setItem("taskDirectoryGranted", "true");
+                        return true;
+                    } catch (err) {
+                        console.error("Failed to get directory access:", err);
+                        return false;
+                    }
+                }
+
+                /**
+                 * Check if we have directory access
+                 */
+                async hasDirectoryAccess() {
+                    if (!this.directoryHandle) return false;
+
+                    const permission =
+                        await this.directoryHandle.requestPermission({
+                            mode: "readwrite",
+                        });
+                    return permission === "granted";
+                }
+
+                /**
+                 * Load all tasks from directory
+                 */
+                async loadTasks() {
+                    if (!this.directoryHandle) {
+                        console.warn("No directory access, using fallback");
+                        return this.loadFromIndexedDB();
+                    }
+
+                    this.tasks.clear();
+
+                    try {
+                        for await (const entry of this.directoryHandle.values()) {
+                            if (
+                                entry.kind === "file" &&
+                                entry.name.endsWith(".md")
+                            ) {
+                                const file = await entry.getFile();
+                                const markdown = await file.text();
+                                const task = Task.fromMarkdown(markdown);
+                                if (task) {
+                                    this.tasks.set(task.id, task);
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.error("Failed to load tasks:", err);
+                    }
+
+                    return Array.from(this.tasks.values());
+                }
+
+                /**
+                 * Save a task to file
+                 */
+                async saveTask(task) {
+                    task.updated = new Date().toISOString();
+
+                    if (!this.directoryHandle) {
+                        return this.saveToIndexedDB(task);
+                    }
+
+                    try {
+                        const filename = task.getFilename();
+                        const fileHandle =
+                            await this.directoryHandle.getFileHandle(filename, {
+                                create: true,
+                            });
+                        const writable = await fileHandle.createWritable();
+                        await writable.write(task.toMarkdown());
+                        await writable.close();
+
+                        this.tasks.set(task.id, task);
+                        return true;
+                    } catch (err) {
+                        console.error("Failed to save task:", err);
+                        return false;
+                    }
+                }
+
+                /**
+                 * Delete a task
+                 */
+                async deleteTask(taskId) {
+                    const task = this.tasks.get(taskId);
+                    if (!task) return false;
+
+                    if (!this.directoryHandle) {
+                        return this.deleteFromIndexedDB(taskId);
+                    }
+
+                    try {
+                        const filename = task.getFilename();
+                        await this.directoryHandle.removeEntry(filename);
+                        this.tasks.delete(taskId);
+                        return true;
+                    } catch (err) {
+                        console.error("Failed to delete task:", err);
+                        return false;
+                    }
+                }
+
+                /**
+                 * Fallback: Load from IndexedDB
+                 */
+                async loadFromIndexedDB() {
+                    // TODO: Implement IndexedDB fallback
+                    console.log("Loading from IndexedDB fallback");
+                    return [];
+                }
+
+                /**
+                 * Fallback: Save to IndexedDB
+                 */
+                async saveToIndexedDB(task) {
+                    // TODO: Implement IndexedDB fallback
+                    console.log("Saving to IndexedDB fallback");
+                    return true;
+                }
+
+                /**
+                 * Fallback: Delete from IndexedDB
+                 */
+                async deleteFromIndexedDB(taskId) {
+                    // TODO: Implement IndexedDB fallback
+                    console.log("Deleting from IndexedDB fallback");
+                    return true;
+                }
+            }
+
+            // Global task storage instance
+            const taskStorage = new TaskStorage();
+
             document.addEventListener("DOMContentLoaded", () => {
                 // --- Page Elements ---
                 const sidebarLinks = document.querySelectorAll(".sidebar-link");
