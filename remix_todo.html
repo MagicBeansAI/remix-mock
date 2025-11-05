@@ -3532,6 +3532,30 @@
                     // --- Load Data (Simulated) ---
                     if (title === "Inbox") {
                         taskView.innerHTML = inboxTasksHTML;
+                    } else if (title === "Today") {
+                        // Filter tasks with "Today" due date
+                        const tempDiv = document.createElement("div");
+                        tempDiv.innerHTML = inboxTasksHTML;
+                        const allTasks = tempDiv.querySelectorAll(
+                            ".task-item-container",
+                        );
+                        const todayTasks = Array.from(allTasks).filter(
+                            (task) => {
+                                const dueDate = task.querySelector(".due-date");
+                                return (
+                                    dueDate &&
+                                    dueDate.textContent.trim() === "Today"
+                                );
+                            },
+                        );
+
+                        if (todayTasks.length > 0) {
+                            taskView.innerHTML = todayTasks
+                                .map((task) => task.outerHTML)
+                                .join("");
+                        } else {
+                            taskView.innerHTML = `<p class="text-gray-500 italic p-4">No tasks due today.</p>`;
+                        }
                     } else {
                         taskView.innerHTML = `<p class="text-gray-500 italic p-4">Tasks for ${title} would load here...</p>`;
                     }
