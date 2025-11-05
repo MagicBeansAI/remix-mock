@@ -547,6 +547,35 @@
                             </a>
                             <a
                                 href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
+                                data-view="task"
+                                data-title="Overdue"
+                            >
+                                <!-- Alert Circle Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" x2="12" y1="8" y2="12" />
+                                    <line x1="12" x2="12.01" y1="16" y2="16" />
+                                </svg>
+                                <span class="text-sm">Overdue</span>
+                                <span
+                                    id="count-overdue"
+                                    class="ml-auto text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full"
+                                    >0</span
+                                >
+                            </a>
+                            <a
+                                href="#"
                                 class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
                                 data-view="task"
                                 data-title="Personal"
@@ -4233,6 +4262,7 @@
                     let allCount = 0;
                     let inboxCount = 0;
                     let todayCount = 0;
+                    let overdueCount = 0;
                     let personalCount = 0;
                     let salesCount = 0;
 
@@ -4265,6 +4295,14 @@
                             todayCount++;
                         }
 
+                        // Count for Overdue
+                        if (
+                            dueDateEl &&
+                            dueDateEl.textContent.trim() === "Yesterday"
+                        ) {
+                            overdueCount++;
+                        }
+
                         // Count for Personal
                         if (
                             projectTagEl &&
@@ -4286,6 +4324,8 @@
                     const countAll = document.getElementById("count-all");
                     const countInbox = document.getElementById("count-inbox");
                     const countToday = document.getElementById("count-today");
+                    const countOverdue =
+                        document.getElementById("count-overdue");
                     const countPersonal =
                         document.getElementById("count-personal");
                     const countSales = document.getElementById("count-sales");
@@ -4293,6 +4333,7 @@
                     if (countAll) countAll.textContent = allCount;
                     if (countInbox) countInbox.textContent = inboxCount;
                     if (countToday) countToday.textContent = todayCount;
+                    if (countOverdue) countOverdue.textContent = overdueCount;
                     if (countPersonal)
                         countPersonal.textContent = personalCount;
                     if (countSales) countSales.textContent = salesCount;
@@ -4437,6 +4478,30 @@
                                 .join("");
                         } else {
                             taskView.innerHTML = `<p class="text-gray-500 italic p-4">No tasks due today.</p>`;
+                        }
+                    } else if (title === "Overdue") {
+                        // Filter tasks with "Yesterday" due date (overdue)
+                        const tempDiv = document.createElement("div");
+                        tempDiv.innerHTML = inboxTasksHTML;
+                        const allTasks = tempDiv.querySelectorAll(
+                            ".task-item-container",
+                        );
+                        const overdueTasks = Array.from(allTasks).filter(
+                            (task) => {
+                                const dueDate = task.querySelector(".due-date");
+                                return (
+                                    dueDate &&
+                                    dueDate.textContent.trim() === "Yesterday"
+                                );
+                            },
+                        );
+
+                        if (overdueTasks.length > 0) {
+                            taskView.innerHTML = overdueTasks
+                                .map((task) => task.outerHTML)
+                                .join("");
+                        } else {
+                            taskView.innerHTML = `<p class="text-gray-500 italic p-4">No overdue tasks.</p>`;
                         }
                     } else if (title === "Personal") {
                         // Filter tasks with "Personal" tag
