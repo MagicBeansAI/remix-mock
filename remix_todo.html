@@ -206,6 +206,35 @@
                                 href="#"
                                 class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
                                 data-view="task"
+                                data-title="All"
+                            >
+                                <!-- All Icon -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M3 3h7v7H3z" />
+                                    <path d="M14 3h7v7h-7z" />
+                                    <path d="M14 14h7v7h-7z" />
+                                    <path d="M3 14h7v7H3z" />
+                                </svg>
+                                <span class="text-sm">All</span>
+                                <span
+                                    class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
+                                    >5</span
+                                >
+                            </a>
+                            <a
+                                href="#"
+                                class="sidebar-link flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium"
+                                data-view="task"
                                 data-title="Inbox"
                             >
                                 <!-- Inbox Icon -->
@@ -228,7 +257,7 @@
                                 <span class="text-sm">Inbox</span>
                                 <span
                                     class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
-                                    >5</span
+                                    >2</span
                                 >
                             </a>
                             <a
@@ -3550,8 +3579,30 @@
                     addTaskFooter.classList.remove("hidden");
 
                     // --- Load Data (Simulated) ---
-                    if (title === "Inbox") {
+                    if (title === "All") {
                         taskView.innerHTML = inboxTasksHTML;
+                    } else if (title === "Inbox") {
+                        // Filter tasks without project tags (uncategorized)
+                        const tempDiv = document.createElement("div");
+                        tempDiv.innerHTML = inboxTasksHTML;
+                        const allTasks = tempDiv.querySelectorAll(
+                            ".task-item-container",
+                        );
+                        const inboxTasks = Array.from(allTasks).filter(
+                            (task) => {
+                                const projectTag =
+                                    task.querySelector(".project-tag");
+                                return !projectTag;
+                            },
+                        );
+
+                        if (inboxTasks.length > 0) {
+                            taskView.innerHTML = inboxTasks
+                                .map((task) => task.outerHTML)
+                                .join("");
+                        } else {
+                            taskView.innerHTML = `<p class="text-gray-500 italic p-4">No uncategorized tasks.</p>`;
+                        }
                     } else if (title === "Today") {
                         // Filter tasks with "Today" due date
                         const tempDiv = document.createElement("div");
