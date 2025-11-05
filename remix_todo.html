@@ -3582,19 +3582,22 @@
                     if (title === "All") {
                         taskView.innerHTML = inboxTasksHTML;
                     } else if (title === "Inbox") {
-                        // Filter tasks without project tags (uncategorized)
+                        // Filter top-level tasks without project tags (uncategorized)
                         const tempDiv = document.createElement("div");
                         tempDiv.innerHTML = inboxTasksHTML;
-                        const allTasks = tempDiv.querySelectorAll(
-                            ".task-item-container",
+                        // Get only direct children (top-level tasks), not nested subtasks
+                        const allTasks = Array.from(tempDiv.children).filter(
+                            (el) =>
+                                el.classList.contains("task-item-container"),
                         );
-                        const inboxTasks = Array.from(allTasks).filter(
-                            (task) => {
-                                const projectTag =
-                                    task.querySelector(".project-tag");
-                                return !projectTag;
-                            },
-                        );
+                        const inboxTasks = allTasks.filter((task) => {
+                            // Look for project-tag specifically in the top-level task's metadata
+                            const taskItem = task.querySelector(".task-item");
+                            const projectTag = taskItem
+                                ? taskItem.querySelector(".project-tag")
+                                : null;
+                            return !projectTag;
+                        });
 
                         if (inboxTasks.length > 0) {
                             taskView.innerHTML = inboxTasks
