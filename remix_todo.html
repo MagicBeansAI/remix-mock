@@ -1291,6 +1291,7 @@
                                 Due Today
                             </h2>
                             <div
+                                id="home-today-tasks"
                                 class="bg-white rounded-xl shadow p-4 space-y-3"
                             >
                                 <!-- Task Item -->
@@ -1347,11 +1348,12 @@
                         </div>
 
                         <!-- Overdue Section (if any) -->
-                        <div>
+                        <div id="home-overdue-section">
                             <h2 class="text-lg font-semibold text-red-600 mb-4">
                                 Overdue
                             </h2>
                             <div
+                                id="home-overdue-tasks"
                                 class="bg-red-50 border border-red-200 rounded-xl shadow p-4 space-y-3"
                             >
                                 <!-- Overdue Task -->
@@ -3987,6 +3989,133 @@
                     taskView.classList.add("hidden");
                     taskActions.classList.add("hidden");
                     addTaskFooter.classList.add("hidden");
+
+                    // Populate Today and Overdue tasks dynamically
+                    populateHomeTasks();
+                }
+
+                function populateHomeTasks() {
+                    // Get all tasks from the task view
+                    const tempDiv = document.createElement("div");
+                    tempDiv.innerHTML = inboxTasksHTML;
+                    const allTasks = Array.from(tempDiv.children).filter((el) =>
+                        el.classList.contains("task-item-container"),
+                    );
+
+                    const todayTasks = [];
+                    const overdueTasks = [];
+
+                    allTasks.forEach((taskContainer) => {
+                        const taskItem =
+                            taskContainer.querySelector(".task-item");
+                        if (!taskItem) return;
+
+                        const dueDateEl = taskItem.querySelector(".due-date");
+                        if (!dueDateEl) return;
+
+                        const dueDateText = dueDateEl.textContent.trim();
+                        const taskContent =
+                            taskItem.querySelector(".task-content");
+                        const priorityEl = taskItem.querySelector(".priority");
+                        const projectTagEl =
+                            taskItem.querySelector(".project-tag");
+                        const isCompleted = taskItem.querySelector(
+                            ".task-checkbox.completed",
+                        );
+
+                        // Skip completed tasks
+                        if (isCompleted) return;
+
+                        const taskText = taskContent
+                            ? taskContent.textContent.trim()
+                            : "";
+                        const priority = priorityEl
+                            ? priorityEl.textContent.trim()
+                            : "";
+                        const projectTag = projectTagEl
+                            ? projectTagEl.textContent.trim()
+                            : "";
+                        const projectTagClass = projectTagEl
+                            ? projectTagEl.className
+                            : "";
+
+                        if (dueDateText === "Today") {
+                            todayTasks.push({
+                                text: taskText,
+                                priority,
+                                dueDateText,
+                                projectTag,
+                                projectTagClass,
+                            });
+                        } else if (dueDateText === "Yesterday") {
+                            overdueTasks.push({
+                                text: taskText,
+                                priority,
+                                dueDateText,
+                                projectTag,
+                                projectTagClass,
+                            });
+                        }
+                    });
+
+                    // Populate Today tasks
+                    const homeTodayContainer =
+                        document.getElementById("home-today-tasks");
+                    if (homeTodayContainer) {
+                        if (todayTasks.length === 0) {
+                            homeTodayContainer.innerHTML =
+                                '<div class="text-sm text-gray-400 italic">No tasks due today</div>';
+                        } else {
+                            homeTodayContainer.innerHTML = todayTasks
+                                .map(
+                                    (task) => `
+                                <div class="flex items-center space-x-3 py-2 hover:bg-gray-50 rounded px-2 cursor-pointer">
+                                    <button class="w-5 h-5 border-2 border-gray-300 rounded-full flex-shrink-0"></button>
+                                    <div class="flex-grow">
+                                        <div class="text-sm">${task.text}</div>
+                                        <div class="text-xs text-gray-500 mt-0.5 flex items-center gap-2">
+                                            <span class="text-green-600 font-medium">${task.dueDateText}</span>
+                                            ${task.priority ? `<span class="${task.priority === "P1" ? "text-red-500 font-bold" : task.priority === "P2" ? "text-orange-500 font-bold" : "font-medium"}">${task.priority}</span>` : ""}
+                                            ${task.projectTag ? `<span class="${task.projectTagClass}">${task.projectTag}</span>` : ""}
+                                        </div>
+                                    </div>
+                                </div>
+                            `,
+                                )
+                                .join("");
+                        }
+                    }
+
+                    // Populate Overdue tasks
+                    const homeOverdueContainer =
+                        document.getElementById("home-overdue-tasks");
+                    const homeOverdueSection = document.getElementById(
+                        "home-overdue-section",
+                    );
+                    if (homeOverdueContainer && homeOverdueSection) {
+                        if (overdueTasks.length === 0) {
+                            homeOverdueSection.classList.add("hidden");
+                        } else {
+                            homeOverdueSection.classList.remove("hidden");
+                            homeOverdueContainer.innerHTML = overdueTasks
+                                .map(
+                                    (task) => `
+                                <div class="flex items-center space-x-3 py-2 hover:bg-red-100 rounded px-2 cursor-pointer">
+                                    <button class="w-5 h-5 border-2 border-red-400 rounded-full flex-shrink-0"></button>
+                                    <div class="flex-grow">
+                                        <div class="text-sm text-red-900">${task.text}</div>
+                                        <div class="text-xs text-red-600 mt-0.5 flex items-center gap-2">
+                                            <span class="font-medium">${task.dueDateText}</span>
+                                            ${task.priority ? `<span class="font-bold">${task.priority}</span>` : ""}
+                                            ${task.projectTag ? `<span class="${task.projectTagClass}">${task.projectTag}</span>` : ""}
+                                        </div>
+                                    </div>
+                                </div>
+                            `,
+                                )
+                                .join("");
+                        }
+                    }
                 }
 
                 function showDashboardView(title) {
