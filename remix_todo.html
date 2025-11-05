@@ -1053,7 +1053,7 @@
                             >
                                 <!-- Expander (Workflowy) -->
                                 <button
-                                    class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 mt-0.5"
+                                    class="task-expander collapsed flex-shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 text-purple-600 hover:text-purple-700 mt-0.5"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -1963,7 +1963,7 @@
                                 class="task-item flex items-start space-x-2 py-2 group"
                             >
                                 <button
-                                    class="task-expander collapsed flex-shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 mt-0.5"
+                                    class="task-expander collapsed flex-shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 text-purple-600 hover:text-purple-700 mt-0.5"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -2016,6 +2016,25 @@
                                             class="due-date text-xs text-gray-500"
                                             >Yesterday</span
                                         >
+                                        <!-- AI Status (always visible) -->
+                                        <span
+                                            class="ai-status text-purple-600 font-medium text-xs flex items-center space-x-1"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="12"
+                                                height="12"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <path d="M20 6L9 17l-5-5" />
+                                            </svg>
+                                            <span>AI Done</span>
+                                        </span>
                                         <!-- Completed Task Actions (appear inline) -->
                                         <div
                                             class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
