@@ -625,10 +625,7 @@
                   VIEW 2: TASKS (HIDDEN BY DEFAULT)
                   This is the "builder" mode, our original todo list, now on a white "page".
                 -->
-                    <div
-                        id="task-view"
-                        class="hidden bg-white rounded-xl shadow-lg p-6 md:p-8 space-y-1"
-                    >
+                    <div id="task-view" class="hidden space-y-1 max-w-[800px]">
                         <!-- Task Item 1 (with children) -->
                         <div class="task-item-container">
                             <!-- Task Row -->
@@ -686,155 +683,132 @@
                                     >
                                         Task: Pull all messages from Ruchika
                                     </div>
+                                    <!-- Metadata and Actions Row -->
                                     <div
-                                        class="flex items-center space-x-3 text-xs text-gray-500 mt-1"
+                                        class="flex items-center space-x-3 mt-1"
                                     >
+                                        <!-- Date and Priority (always visible) -->
                                         <span
-                                            class="due-date text-green-600 font-medium"
+                                            class="due-date text-green-600 font-medium text-xs"
                                             >Today</span
                                         >
                                         <span
-                                            class="priority priority-p1 font-bold"
+                                            class="priority priority-p1 font-bold text-xs"
                                             >P1</span
                                         >
-                                        <!-- We can add automation-specific metadata here later -->
-                                        <!-- <span class="text-indigo-600">Automation Attached</span> -->
+                                        <!-- Hover Actions (appear inline) -->
+                                        <div
+                                            class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <button
+                                                class="do-it-for-me-btn px-2 py-0.5 rounded text-xs text-gray-600 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors"
+                                                title="Do it for me"
+                                            >
+                                                Do it for me
+                                            </button>
+                                            <button
+                                                class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                                title="Set Due Date"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="14"
+                                                    height="14"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <rect
+                                                        width="18"
+                                                        height="18"
+                                                        x="3"
+                                                        y="4"
+                                                        rx="2"
+                                                        ry="2"
+                                                    />
+                                                    <line
+                                                        x1="16"
+                                                        x2="16"
+                                                        y1="2"
+                                                        y2="6"
+                                                    />
+                                                    <line
+                                                        x1="8"
+                                                        x2="8"
+                                                        y1="2"
+                                                        y2="6"
+                                                    />
+                                                    <line
+                                                        x1="3"
+                                                        x2="21"
+                                                        y1="10"
+                                                        y2="10"
+                                                    />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                                title="Set Priority"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="14"
+                                                    height="14"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path
+                                                        d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
+                                                    />
+                                                    <line
+                                                        x1="4"
+                                                        x2="4"
+                                                        y1="22"
+                                                        y2="15"
+                                                    />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                                title="More Actions"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="14"
+                                                    height="14"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <circle
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="1"
+                                                    />
+                                                    <circle
+                                                        cx="19"
+                                                        cy="12"
+                                                        r="1"
+                                                    />
+                                                    <circle
+                                                        cx="5"
+                                                        cy="12"
+                                                        r="1"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- Hover Actions (Todoist) -->
-                                <div
-                                    class="flex-shrink-0 flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                                >
-                                    <button
-                                        class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                                        title="Add to Dashboard"
-                                    >
-                                        <!-- Dashboard Icon -->
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-                                            <rect
-                                                width="7"
-                                                height="9"
-                                                x="3"
-                                                y="3"
-                                                rx="1"
-                                            />
-                                            <rect
-                                                width="7"
-                                                height="5"
-                                                x="14"
-                                                y="3"
-                                                rx="1"
-                                            />
-                                            <rect
-                                                width="7"
-                                                height="9"
-                                                x="14"
-                                                y="12"
-                                                rx="1"
-                                            />
-                                            <rect
-                                                width="7"
-                                                height="5"
-                                                x="3"
-                                                y="16"
-                                                rx="1"
-                                            />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                                        title="Set Due Date"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-                                            <rect
-                                                width="18"
-                                                height="18"
-                                                x="3"
-                                                y="4"
-                                                rx="2"
-                                                ry="2"
-                                            />
-                                            <line
-                                                x1="16"
-                                                x2="16"
-                                                y1="2"
-                                                y2="6"
-                                            />
-                                            <line x1="8" x2="8" y1="2" y2="6" />
-                                            <line
-                                                x1="3"
-                                                x2="21"
-                                                y1="10"
-                                                y2="10"
-                                            />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                                        title="Set Priority"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-                                            <path
-                                                d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
-                                            />
-                                            <line
-                                                x1="4"
-                                                x2="4"
-                                                y1="22"
-                                                y2="15"
-                                            />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                                        title="More Actions"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-                                            <circle cx="12" cy="12" r="1" />
-                                            <circle cx="19" cy="12" r="1" />
-                                            <circle cx="5" cy="12" r="1" />
-                                        </svg>
-                                    </button>
                                 </div>
                             </div>
 
@@ -1125,10 +1099,64 @@
                                     >
                                         Task: Fetch latest AI News
                                     </div>
+                                    <!-- Metadata and Actions Row -->
                                     <div
-                                        class="flex items-center space-x-3 text-xs text-gray-500 mt-1"
+                                        class="flex items-center space-x-3 mt-1"
                                     >
-                                        <span class="due-date">Yesterday</span>
+                                        <!-- Date (always visible) -->
+                                        <span
+                                            class="due-date text-xs text-gray-500"
+                                            >Yesterday</span
+                                        >
+                                        <!-- Completed Task Actions (appear inline) -->
+                                        <div
+                                            class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <button
+                                                class="repeat-btn px-2 py-0.5 rounded text-xs text-gray-600 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors"
+                                                title="Repeat this task"
+                                            >
+                                                Repeat
+                                            </button>
+                                            <button
+                                                class="create-dashboard-btn px-2 py-0.5 rounded text-xs text-gray-600 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors"
+                                                title="Create a Dashboard"
+                                            >
+                                                Create Dashboard
+                                            </button>
+                                            <button
+                                                class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                                                title="More Actions"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="14"
+                                                    height="14"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <circle
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="1"
+                                                    />
+                                                    <circle
+                                                        cx="19"
+                                                        cy="12"
+                                                        r="1"
+                                                    />
+                                                    <circle
+                                                        cx="5"
+                                                        cy="12"
+                                                        r="1"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1304,6 +1332,16 @@
                 // --- Store Dashboard Widgets HTML (simulating data) ---
                 const dailyBriefingDashboardHTML = dashboardView.innerHTML;
 
+                // --- Set Inbox as default view on page load ---
+                const inboxLink = document.querySelector(
+                    '.sidebar-link[data-title="Inbox"]',
+                );
+                if (inboxLink) {
+                    updateActiveLink(inboxLink);
+                    mainHeaderTitle.textContent = "Inbox";
+                    showTaskView("Inbox");
+                }
+
                 // --- Handle Sidebar Navigation ---
                 sidebarLinks.forEach((link) => {
                     link.addEventListener("click", (e) => {
@@ -1364,29 +1402,65 @@
                         dashboardView.innerHTML = dailyBriefingDashboardHTML;
                     } else if (title === "Social Media") {
                         dashboardView.innerHTML = `
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <!-- Widget 1: New Followers -->
                             <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col">
                                 <header class="flex items-center justify-between p-4 border-b border-gray-100">
                                     <h3 class="font-semibold">New Instagram Followers</h3>
-                                    <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
-                                        <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                                    </button>
+                                    <div class="flex items-center space-x-1">
+                                        <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                                            <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                                        </button>
+                                        <button class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                                        </button>
+                                    </div>
                                 </header>
-                                <div class="widget-content p-4 h-48 overflow-y-auto space-y-2">
-                                    <p class="text-sm"><strong>@user123</strong> started following you.</p>
-                                    <p class="text-sm"><strong>@design_pro</strong> started following you.</p>
+                                <div class="widget-content p-4 h-48 overflow-y-auto space-y-3">
+                                    <div class="text-sm">
+                                        <strong class="text-pink-500">@user123</strong> started following you.
+                                    </div>
+                                    <div class="text-sm">
+                                        <strong class="text-pink-500">@design_pro</strong> started following you.
+                                    </div>
+                                    <div class="text-sm">
+                                        <strong class="text-pink-500">@tech_guru</strong> started following you.
+                                    </div>
                                 </div>
                                 <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
                                     Last run: 1 hour ago
                                 </footer>
                             </div>
+                            <!-- Widget 2: Twitter Mentions -->
+                            <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col">
+                                <header class="flex items-center justify-between p-4 border-b border-gray-100">
+                                    <h3 class="font-semibold">Twitter Mentions</h3>
+                                    <div class="flex items-center space-x-1">
+                                        <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                                            <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                                        </button>
+                                        <button class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                                        </button>
+                                    </div>
+                                </header>
+                                <div class="widget-content p-4 h-48 overflow-y-auto space-y-3">
+                                    <div class="text-sm">
+                                        <strong class="text-blue-500">@startup_news:</strong> "Great insights on automation!"
+                                    </div>
+                                    <div class="text-sm">
+                                        <strong class="text-blue-500">@tech_daily:</strong> "This is exactly what we needed 🚀"
+                                    </div>
+                                </div>
+                                <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
+                                    Last run: 30 mins ago
+                                </footer>
+                            </div>
                             <!-- Add New Widget -->
                             <button class="flex items-center justify-center space-x-2 bg-gray-50/50 border-2 border-gray-300 border-dashed rounded-xl text-gray-500 hover:bg-white hover:border-gray-400 hover:text-gray-700 transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
-                                <span class="font-semibold">Add Task</span>
+                                <span class="font-semibold">Add Task to Dashboard</span>
                             </button>
-                        </div>`;
+                        `;
                     }
                 }
 
