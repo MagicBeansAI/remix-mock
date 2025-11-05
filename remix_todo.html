@@ -4090,7 +4090,7 @@
                                 .map(
                                     (task) => `
                                 <div class="task-item-container">
-                                    <div class="flex items-center space-x-2 py-2 hover:bg-gray-50 rounded px-2 cursor-pointer group">
+                                    <div class="task-item flex items-center space-x-2 py-2 hover:bg-gray-50 rounded px-2 cursor-pointer group">
                                         ${
                                             task.hasSubtasks
                                                 ? `
@@ -4110,7 +4110,7 @@
                                             </svg>
                                         </button>
                                         <div class="flex-grow">
-                                            <div class="text-sm">${task.text}</div>
+                                            <div class="task-content text-sm">${task.text}</div>
                                             <div class="text-xs text-gray-500 mt-0.5 flex items-center gap-2">
                                                 <span class="text-green-600 font-medium">${task.dueDateText}</span>
                                                 ${task.priority ? `<span class="${task.priority === "P1" ? "text-red-500 font-bold" : task.priority === "P2" ? "text-orange-500 font-bold" : "font-medium"}">${task.priority}</span>` : ""}
@@ -4142,7 +4142,7 @@
                                 .map(
                                     (task) => `
                                 <div class="task-item-container">
-                                    <div class="flex items-center space-x-2 py-2 hover:bg-red-100 rounded px-2 cursor-pointer group">
+                                    <div class="task-item flex items-center space-x-2 py-2 hover:bg-red-100 rounded px-2 cursor-pointer group">
                                         ${
                                             task.hasSubtasks
                                                 ? `
@@ -4162,7 +4162,7 @@
                                             </svg>
                                         </button>
                                         <div class="flex-grow">
-                                            <div class="text-sm text-red-900">${task.text}</div>
+                                            <div class="task-content text-sm text-red-900">${task.text}</div>
                                             <div class="text-xs text-red-600 mt-0.5 flex items-center gap-2">
                                                 <span class="font-medium">${task.dueDateText}</span>
                                                 ${task.priority ? `<span class="font-bold">${task.priority}</span>` : ""}
