@@ -1119,6 +1119,11 @@
                                             class="priority priority-p1 font-bold text-xs"
                                             >P1</span
                                         >
+                                        <!-- Project Tag -->
+                                        <span
+                                            class="project-tag text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded"
+                                            >Personal</span
+                                        >
                                         <!-- AI Status (always visible) -->
                                         <span
                                             class="ai-status text-purple-600 font-medium text-xs flex items-center space-x-1"
@@ -1925,6 +1930,11 @@
                                             class="priority priority-p2 font-medium text-xs"
                                             >P2</span
                                         >
+                                        <!-- Project Tag -->
+                                        <span
+                                            class="project-tag text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded"
+                                            >Sales</span
+                                        >
                                         <!-- Hover Actions (appear inline) -->
                                         <div
                                             class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -2099,6 +2109,11 @@
                                             class="due-date text-orange-600 font-medium text-xs"
                                             >13 Nov</span
                                         >
+                                        <!-- Project Tag -->
+                                        <span
+                                            class="project-tag text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded"
+                                            >Sales</span
+                                        >
                                         <div
                                             class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
                                         >
@@ -2265,6 +2280,11 @@
                                         <span
                                             class="due-date text-orange-600 font-medium text-xs"
                                             >13 Nov</span
+                                        >
+                                        <!-- Project Tag -->
+                                        <span
+                                            class="project-tag text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded"
+                                            >Personal</span
                                         >
                                         <div
                                             class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -3555,6 +3575,56 @@
                                 .join("");
                         } else {
                             taskView.innerHTML = `<p class="text-gray-500 italic p-4">No tasks due today.</p>`;
+                        }
+                    } else if (title === "Personal") {
+                        // Filter tasks with "Personal" tag
+                        const tempDiv = document.createElement("div");
+                        tempDiv.innerHTML = inboxTasksHTML;
+                        const allTasks = tempDiv.querySelectorAll(
+                            ".task-item-container",
+                        );
+                        const personalTasks = Array.from(allTasks).filter(
+                            (task) => {
+                                const projectTag =
+                                    task.querySelector(".project-tag");
+                                return (
+                                    projectTag &&
+                                    projectTag.textContent.trim() === "Personal"
+                                );
+                            },
+                        );
+
+                        if (personalTasks.length > 0) {
+                            taskView.innerHTML = personalTasks
+                                .map((task) => task.outerHTML)
+                                .join("");
+                        } else {
+                            taskView.innerHTML = `<p class="text-gray-500 italic p-4">No personal tasks.</p>`;
+                        }
+                    } else if (title === "Sales") {
+                        // Filter tasks with "Sales" tag
+                        const tempDiv = document.createElement("div");
+                        tempDiv.innerHTML = inboxTasksHTML;
+                        const allTasks = tempDiv.querySelectorAll(
+                            ".task-item-container",
+                        );
+                        const salesTasks = Array.from(allTasks).filter(
+                            (task) => {
+                                const projectTag =
+                                    task.querySelector(".project-tag");
+                                return (
+                                    projectTag &&
+                                    projectTag.textContent.trim() === "Sales"
+                                );
+                            },
+                        );
+
+                        if (salesTasks.length > 0) {
+                            taskView.innerHTML = salesTasks
+                                .map((task) => task.outerHTML)
+                                .join("");
+                        } else {
+                            taskView.innerHTML = `<p class="text-gray-500 italic p-4">No sales tasks.</p>`;
                         }
                     } else {
                         taskView.innerHTML = `<p class="text-gray-500 italic p-4">Tasks for ${title} would load here...</p>`;
