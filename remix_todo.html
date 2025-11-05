@@ -4428,6 +4428,53 @@
 
                 // Event listener for home view tasks
                 homeView.addEventListener("click", (e) => {
+                    // --- Handle Checkbox Toggle ---
+                    const checkbox = e.target.closest(".task-checkbox");
+                    if (checkbox && !checkbox.disabled) {
+                        const taskItem = checkbox.closest(".task-item");
+                        const taskText = taskItem
+                            .querySelector(".task-content")
+                            ?.textContent.trim();
+
+                        // Find and update the corresponding task in the main task view
+                        const tempDiv = document.createElement("div");
+                        tempDiv.innerHTML = inboxTasksHTML;
+                        const allTaskContainers = Array.from(
+                            tempDiv.children,
+                        ).filter((el) =>
+                            el.classList.contains("task-item-container"),
+                        );
+
+                        let updated = false;
+                        allTaskContainers.forEach((taskContainer) => {
+                            const sourceTaskItem =
+                                taskContainer.querySelector(".task-item");
+                            const sourceTaskContent =
+                                sourceTaskItem?.querySelector(".task-content");
+                            if (
+                                sourceTaskContent &&
+                                sourceTaskContent.textContent.trim() ===
+                                    taskText
+                            ) {
+                                const sourceCheckbox =
+                                    sourceTaskItem.querySelector(
+                                        ".task-checkbox",
+                                    );
+                                if (sourceCheckbox) {
+                                    toggleTaskCompletion(sourceCheckbox);
+                                    updated = true;
+                                }
+                            }
+                        });
+
+                        if (updated) {
+                            // Update the stored HTML
+                            inboxTasksHTML = tempDiv.innerHTML;
+                            // Refresh home view
+                            populateHomeTasks();
+                        }
+                    }
+
                     // --- Handle Expander Toggle ---
                     const expander = e.target.closest(".task-expander");
                     if (expander && !expander.disabled) {
