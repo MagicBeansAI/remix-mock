@@ -1299,9 +1299,14 @@
                         <!-- Due Today Section -->
                         <div>
                             <h2
-                                class="text-lg font-semibold text-gray-800 mb-4"
+                                class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2"
                             >
                                 Due Today
+                                <span
+                                    id="home-today-count"
+                                    class="text-sm bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
+                                    >0</span
+                                >
                             </h2>
                             <div
                                 id="home-today-tasks"
@@ -1362,8 +1367,15 @@
 
                         <!-- Overdue Section (if any) -->
                         <div id="home-overdue-section">
-                            <h2 class="text-lg font-semibold text-red-600 mb-4">
+                            <h2
+                                class="text-lg font-semibold text-red-600 mb-4 flex items-center gap-2"
+                            >
                                 Overdue
+                                <span
+                                    id="home-overdue-count"
+                                    class="text-sm bg-red-100 text-red-600 px-2 py-0.5 rounded-full"
+                                    >0</span
+                                >
                             </h2>
                             <div
                                 id="home-overdue-tasks"
@@ -4097,6 +4109,13 @@
                     // Populate Today tasks
                     const homeTodayContainer =
                         document.getElementById("home-today-tasks");
+                    const homeTodayCount =
+                        document.getElementById("home-today-count");
+
+                    if (homeTodayCount) {
+                        homeTodayCount.textContent = todayTasks.length;
+                    }
+
                     if (homeTodayContainer) {
                         if (todayTasks.length === 0) {
                             homeTodayContainer.innerHTML =
@@ -4149,6 +4168,13 @@
                     const homeOverdueSection = document.getElementById(
                         "home-overdue-section",
                     );
+                    const homeOverdueCount =
+                        document.getElementById("home-overdue-count");
+
+                    if (homeOverdueCount) {
+                        homeOverdueCount.textContent = overdueTasks.length;
+                    }
+
                     if (homeOverdueContainer && homeOverdueSection) {
                         if (overdueTasks.length === 0) {
                             homeOverdueSection.classList.add("hidden");
