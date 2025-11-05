@@ -4039,6 +4039,16 @@
                             ? projectTagEl.className
                             : "";
 
+                        // Check if task has subtasks
+                        const nestedTasks =
+                            taskContainer.querySelector(".nested-tasks");
+                        const hasSubtasks =
+                            nestedTasks && nestedTasks.children.length > 0;
+                        const aiStatus = taskItem.querySelector(".ai-status");
+                        const aiStatusText = aiStatus
+                            ? aiStatus.textContent.trim()
+                            : "";
+
                         if (dueDateText === "Today") {
                             todayTasks.push({
                                 text: taskText,
@@ -4046,6 +4056,11 @@
                                 dueDateText,
                                 projectTag,
                                 projectTagClass,
+                                hasSubtasks,
+                                aiStatusText,
+                                nestedTasksHTML: hasSubtasks
+                                    ? nestedTasks.outerHTML
+                                    : "",
                             });
                         } else if (dueDateText === "Yesterday") {
                             overdueTasks.push({
@@ -4054,6 +4069,11 @@
                                 dueDateText,
                                 projectTag,
                                 projectTagClass,
+                                hasSubtasks,
+                                aiStatusText,
+                                nestedTasksHTML: hasSubtasks
+                                    ? nestedTasks.outerHTML
+                                    : "",
                             });
                         }
                     });
@@ -4069,16 +4089,33 @@
                             homeTodayContainer.innerHTML = todayTasks
                                 .map(
                                     (task) => `
-                                <div class="flex items-center space-x-3 py-2 hover:bg-gray-50 rounded px-2 cursor-pointer">
-                                    <button class="w-5 h-5 border-2 border-gray-300 rounded-full flex-shrink-0"></button>
-                                    <div class="flex-grow">
-                                        <div class="text-sm">${task.text}</div>
-                                        <div class="text-xs text-gray-500 mt-0.5 flex items-center gap-2">
-                                            <span class="text-green-600 font-medium">${task.dueDateText}</span>
-                                            ${task.priority ? `<span class="${task.priority === "P1" ? "text-red-500 font-bold" : task.priority === "P2" ? "text-orange-500 font-bold" : "font-medium"}">${task.priority}</span>` : ""}
-                                            ${task.projectTag ? `<span class="${task.projectTagClass}">${task.projectTag}</span>` : ""}
+                                <div class="task-item-container">
+                                    <div class="flex items-center space-x-2 py-2 hover:bg-gray-50 rounded px-2 cursor-pointer group">
+                                        ${
+                                            task.hasSubtasks
+                                                ? `
+                                        <button class="task-expander collapsed flex-shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 ${task.aiStatusText ? "text-purple-600 hover:text-purple-700" : "text-gray-400"} mt-0.5">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </button>
+                                        `
+                                                : `
+                                        <div class="flex-shrink-0 w-6 h-6"></div>
+                                        `
+                                        }
+                                        <button class="w-5 h-5 border-2 border-gray-300 rounded-full flex-shrink-0"></button>
+                                        <div class="flex-grow">
+                                            <div class="text-sm">${task.text}</div>
+                                            <div class="text-xs text-gray-500 mt-0.5 flex items-center gap-2">
+                                                <span class="text-green-600 font-medium">${task.dueDateText}</span>
+                                                ${task.priority ? `<span class="${task.priority === "P1" ? "text-red-500 font-bold" : task.priority === "P2" ? "text-orange-500 font-bold" : "font-medium"}">${task.priority}</span>` : ""}
+                                                ${task.projectTag ? `<span class="${task.projectTagClass}">${task.projectTag}</span>` : ""}
+                                                ${task.aiStatusText ? `<span class="text-purple-600 font-medium text-xs">${task.aiStatusText}</span>` : ""}
+                                            </div>
                                         </div>
                                     </div>
+                                    ${task.hasSubtasks ? task.nestedTasksHTML : ""}
                                 </div>
                             `,
                                 )
@@ -4100,16 +4137,33 @@
                             homeOverdueContainer.innerHTML = overdueTasks
                                 .map(
                                     (task) => `
-                                <div class="flex items-center space-x-3 py-2 hover:bg-red-100 rounded px-2 cursor-pointer">
-                                    <button class="w-5 h-5 border-2 border-red-400 rounded-full flex-shrink-0"></button>
-                                    <div class="flex-grow">
-                                        <div class="text-sm text-red-900">${task.text}</div>
-                                        <div class="text-xs text-red-600 mt-0.5 flex items-center gap-2">
-                                            <span class="font-medium">${task.dueDateText}</span>
-                                            ${task.priority ? `<span class="font-bold">${task.priority}</span>` : ""}
-                                            ${task.projectTag ? `<span class="${task.projectTagClass}">${task.projectTag}</span>` : ""}
+                                <div class="task-item-container">
+                                    <div class="flex items-center space-x-2 py-2 hover:bg-red-100 rounded px-2 cursor-pointer group">
+                                        ${
+                                            task.hasSubtasks
+                                                ? `
+                                        <button class="task-expander collapsed flex-shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-red-100 ${task.aiStatusText ? "text-purple-600 hover:text-purple-700" : "text-gray-400"} mt-0.5">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </button>
+                                        `
+                                                : `
+                                        <div class="flex-shrink-0 w-6 h-6"></div>
+                                        `
+                                        }
+                                        <button class="w-5 h-5 border-2 border-red-400 rounded-full flex-shrink-0"></button>
+                                        <div class="flex-grow">
+                                            <div class="text-sm text-red-900">${task.text}</div>
+                                            <div class="text-xs text-red-600 mt-0.5 flex items-center gap-2">
+                                                <span class="font-medium">${task.dueDateText}</span>
+                                                ${task.priority ? `<span class="font-bold">${task.priority}</span>` : ""}
+                                                ${task.projectTag ? `<span class="${task.projectTagClass}">${task.projectTag}</span>` : ""}
+                                                ${task.aiStatusText ? `<span class="text-purple-600 font-medium text-xs">${task.aiStatusText}</span>` : ""}
+                                            </div>
                                         </div>
                                     </div>
+                                    ${task.hasSubtasks ? task.nestedTasksHTML : ""}
                                 </div>
                             `,
                                 )
