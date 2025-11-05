@@ -473,6 +473,7 @@
                                 </svg>
                                 <span class="text-sm">All</span>
                                 <span
+                                    id="count-all"
                                     class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
                                     >5</span
                                 >
@@ -502,6 +503,7 @@
                                 </svg>
                                 <span class="text-sm">Inbox</span>
                                 <span
+                                    id="count-inbox"
                                     class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
                                     >2</span
                                 >
@@ -538,6 +540,7 @@
                                 </svg>
                                 <span class="text-sm">Today</span>
                                 <span
+                                    id="count-today"
                                     class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
                                     >2</span
                                 >
@@ -554,6 +557,11 @@
                                 <span class="text-sm font-medium"
                                     >Personal</span
                                 >
+                                <span
+                                    id="count-personal"
+                                    class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
+                                    >0</span
+                                >
                             </a>
                             <a
                                 href="#"
@@ -565,6 +573,11 @@
                                     class="w-2 h-2 rounded-full bg-green-500"
                                 ></span>
                                 <span class="text-sm font-medium">Sales</span>
+                                <span
+                                    id="count-sales"
+                                    class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
+                                    >0</span
+                                >
                             </a>
                         </div>
                     </div>
@@ -3932,6 +3945,9 @@
                     showHomeView();
                 }
 
+                // Update sidebar counts on page load
+                updateSidebarCounts();
+
                 // --- Handle Sidebar Navigation ---
                 sidebarLinks.forEach((link) => {
                     link.addEventListener("click", (e) => {
@@ -4178,6 +4194,82 @@
                                 .join("");
                         }
                     }
+                }
+
+                function updateSidebarCounts() {
+                    // Get all tasks from the task view
+                    const tempDiv = document.createElement("div");
+                    tempDiv.innerHTML = inboxTasksHTML;
+                    const allTasks = Array.from(tempDiv.children).filter((el) =>
+                        el.classList.contains("task-item-container"),
+                    );
+
+                    let allCount = 0;
+                    let inboxCount = 0;
+                    let todayCount = 0;
+                    let personalCount = 0;
+                    let salesCount = 0;
+
+                    allTasks.forEach((taskContainer) => {
+                        const taskItem =
+                            taskContainer.querySelector(".task-item");
+                        if (!taskItem) return;
+
+                        const isCompleted = taskItem.querySelector(
+                            ".task-checkbox.completed",
+                        );
+                        if (isCompleted) return; // Skip completed tasks
+
+                        const dueDateEl = taskItem.querySelector(".due-date");
+                        const projectTagEl =
+                            taskItem.querySelector(".project-tag");
+
+                        allCount++;
+
+                        // Count for Inbox (no project tag)
+                        if (!projectTagEl) {
+                            inboxCount++;
+                        }
+
+                        // Count for Today
+                        if (
+                            dueDateEl &&
+                            dueDateEl.textContent.trim() === "Today"
+                        ) {
+                            todayCount++;
+                        }
+
+                        // Count for Personal
+                        if (
+                            projectTagEl &&
+                            projectTagEl.textContent.trim() === "Personal"
+                        ) {
+                            personalCount++;
+                        }
+
+                        // Count for Sales
+                        if (
+                            projectTagEl &&
+                            projectTagEl.textContent.trim() === "Sales"
+                        ) {
+                            salesCount++;
+                        }
+                    });
+
+                    // Update the DOM
+                    const countAll = document.getElementById("count-all");
+                    const countInbox = document.getElementById("count-inbox");
+                    const countToday = document.getElementById("count-today");
+                    const countPersonal =
+                        document.getElementById("count-personal");
+                    const countSales = document.getElementById("count-sales");
+
+                    if (countAll) countAll.textContent = allCount;
+                    if (countInbox) countInbox.textContent = inboxCount;
+                    if (countToday) countToday.textContent = todayCount;
+                    if (countPersonal)
+                        countPersonal.textContent = personalCount;
+                    if (countSales) countSales.textContent = salesCount;
                 }
 
                 function showDashboardView(title) {
@@ -4509,6 +4601,9 @@
                         // Update the stored HTML
                         inboxTasksHTML = tempDiv.innerHTML;
 
+                        // Update sidebar counts
+                        updateSidebarCounts();
+
                         // Refresh home view after a short delay to show completion animation
                         setTimeout(() => populateHomeTasks(), 300);
                     }
@@ -4529,6 +4624,9 @@
                     checkbox.classList.toggle("completed");
                     taskContent.classList.toggle("completed");
                     checkIcon.classList.toggle("hidden");
+
+                    // Update sidebar counts when task completion changes
+                    updateSidebarCounts();
 
                     // --- FUTURE ---
                     // This is where you could trigger the automation!
