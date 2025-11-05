@@ -4480,7 +4480,7 @@
                             taskView.innerHTML = `<p class="text-gray-500 italic p-4">No tasks due today.</p>`;
                         }
                     } else if (title === "Overdue") {
-                        // Filter tasks with "Yesterday" due date (overdue)
+                        // Filter tasks with "Yesterday" due date (overdue) that are not completed
                         const tempDiv = document.createElement("div");
                         tempDiv.innerHTML = inboxTasksHTML;
                         const allTasks = tempDiv.querySelectorAll(
@@ -4489,9 +4489,18 @@
                         const overdueTasks = Array.from(allTasks).filter(
                             (task) => {
                                 const dueDate = task.querySelector(".due-date");
+                                const taskItem =
+                                    task.querySelector(".task-item");
+                                const isCompleted = taskItem
+                                    ? taskItem.querySelector(
+                                          ".task-checkbox.completed",
+                                      )
+                                    : null;
                                 return (
                                     dueDate &&
-                                    dueDate.textContent.trim() === "Yesterday"
+                                    dueDate.textContent.trim() ===
+                                        "Yesterday" &&
+                                    !isCompleted
                                 );
                             },
                         );
