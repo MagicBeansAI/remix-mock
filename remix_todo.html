@@ -6996,15 +6996,11 @@
 
                     if (taskContainer) {
                         taskContainer.classList.add(
-                            "ring-2",
-                            "ring-indigo-500",
-                            "ring-offset-2",
+                            "ring-1",
+                            "ring-indigo-300",
                             "rounded-lg",
-                            "bg-indigo-100",
+                            "bg-indigo-50",
                         );
-                        taskContainer.style.outline = "3px solid #6366f1";
-                        taskContainer.style.outlineOffset = "2px";
-                        taskContainer.style.backgroundColor = "#e0e7ff";
                     }
                 }
             }
@@ -7018,16 +7014,15 @@
 
                 highlightedElements.forEach((el) => {
                     el.classList.remove(
+                        "ring-1",
                         "ring-2",
+                        "ring-indigo-300",
                         "ring-indigo-500",
                         "ring-offset-2",
                         "rounded-lg",
                         "bg-indigo-50",
                         "bg-indigo-100",
                     );
-                    el.style.outline = "";
-                    el.style.outlineOffset = "";
-                    el.style.backgroundColor = "";
                 });
 
                 currentPanelTaskId = null;
