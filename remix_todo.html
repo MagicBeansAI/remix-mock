@@ -3732,41 +3732,41 @@
             >
                 <!-- Panel Header -->
                 <header
-                    class="flex-shrink-0 flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50"
+                    class="flex-shrink-0 p-4 border-b border-gray-200 bg-gray-50"
                 >
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3
+                            id="panel-task-name"
+                            class="font-semibold text-base text-gray-900"
+                        >
+                            Task: Pull all messages from Ruchika
+                        </h3>
+                        <button
+                            id="close-panel-btn"
+                            class="p-1 rounded hover:bg-gray-200 text-gray-600"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-2">
                         <div
                             class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
                         ></div>
-                        <div>
-                            <h3
-                                id="panel-task-name"
-                                class="font-semibold text-sm"
-                            >
-                                Task: Pull all messages from Ruchika
-                            </h3>
-                            <p class="text-xs text-gray-500">Running...</p>
-                        </div>
+                        <p class="text-xs text-gray-500">Running...</p>
                     </div>
-                    <button
-                        id="close-panel-btn"
-                        class="p-1 rounded hover:bg-gray-200 text-gray-600"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
                 </header>
 
                 <!-- Panel Content -->
@@ -3865,6 +3865,32 @@
                         </div>
                     </div>
 
+                    <!-- Q&A Section -->
+                    <div id="qa-section" class="hidden">
+                        <h4
+                            class="text-xs font-semibold text-gray-500 uppercase mb-2"
+                        >
+                            Question
+                        </h4>
+                        <div
+                            class="bg-yellow-50 border border-yellow-200 rounded-lg p-3"
+                        >
+                            <p class="text-sm font-medium text-gray-800 mb-2">
+                                Which account should I use?
+                            </p>
+                            <input
+                                type="text"
+                                placeholder="Enter your response..."
+                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent mb-2"
+                            />
+                            <button
+                                class="w-full px-3 py-1.5 bg-indigo-600 text-white text-sm font-semibold rounded hover:bg-indigo-700 transition-colors"
+                            >
+                                Submit Answer
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Browser Preview / Artifacts -->
                     <div>
                         <h4
@@ -3903,32 +3929,6 @@
                                     Click to expand view
                                 </p>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Q&A Section -->
-                    <div id="qa-section" class="hidden">
-                        <h4
-                            class="text-xs font-semibold text-gray-500 uppercase mb-2"
-                        >
-                            Question
-                        </h4>
-                        <div
-                            class="bg-yellow-50 border border-yellow-200 rounded-lg p-3"
-                        >
-                            <p class="text-sm font-medium text-gray-800 mb-2">
-                                Which account should I use?
-                            </p>
-                            <input
-                                type="text"
-                                placeholder="Enter your response..."
-                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent mb-2"
-                            />
-                            <button
-                                class="w-full px-3 py-1.5 bg-indigo-600 text-white text-sm font-semibold rounded hover:bg-indigo-700 transition-colors"
-                            >
-                                Submit Answer
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -4125,20 +4125,20 @@
                  */
                 toMarkdown() {
                     const frontmatter = `---
-id: ${this.id}
-title: ${this.title}
-dueDate: ${this.dueDate}
-priority: ${this.priority}
-status: ${this.status}
-tags: [${this.tags.join(", ")}]
-aiStatus: ${this.aiStatus}
-aiPlan: ${this.aiPlan}
-created: ${this.created}
-updated: ${this.updated}
----
+            id: ${this.id}
+            title: ${this.title}
+            dueDate: ${this.dueDate}
+            priority: ${this.priority}
+            status: ${this.status}
+            tags: [${this.tags.join(", ")}]
+            aiStatus: ${this.aiStatus}
+            aiPlan: ${this.aiPlan}
+            created: ${this.created}
+            updated: ${this.updated}
+            ---
 
-# ${this.title}
-`;
+            # ${this.title}
+            `;
 
                     let markdown = frontmatter;
 
@@ -4354,6 +4354,27 @@ updated: ${this.updated}
                 }
 
                 /**
+                 * Update a task with new properties
+                 */
+                async updateTask(taskId, updates) {
+                    const task = this.tasks.get(taskId);
+                    if (!task) {
+                        console.warn(`Task ${taskId} not found for update`);
+                        return false;
+                    }
+
+                    // Apply updates to the task
+                    Object.assign(task, updates);
+                    task.updated = new Date().toISOString();
+
+                    const success = this.saveToStorage();
+                    if (success) {
+                        console.log(`Updated task: ${taskId}`, updates);
+                    }
+                    return success;
+                }
+
+                /**
                  * Export all tasks as JSON (for backup/portability)
                  */
                 async exportTasks() {
@@ -4505,19 +4526,19 @@ updated: ${this.updated}
 
                 const expanderButton = hasSubtasks
                     ? `
-                    <button class="task-expander collapsed flex-shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 ${expanderColor} mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                `
+                                <button class="task-expander collapsed flex-shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 ${expanderColor} mt-0.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                            `
                     : `
-                    <button class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded ${expanderColor} mt-0.5" disabled>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                        </svg>
-                    </button>
-                `;
+                                <button class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded ${expanderColor} mt-0.5" disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                </button>
+                            `;
 
                 // Checkbox
                 const checkboxChecked = isCompleted ? "completed" : "";
@@ -4535,12 +4556,12 @@ updated: ${this.updated}
                     if (isExecuting) {
                         // Show Abort Execution button (always visible, red styling)
                         actionButtons = `
-                            <div class="flex items-center space-x-1">
-                                <button class="abort-execution-btn px-2 py-0.5 rounded text-xs text-red-600 border border-red-300 hover:border-red-400 hover:bg-red-50 transition-colors" title="Abort Execution">
-                                    Abort Execution
-                                </button>
-                            </div>
-                        `;
+                                        <div class="flex items-center space-x-1">
+                                            <button class="abort-execution-btn px-2 py-0.5 rounded text-xs text-red-600 border border-red-300 hover:border-red-400 hover:bg-red-50 transition-colors" title="Abort Execution">
+                                                Abort Execution
+                                            </button>
+                                        </div>
+                                    `;
                     } else {
                         const mainButtonText = isCompleted
                             ? "Create Dashboard"
@@ -4549,33 +4570,33 @@ updated: ${this.updated}
                             ? "Create Dashboard"
                             : "Do it for me";
                         actionButtons = `
-                            <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="do-it-for-me-btn px-2 py-0.5 rounded text-xs text-gray-600 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors" title="${mainButtonTitle}">
-                                    ${mainButtonText}
-                                </button>
-                                <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Due Date">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
-                                        <line x1="16" x2="16" y1="2" y2="6"/>
-                                        <line x1="8" x2="8" y1="2" y2="6"/>
-                                        <line x1="3" x2="21" y1="10" y2="10"/>
-                                    </svg>
-                                </button>
-                                <button class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" data-task-id="${task.id}" title="Set Priority">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
-                                        <line x1="4" x2="4" y1="22" y2="15"/>
-                                    </svg>
-                                </button>
-                                <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="More Actions">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="1"/>
-                                        <circle cx="12" cy="5" r="1"/>
-                                        <circle cx="12" cy="19" r="1"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        `;
+                                        <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button class="do-it-for-me-btn px-2 py-0.5 rounded text-xs text-gray-600 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors" title="${mainButtonTitle}">
+                                                ${mainButtonText}
+                                            </button>
+                                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Due Date">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+                                                    <line x1="16" x2="16" y1="2" y2="6"/>
+                                                    <line x1="8" x2="8" y1="2" y2="6"/>
+                                                    <line x1="3" x2="21" y1="10" y2="10"/>
+                                                </svg>
+                                            </button>
+                                            <button class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" data-task-id="${task.id}" title="Set Priority">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                                                    <line x1="4" x2="4" y1="22" y2="15"/>
+                                                </svg>
+                                            </button>
+                                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="More Actions">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="1"/>
+                                                    <circle cx="12" cy="5" r="1"/>
+                                                    <circle cx="12" cy="19" r="1"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    `;
                     }
                 }
 
@@ -4604,36 +4625,36 @@ updated: ${this.updated}
                         if (isExecuting) {
                             // Executing: indigo color with spinning icon
                             aiStatusSpan = `
-                                <span class="ai-status text-indigo-600 font-medium text-xs flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-spin">
-                                        <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-                                    </svg>
-                                    <span>${aiStatusDisplay}</span>
-                                </span>
-                            `;
+                                            <span class="ai-status text-indigo-600 font-medium text-xs flex items-center space-x-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-spin">
+                                                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                                                </svg>
+                                                <span>${aiStatusDisplay}</span>
+                                            </span>
+                                        `;
                         } else {
                             // Other statuses: purple color with bot icon
                             aiStatusSpan = `
-                                <span class="ai-status text-purple-600 font-medium text-xs flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5h-1v1.27c.6.34 1 .99 1 1.73a2 2 0 1 1-2-2v-2a2 2 0 0 1-2 2 2 2 0 1 1 0-4c.74 0 1.39.4 1.73 1H11V5.73A2 2 0 1 1 12 2Z"/>
-                                    </svg>
-                                    <span>${aiStatusDisplay}</span>
-                                </span>
-                            `;
+                                            <span class="ai-status text-purple-600 font-medium text-xs flex items-center space-x-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5h-1v1.27c.6.34 1 .99 1 1.73a2 2 0 1 1-2-2v-2a2 2 0 0 1-2 2 2 2 0 1 1 0-4c.74 0 1.39.4 1.73 1H11V5.73A2 2 0 1 1 12 2Z"/>
+                                                </svg>
+                                                <span>${aiStatusDisplay}</span>
+                                            </span>
+                                        `;
                         }
                     }
 
                     metadataRow = `
-                        <div class="text-xs text-gray-500 mt-0.5 flex items-center gap-2">
-                            ${dueDateSpan}
-                            ${prioritySpan}
-                            ${tagsSpans}
-                            ${addTagButton}
-                            ${aiStatusSpan}
-                            ${actionButtons}
-                        </div>
-                    `;
+                                    <div class="text-xs text-gray-500 mt-0.5 flex items-center gap-2">
+                                        ${dueDateSpan}
+                                        ${prioritySpan}
+                                        ${tagsSpans}
+                                        ${addTagButton}
+                                        ${aiStatusSpan}
+                                        ${actionButtons}
+                                    </div>
+                                `;
                 }
 
                 // Render subtasks if they exist
@@ -4642,27 +4663,27 @@ updated: ${this.updated}
                     const subtasksContent = task.subtasks
                         .map(
                             (subtask) => `
-                        <div class="task-item-container ml-8">
-                            <div class="task-item flex items-start space-x-2 py-2 group">
-                                <button class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-purple-600 mt-0.5" disabled>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                    </svg>
-                                </button>
-                                <div class="relative flex-shrink-0">
-                                    <button class="task-checkbox ${isCompleted ? "completed" : ""} w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center cursor-not-allowed opacity-50" disabled>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" ${isCompleted ? "" : 'class="hidden"'}>
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    </button>
-                                    ${!isCompleted ? '<button class="absolute top-0 left-0 opacity-0 group-hover:opacity-100 px-2 py-0.5 rounded text-xs text-gray-600 bg-white border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all whitespace-nowrap shadow-md" title="Do it">Do it</button>' : ""}
-                                </div>
-                                <div class="flex-grow">
-                                    <div class="task-content text-sm ${isCompleted ? "completed" : ""}">${subtask}</div>
-                                </div>
-                            </div>
-                        </div>
-                    `,
+                                    <div class="task-item-container ml-8">
+                                        <div class="task-item flex items-start space-x-2 py-2 group">
+                                            <button class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-purple-600 mt-0.5" disabled>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                </svg>
+                                            </button>
+                                            <div class="relative flex-shrink-0">
+                                                <button class="task-checkbox ${isCompleted ? "completed" : ""} w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center cursor-not-allowed opacity-50" disabled>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" ${isCompleted ? "" : 'class="hidden"'}>
+                                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                                    </svg>
+                                                </button>
+                                                ${!isCompleted ? '<button class="absolute top-0 left-0 opacity-0 group-hover:opacity-100 px-2 py-0.5 rounded text-xs text-gray-600 bg-white border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all whitespace-nowrap shadow-md" title="Do it">Do it</button>' : ""}
+                                            </div>
+                                            <div class="flex-grow">
+                                                <div class="task-content text-sm ${isCompleted ? "completed" : ""}">${subtask}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `,
                         )
                         .join("");
 
@@ -4671,22 +4692,22 @@ updated: ${this.updated}
 
                 // Build the complete task HTML
                 const taskHTML = `
-                    <div class="task-item-container ${indentClass}" data-task-id="${task.id}">
-                        <div class="task-item flex items-center space-x-2 py-2 hover:bg-gray-50 rounded px-2 cursor-pointer group">
-                            ${expanderButton}
-                            <button class="task-checkbox ${checkboxChecked} flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center ${checkboxDisabled}" data-task-id="${task.id}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" ${checkboxIcon}>
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                            </button>
-                            <div class="flex-grow">
-                                <div class="task-content text-sm ${isCompleted ? "completed" : ""}" ${editable && !isCompleted ? 'contenteditable="false"' : ""}>${task.title}</div>
-                                ${metadataRow}
-                            </div>
-                        </div>
-                        ${subtasksHTML}
-                    </div>
-                `;
+                                <div class="task-item-container ${indentClass}" data-task-id="${task.id}">
+                                    <div class="task-item flex items-center space-x-2 py-2 hover:bg-gray-50 rounded px-2 cursor-pointer group">
+                                        ${expanderButton}
+                                        <button class="task-checkbox ${checkboxChecked} flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center ${checkboxDisabled}" data-task-id="${task.id}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" ${checkboxIcon}>
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                        </button>
+                                        <div class="flex-grow">
+                                            <div class="task-content text-sm ${isCompleted ? "completed" : ""}" ${editable && !isCompleted ? 'contenteditable="false"' : ""}>${task.title}</div>
+                                            ${metadataRow}
+                                        </div>
+                                    </div>
+                                    ${subtasksHTML}
+                                </div>
+                            `;
 
                 return taskHTML;
             }
@@ -5181,65 +5202,65 @@ updated: ${this.updated}
                         dashboardView.innerHTML = dailyBriefingDashboardHTML;
                     } else if (title === "Social Media") {
                         dashboardView.innerHTML = `
-                            <!-- Widget 1: New Followers -->
-                            <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col" data-widget-id="instagram-followers">
-                                <header class="flex items-center justify-between p-4 border-b border-gray-100">
-                                    <h3 class="font-semibold">New Instagram Followers</h3>
-                                    <div class="flex items-center space-x-1">
-                                        <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600" title="Refresh">
-                                            <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                                        <!-- Widget 1: New Followers -->
+                                        <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col" data-widget-id="instagram-followers">
+                                            <header class="flex items-center justify-between p-4 border-b border-gray-100">
+                                                <h3 class="font-semibold">New Instagram Followers</h3>
+                                                <div class="flex items-center space-x-1">
+                                                    <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600" title="Refresh">
+                                                        <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                                                    </button>
+                                                    <button class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600" title="Remove widget">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                    </button>
+                                                </div>
+                                            </header>
+                                            <div class="widget-content p-4 h-48 overflow-y-auto space-y-3">
+                                                <div class="text-sm">
+                                                    <strong class="text-pink-500">@user123</strong> started following you.
+                                                </div>
+                                                <div class="text-sm">
+                                                    <strong class="text-pink-500">@design_pro</strong> started following you.
+                                                </div>
+                                                <div class="text-sm">
+                                                    <strong class="text-pink-500">@tech_guru</strong> started following you.
+                                                </div>
+                                            </div>
+                                            <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
+                                                Last run: 1 hour ago
+                                            </footer>
+                                        </div>
+                                        <!-- Widget 2: Twitter Mentions -->
+                                        <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col" data-widget-id="twitter-mentions">
+                                            <header class="flex items-center justify-between p-4 border-b border-gray-100">
+                                                <h3 class="font-semibold">Twitter Mentions</h3>
+                                                <div class="flex items-center space-x-1">
+                                                    <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600" title="Refresh">
+                                                        <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                                                    </button>
+                                                    <button class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600" title="Remove widget">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                    </button>
+                                                </div>
+                                            </header>
+                                            <div class="widget-content p-4 h-48 overflow-y-auto space-y-3">
+                                                <div class="text-sm">
+                                                    <strong class="text-blue-500">@startup_news:</strong> "Great insights on automation!"
+                                                </div>
+                                                <div class="text-sm">
+                                                    <strong class="text-blue-500">@tech_daily:</strong> "This is exactly what we needed 🚀"
+                                                </div>
+                                            </div>
+                                            <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
+                                                Last run: 30 mins ago
+                                            </footer>
+                                        </div>
+                                        <!-- Add New Widget -->
+                                        <button class="flex items-center justify-center space-x-2 bg-gray-50/50 border-2 border-gray-300 border-dashed rounded-xl text-gray-500 hover:bg-white hover:border-gray-400 hover:text-gray-700 transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                                            <span class="font-semibold">Add Task to Dashboard</span>
                                         </button>
-                                        <button class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600" title="Remove widget">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                        </button>
-                                    </div>
-                                </header>
-                                <div class="widget-content p-4 h-48 overflow-y-auto space-y-3">
-                                    <div class="text-sm">
-                                        <strong class="text-pink-500">@user123</strong> started following you.
-                                    </div>
-                                    <div class="text-sm">
-                                        <strong class="text-pink-500">@design_pro</strong> started following you.
-                                    </div>
-                                    <div class="text-sm">
-                                        <strong class="text-pink-500">@tech_guru</strong> started following you.
-                                    </div>
-                                </div>
-                                <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
-                                    Last run: 1 hour ago
-                                </footer>
-                            </div>
-                            <!-- Widget 2: Twitter Mentions -->
-                            <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col" data-widget-id="twitter-mentions">
-                                <header class="flex items-center justify-between p-4 border-b border-gray-100">
-                                    <h3 class="font-semibold">Twitter Mentions</h3>
-                                    <div class="flex items-center space-x-1">
-                                        <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600" title="Refresh">
-                                            <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                                        </button>
-                                        <button class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600" title="Remove widget">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                        </button>
-                                    </div>
-                                </header>
-                                <div class="widget-content p-4 h-48 overflow-y-auto space-y-3">
-                                    <div class="text-sm">
-                                        <strong class="text-blue-500">@startup_news:</strong> "Great insights on automation!"
-                                    </div>
-                                    <div class="text-sm">
-                                        <strong class="text-blue-500">@tech_daily:</strong> "This is exactly what we needed 🚀"
-                                    </div>
-                                </div>
-                                <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
-                                    Last run: 30 mins ago
-                                </footer>
-                            </div>
-                            <!-- Add New Widget -->
-                            <button class="flex items-center justify-center space-x-2 bg-gray-50/50 border-2 border-gray-300 border-dashed rounded-xl text-gray-500 hover:bg-white hover:border-gray-400 hover:text-gray-700 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
-                                <span class="font-semibold">Add Task to Dashboard</span>
-                            </button>
-                        `;
+                                    `;
                     }
                 }
 
@@ -5300,14 +5321,14 @@ updated: ${this.updated}
 
                             // 4. Show new results (in a real app, this data would be fetched)
                             widgetContent.innerHTML = `
-                            <div class="text-sm">
-                                <!-- Changed color to indigo -->
-                                <strong class="text-indigo-600">LinkedIn:</strong> "Just saw it, looks great!"
-                            </div>
-                            <div class="text-sm">
-                                <strong class="text-red-600">Gmail:</strong> "Re: Project Alpha - Perfect, no notes."
-                            </div>
-                        `;
+                                        <div class="text-sm">
+                                            <!-- Changed color to indigo -->
+                                            <strong class="text-indigo-600">LinkedIn:</strong> "Just saw it, looks great!"
+                                        </div>
+                                        <div class="text-sm">
+                                            <strong class="text-red-600">Gmail:</strong> "Re: Project Alpha - Perfect, no notes."
+                                        </div>
+                                    `;
                             widgetFooter.textContent = "Last run: Just now";
                         }, 1500);
                     }
@@ -5691,39 +5712,39 @@ updated: ${this.updated}
                 // --- Function to create and add a new task ---
                 function addNewTask(text) {
                     const newTaskHTML = `
-                <div class="task-item-container">
-                    <div class="task-item flex items-start space-x-2 py-2 group">
-                        <button class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-gray-400 mt-0.5" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>
-                        </button>
-                        <button class="task-checkbox flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="hidden"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        </button>
-                        <div class="flex-grow">
-                            <!-- Changed font size from text-base to text-sm -->
-                            <div class="task-content text-sm" contenteditable="false">${text}</div>
-                            <div class="flex items-center space-x-3 text-xs text-gray-500 mt-1">
-                                <span class="due-date"></span>
-                                <span class="priority font-bold"></span>
+                            <div class="task-item-container">
+                                <div class="task-item flex items-start space-x-2 py-2 group">
+                                    <button class="task-expander flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-gray-400 mt-0.5" disabled>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>
+                                    </button>
+                                    <button class="task-checkbox flex-shrink-0 w-5 h-5 mt-1 border-2 border-gray-300 rounded-full flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="hidden"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    </button>
+                                    <div class="flex-grow">
+                                        <!-- Changed font size from text-base to text-sm -->
+                                        <div class="task-content text-sm" contenteditable="false">${text}</div>
+                                        <div class="flex items-center space-x-3 text-xs text-gray-500 mt-1">
+                                            <span class="due-date"></span>
+                                            <span class="priority font-bold"></span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-0 flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Add to Dashboard">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                                        </button>
+                                        <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Due Date">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                        </button>
+                                        <button class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Priority">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+                                        </button>
+                                        <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="More Actions">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex-shrink-0 flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Add to Dashboard">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-                            </button>
-                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Due Date">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-                            </button>
-                            <button class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Priority">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
-                            </button>
-                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="More Actions">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                `;
+                            `;
                     taskView.insertAdjacentHTML("beforeend", newTaskHTML);
                 }
             });
@@ -5755,9 +5776,14 @@ updated: ${this.updated}
                             taskContainer.querySelector(".task-content");
                         if (taskContent) {
                             const title = taskContent.textContent.trim();
-                            // Find task by title
+                            // Find task by title in storage
                             const allTasks = taskStorage.getAllTasks();
                             task = allTasks.find((t) => t.title === title);
+
+                            // If still not found, create a mock task object
+                            if (!task) {
+                                task = { title: title };
+                            }
                         }
                     }
 
@@ -5791,6 +5817,11 @@ updated: ${this.updated}
                             const title = taskContent.textContent.trim();
                             const allTasks = taskStorage.getAllTasks();
                             task = allTasks.find((t) => t.title === title);
+
+                            // If still not found, create a mock task object
+                            if (!task) {
+                                task = { title: title };
+                            }
                         }
                     }
 
@@ -5815,7 +5846,50 @@ updated: ${this.updated}
                 if (!taskContainer) return;
 
                 const taskId = taskContainer.dataset.taskId;
-                const task = taskId ? taskStorage.getTask(taskId) : null;
+                let task = taskId ? taskStorage.getTask(taskId) : null;
+
+                // If no task found by ID, try to create a mock task object from static HTML
+                if (!task) {
+                    const taskContent =
+                        taskContainer.querySelector(".task-content");
+                    const aiStatusEl = taskContainer.querySelector(
+                        ".ai-status span:last-child",
+                    );
+
+                    if (taskContent) {
+                        const title = taskContent.textContent.trim();
+                        const aiStatusText = aiStatusEl
+                            ? aiStatusEl.textContent.trim().toLowerCase()
+                            : null;
+
+                        // Map display text to internal status
+                        let aiStatus = null;
+                        if (aiStatusText === "ai plan ready") {
+                            aiStatus = "ready";
+                        } else if (
+                            aiStatusText === "ai executing..." ||
+                            aiStatusText === "executing"
+                        ) {
+                            aiStatus = "executing";
+                        } else if (
+                            aiStatusText === "ai completed" ||
+                            aiStatusText === "completed"
+                        ) {
+                            aiStatus = "completed";
+                        }
+
+                        if (aiStatus) {
+                            task = {
+                                title: title,
+                                aiStatus: aiStatus,
+                                status:
+                                    aiStatus === "completed"
+                                        ? "completed"
+                                        : "active",
+                            };
+                        }
+                    }
+                }
 
                 // Open panel for executing tasks
                 if (
@@ -5824,6 +5898,14 @@ updated: ${this.updated}
                     task.aiStatus.toLowerCase() === "executing"
                 ) {
                     openExecutionPanel(task);
+                }
+                // Open panel for tasks with AI Plan Ready status
+                else if (
+                    task &&
+                    task.aiStatus &&
+                    task.aiStatus.toLowerCase() === "ready"
+                ) {
+                    openExecutionPanelPlanReady(task);
                 }
                 // Open panel for completed tasks (showing all steps completed)
                 else if (
@@ -5849,10 +5931,10 @@ updated: ${this.updated}
                     statusColor: "green",
                     steps: [
                         { text: "Open LinkedIn Messages", status: "completed" },
-                        { text: 'Filter by "Ruchika"', status: "in_progress" },
+                        { text: 'Filter by "Ruchika"', status: "completed" },
                         {
                             text: "Extract latest message text",
-                            status: "pending",
+                            status: "in_progress",
                         },
                         { text: "Open Gmail", status: "pending" },
                         {
@@ -5867,30 +5949,28 @@ updated: ${this.updated}
                 // Review automation logs
                 logs: {
                     taskName: "Review automation logs",
-                    status: "Planning...",
-                    statusColor: "yellow",
+                    status: "Running...",
+                    statusColor: "green",
                     steps: [
-                        { text: "Identify log sources", status: "in_progress" },
+                        { text: "Access log dashboard", status: "in_progress" },
                         {
-                            text: "Parse recent automation runs",
+                            text: "Filter by date range",
                             status: "pending",
                         },
                         {
-                            text: "Highlight errors and warnings",
+                            text: "Identify errors and warnings",
                             status: "pending",
                         },
                         { text: "Generate summary report", status: "pending" },
                     ],
                     browserPreview: "Analyzing automation history...",
-                    showQA: true,
-                    qaQuestion:
-                        "Which time period should I analyze? (e.g., last 24 hours, last week)",
+                    showQA: false,
                 },
                 // Update quarterly reports
                 reports: {
                     taskName: "Update quarterly reports",
-                    status: "Waiting for input...",
-                    statusColor: "yellow",
+                    status: "AI Executing...",
+                    statusColor: "green",
                     steps: [
                         {
                             text: "Access report templates",
@@ -5898,16 +5978,17 @@ updated: ${this.updated}
                         },
                         {
                             text: "Gather Q4 data from sources",
+                            status: "completed",
+                        },
+                        {
+                            text: "Update revenue charts",
                             status: "in_progress",
                         },
-                        { text: "Update revenue charts", status: "pending" },
                         { text: "Update KPI metrics", status: "pending" },
                         { text: "Export to PDF", status: "pending" },
                     ],
                     browserPreview: "Google Sheets - Q4 Data...",
-                    showQA: true,
-                    qaQuestion:
-                        "Which data sources should I pull from? (Salesforce, HubSpot, or both)",
+                    showQA: false,
                 },
                 // Schedule team meeting
                 meeting: {
@@ -6094,16 +6175,16 @@ updated: ${this.updated}
 
                         if (step.status === "completed") {
                             iconHTML = `<div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>`;
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </div>`;
                             textClass = "text-gray-800";
                             statusText = "Completed";
                         } else if (step.status === "in_progress") {
                             iconHTML = `<div class="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                        </div>`;
+                                        <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                                    </div>`;
                             textClass = "text-gray-800";
                             statusText = "In progress...";
                         } else {
@@ -6113,14 +6194,14 @@ updated: ${this.updated}
                         }
 
                         return `
-                        <div class="flex items-start space-x-2">
-                            ${iconHTML}
-                            <div class="flex-1">
-                                <p class="text-sm font-medium ${textClass}">${step.text}</p>
-                                <p class="text-xs ${step.status === "in_progress" ? "text-indigo-600" : "text-gray-500"}">${statusText}</p>
-                            </div>
-                        </div>
-                    `;
+                                    <div class="flex items-start space-x-2">
+                                        ${iconHTML}
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium ${textClass}">${step.text}</p>
+                                            <p class="text-xs ${step.status === "in_progress" ? "text-indigo-600" : "text-gray-500"}">${statusText}</p>
+                                        </div>
+                                    </div>
+                                `;
                     })
                     .join("");
 
@@ -6148,11 +6229,18 @@ updated: ${this.updated}
             // Track animation interval so we can clear it
             let stepAnimationInterval = null;
 
+            // Track currently selected task for panel
+            let currentPanelTaskId = null;
+            let currentPanelTaskTitle = null;
+
             function openExecutionPanel(task = null) {
                 const config = getConfigForTask(task);
                 renderPanelContent(config);
 
                 executionPanel.classList.remove("hidden", "slide-out");
+
+                // Highlight the active task
+                highlightActiveTask(task);
 
                 // Reset title to "Browser Preview" for non-completed tasks
                 const previewTitle = document.getElementById(
@@ -6174,34 +6262,486 @@ updated: ${this.updated}
                     stepAnimationInterval = null;
                 }
 
-                // Start step animation for "Review automation logs" task
-                if (task && task.title === "Review automation logs") {
-                    startStepAnimation(config);
+                // Start Q&A flow animation for tasks with no AI work started
+                if (
+                    task &&
+                    (task.title === "Schedule team meeting" ||
+                        task.title === "Update client presentation")
+                ) {
+                    startQAFlowAnimation(task, config);
+                }
+                // Start step execution animation for "Review automation logs" only
+                else if (
+                    task &&
+                    (task.title === "Review automation logs" ||
+                        task.title === "Task: Review automation logs")
+                ) {
+                    startStepExecutionAnimation(config);
                 }
             }
 
-            function startStepAnimation(config) {
-                // Clone steps to track progress
-                const animatedSteps = config.steps.map((step, index) => ({
-                    ...step,
-                    status: index === 0 ? "in_progress" : "pending",
-                }));
+            function startStepExecutionAnimation(config) {
+                const steps = [...config.steps]; // Clone the steps array
+                let currentStep = 0;
 
-                // Render initial state (first step in progress)
-                renderSteps(animatedSteps);
-                updatePanelStatus("Running...", "green");
+                function updateSteps() {
+                    // Update steps status
+                    const updatedSteps = steps.map((step, idx) => {
+                        if (idx < currentStep) {
+                            return { ...step, status: "completed" };
+                        } else if (idx === currentStep) {
+                            return { ...step, status: "in_progress" };
+                        } else {
+                            return { ...step, status: "pending" };
+                        }
+                    });
 
-                // After 3 seconds, complete first step and start second step (stays there indefinitely)
-                stepAnimationInterval = setTimeout(() => {
-                    // Mark first step as completed
-                    animatedSteps[0].status = "completed";
-                    // Mark second step as in progress (stays here indefinitely)
-                    if (animatedSteps.length > 1) {
-                        animatedSteps[1].status = "in_progress";
+                    // Render the updated steps
+                    renderSteps(updatedSteps);
+
+                    // Update panel status
+                    if (currentStep < steps.length) {
+                        updatePanelStatus(
+                            `Step ${currentStep + 1} of ${steps.length}`,
+                            "green",
+                        );
                     }
-                    renderSteps(animatedSteps);
-                    stepAnimationInterval = null;
-                }, 3000);
+                }
+
+                // Start with first step
+                updateSteps();
+
+                // After 5 seconds, move to step 2
+                setTimeout(() => {
+                    currentStep = 1;
+                    updateSteps();
+
+                    // After another 5 seconds, move to step 3 (stays here indefinitely)
+                    setTimeout(() => {
+                        currentStep = 2;
+                        updateSteps();
+                        updatePanelStatus("Running...", "green");
+                    }, 5000);
+                }, 5000);
+            }
+
+            function startQAFlowAnimation(task, config) {
+                let questions, answers;
+
+                if (task.title === "Schedule team meeting") {
+                    questions = [
+                        "Who should attend this meeting?",
+                        "What is the preferred meeting duration?",
+                        "Any specific time preferences?",
+                        "Should I send calendar invites automatically?",
+                    ];
+                    answers = [
+                        "Engineering team + Product",
+                        "1 hour",
+                        "Afternoon, after 2pm",
+                        "Yes, send invites",
+                    ];
+                } else if (task.title === "Update client presentation") {
+                    questions = [
+                        "Which client is this presentation for?",
+                        "What sections need to be updated?",
+                        "Do you have new data to include?",
+                        "When is the presentation deadline?",
+                    ];
+                    answers = [
+                        "Acme Corp",
+                        "Q4 results and projections",
+                        "Yes, latest sales figures",
+                        "End of this week",
+                    ];
+                } else {
+                    questions = [
+                        "What is the main goal for this task?",
+                        "Any specific requirements?",
+                        "What resources should I use?",
+                        "Any deadline constraints?",
+                    ];
+                    answers = [
+                        "Complete efficiently",
+                        "Standard approach",
+                        "Default resources",
+                        "As soon as possible",
+                    ];
+                }
+
+                let currentQuestion = 0;
+                const qaSection = document.getElementById("qa-section");
+                const stepsContainer =
+                    document.getElementById("execution-steps");
+
+                // Hide steps initially and show Q&A
+                stepsContainer.innerHTML = `
+                                <div class="text-center py-8 text-gray-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-2 text-indigo-500">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                        <path d="M12 17h.01"/>
+                                    </svg>
+                                    <p class="text-sm">Gathering requirements...</p>
+                                </div>
+                            `;
+                updatePanelStatus("Gathering Info...", "yellow");
+
+                // Show Q&A section with first question
+                qaSection.classList.remove("hidden");
+                const qaQuestion = qaSection.querySelector("p.font-medium");
+                const qaInput = qaSection.querySelector("input");
+                const qaButton = qaSection.querySelector("button");
+
+                // Track answered questions
+                let answeredQuestions = [];
+
+                function showQuestion(index) {
+                    if (index < questions.length) {
+                        qaQuestion.textContent = questions[index];
+                        qaInput.value = "";
+                        qaInput.placeholder = "Enter your response...";
+                        qaButton.textContent = "Submit Answer";
+
+                        // Update steps to show progress
+                        stepsContainer.innerHTML = `
+                                        <div class="space-y-2">
+                                            ${answeredQuestions
+                                                .map(
+                                                    (q, i) => `
+                                                <div class="flex items-start space-x-2">
+                                                    <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="flex-1">
+                                                        <p class="text-sm font-medium text-gray-800">${q.question}</p>
+                                                        <p class="text-xs text-green-600">${q.answer}</p>
+                                                    </div>
+                                                </div>
+                                            `,
+                                                )
+                                                .join("")}
+                                            <div class="flex items-start space-x-2">
+                                                <div class="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                    <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="text-sm font-medium text-gray-800">${questions[index]}</p>
+                                                    <p class="text-xs text-indigo-600">Question ${index + 1} of ${questions.length} - Waiting for answer...</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                    }
+                }
+
+                function showGeneratingPlan() {
+                    qaSection.classList.add("hidden");
+                    updatePanelStatus("Generating Plan...", "yellow");
+
+                    stepsContainer.innerHTML = `
+                                    <div class="space-y-2">
+                                        ${answeredQuestions
+                                            .map(
+                                                (q, i) => `
+                                            <div class="flex items-start space-x-2">
+                                                <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="text-sm font-medium text-gray-800">${q.question}</p>
+                                                    <p class="text-xs text-green-600">${q.answer}</p>
+                                                </div>
+                                            </div>
+                                        `,
+                                            )
+                                            .join("")}
+                                    </div>
+                                    <div class="mt-4 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                                        <div class="flex items-center space-x-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-600 animate-spin">
+                                                <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                                            </svg>
+                                            <span class="text-sm font-medium text-indigo-700">Generating execution plan...</span>
+                                        </div>
+                                    </div>
+                                `;
+
+                    // After 3 seconds, show the plan
+                    setTimeout(() => {
+                        showPlanReady();
+                    }, 3000);
+                }
+
+                async function showPlanReady() {
+                    updatePanelStatus("AI Plan Ready", "green");
+
+                    // Generate plan steps based on task type
+                    let planSteps;
+                    if (task.title === "Schedule team meeting") {
+                        planSteps = [
+                            "Check team calendars for availability",
+                            "Find common free time slots",
+                            "Create calendar event",
+                            "Send meeting invites to attendees",
+                            "Set up meeting reminder",
+                        ];
+                    } else if (task.title === "Update client presentation") {
+                        planSteps = [
+                            "Open presentation file",
+                            "Update title slide with new date",
+                            "Refresh data charts with Q4 results",
+                            "Update client logo if needed",
+                            "Export to PDF format",
+                        ];
+                    } else {
+                        planSteps = config.steps.map((s) => s.text);
+                    }
+
+                    // Update the task status to "ready" (AI Plan Ready)
+                    if (task) {
+                        task.aiStatus = "ready";
+                        task.aiPlan = true;
+                        await taskStorage.updateTask(task.id, {
+                            aiStatus: "ready",
+                            aiPlan: true,
+                        });
+                    }
+
+                    // Build the plan HTML content
+                    const planHTML = `
+                        <div class="space-y-2 mb-4">
+                            ${answeredQuestions
+                                .map(
+                                    (q, i) => `
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-800">${q.question}</p>
+                                        <p class="text-xs text-green-600">${q.answer}</p>
+                                    </div>
+                                </div>
+                            `,
+                                )
+                                .join("")}
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 mb-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <span class="text-sm font-medium text-green-700">AI Plan Ready</span>
+                            </div>
+                        </div>
+                        <h4 class="text-xs font-semibold text-gray-500 uppercase mb-2">Execution Plan</h4>
+                        <div class="space-y-2">
+                            ${planSteps
+                                .map(
+                                    (step, idx) => `
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-xs text-gray-500">${idx + 1}</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-700">${step}</p>
+                                        <p class="text-xs text-gray-400">Ready to execute</p>
+                                    </div>
+                                </div>
+                            `,
+                                )
+                                .join("")}
+                        </div>
+                    `;
+
+                    // Get fresh reference to steps container and set the HTML
+                    const stepsEl = document.getElementById("execution-steps");
+                    if (stepsEl) {
+                        stepsEl.innerHTML = planHTML;
+                    }
+
+                    // Update the task element in the DOM directly (before any refresh)
+                    const taskId = task ? task.id : null;
+                    const taskTitle = task ? task.title : null;
+
+                    // Helper function to find and update task element
+                    function updateTaskBadgeInDOM() {
+                        console.log(
+                            "updateTaskBadgeInDOM called with taskId:",
+                            taskId,
+                            "taskTitle:",
+                            taskTitle,
+                        );
+                        let taskContainer = null;
+
+                        // Try to find task container by ID first
+                        if (taskId) {
+                            taskContainer = document.querySelector(
+                                `.task-item-container[data-task-id="${taskId}"]`,
+                            );
+                            console.log("Found by ID:", taskContainer);
+                        }
+
+                        // If not found by ID, search by task title (for static HTML elements)
+                        if (!taskContainer && taskTitle) {
+                            const allTaskContainers = document.querySelectorAll(
+                                ".task-item-container",
+                            );
+                            console.log(
+                                "Searching by title among",
+                                allTaskContainers.length,
+                                "containers",
+                            );
+                            for (const container of allTaskContainers) {
+                                const taskContent =
+                                    container.querySelector(".task-content");
+                                if (taskContent) {
+                                    console.log(
+                                        "Container content:",
+                                        taskContent.textContent.trim(),
+                                    );
+                                }
+                                if (
+                                    taskContent &&
+                                    taskContent.textContent.trim() === taskTitle
+                                ) {
+                                    taskContainer = container;
+                                    console.log("FOUND by title!");
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (taskContainer) {
+                            console.log("Task container found, adding badge");
+                            // Add highlight
+                            taskContainer.classList.add(
+                                "ring-2",
+                                "ring-indigo-500",
+                                "ring-offset-2",
+                                "rounded-lg",
+                                "bg-indigo-50",
+                            );
+
+                            // Add AI Plan Ready status badge
+                            // Look for the metadata row which contains date, priority, tags
+                            // Try multiple selectors for static vs dynamic HTML
+                            let metadataRow = taskContainer.querySelector(
+                                ".flex.items-center.space-x-3.mt-1",
+                            );
+                            // Dynamic tasks use gap-2 instead of space-x-3
+                            if (!metadataRow) {
+                                metadataRow = taskContainer.querySelector(
+                                    ".flex.items-center.gap-2",
+                                );
+                            }
+                            // Also try just looking for the row with due-date or text-xs
+                            if (!metadataRow) {
+                                metadataRow = taskContainer.querySelector(
+                                    ".text-xs.text-gray-500.flex.items-center",
+                                );
+                            }
+                            console.log("Metadata row found:", metadataRow);
+
+                            if (metadataRow) {
+                                // Remove any existing ai-status or ai-status-badge
+                                const existingBadge = metadataRow.querySelector(
+                                    ".ai-status, .ai-status-badge",
+                                );
+                                if (existingBadge) {
+                                    existingBadge.remove();
+                                }
+
+                                // Create the new badge
+                                const aiStatusBadge =
+                                    document.createElement("span");
+                                aiStatusBadge.className =
+                                    "ai-status text-purple-600 font-medium text-xs flex items-center space-x-1";
+                                aiStatusBadge.innerHTML = `
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5h-1v1.27c.6.34 1 .99 1 1.73a2 2 0 1 1-2-2v-2a2 2 0 0 1-2 2 2 2 0 1 1 0-4c.74 0 1.39.4 1.73 1H11V5.73A2 2 0 1 1 12 2Z"/>
+                                    </svg>
+                                    <span>AI Plan Ready</span>
+                                `;
+
+                                // Insert after the +Tag button if it exists, otherwise at the end before action buttons
+                                const addTagBtn =
+                                    metadataRow.querySelector(".add-tag-btn");
+                                if (addTagBtn) {
+                                    addTagBtn.insertAdjacentElement(
+                                        "afterend",
+                                        aiStatusBadge,
+                                    );
+                                } else {
+                                    // Find action buttons div and insert before it, or append to end
+                                    const actionBtns =
+                                        metadataRow.querySelector(
+                                            ".flex.items-center.space-x-1",
+                                        );
+                                    if (actionBtns) {
+                                        metadataRow.insertBefore(
+                                            aiStatusBadge,
+                                            actionBtns,
+                                        );
+                                    } else {
+                                        metadataRow.appendChild(aiStatusBadge);
+                                    }
+                                }
+                                console.log("Badge inserted!");
+                            } else {
+                                console.log("Metadata row NOT found");
+                            }
+
+                            currentPanelTaskId = taskId;
+                            return true;
+                        } else {
+                            console.log("Task container NOT found");
+                        }
+                        return false;
+                    }
+
+                    // Update immediately in current DOM
+                    console.log("Calling updateTaskBadgeInDOM...");
+                    updateTaskBadgeInDOM();
+
+                    // Don't call refreshCurrentView() as it resets the static HTML
+                    // The task status is already saved to storage, so it will persist on next page load
+                    // Just update sidebar counts
+                    updateSidebarCountsNew();
+                }
+
+                // Auto-answer questions with delay
+                showQuestion(currentQuestion);
+
+                function autoAnswerQuestion() {
+                    if (currentQuestion < questions.length) {
+                        setTimeout(() => {
+                            // Add answered question
+                            answeredQuestions.push({
+                                question: questions[currentQuestion],
+                                answer: answers[currentQuestion],
+                            });
+                            currentQuestion++;
+
+                            if (currentQuestion < questions.length) {
+                                showQuestion(currentQuestion);
+                                autoAnswerQuestion();
+                            } else {
+                                showGeneratingPlan();
+                            }
+                        }, 2000);
+                    }
+                }
+
+                autoAnswerQuestion();
             }
 
             function renderSteps(steps) {
@@ -6215,16 +6755,16 @@ updated: ${this.updated}
 
                         if (step.status === "completed") {
                             iconHTML = `<div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>`;
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </div>`;
                             textClass = "text-gray-800";
                             statusText = "Completed";
                         } else if (step.status === "in_progress") {
                             iconHTML = `<div class="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                        </div>`;
+                                        <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                                    </div>`;
                             textClass = "text-gray-800";
                             statusText = "In progress...";
                         } else {
@@ -6234,14 +6774,14 @@ updated: ${this.updated}
                         }
 
                         return `
-                        <div class="flex items-start space-x-2">
-                            ${iconHTML}
-                            <div class="flex-1">
-                                <p class="text-sm font-medium ${textClass}">${step.text}</p>
-                                <p class="text-xs ${step.status === "in_progress" ? "text-indigo-600" : "text-gray-500"}">${statusText}</p>
-                            </div>
-                        </div>
-                    `;
+                                    <div class="flex items-start space-x-2">
+                                        ${iconHTML}
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium ${textClass}">${step.text}</p>
+                                            <p class="text-xs ${step.status === "in_progress" ? "text-indigo-600" : "text-gray-500"}">${statusText}</p>
+                                        </div>
+                                    </div>
+                                `;
                     })
                     .join("");
             }
@@ -6262,8 +6802,86 @@ updated: ${this.updated}
                 }
             }
 
+            function openExecutionPanelPlanReady(task = null) {
+                const config = getConfigForTask(task);
+
+                // Highlight the active task
+                highlightActiveTask(task);
+
+                // Get plan steps from task subtasks or config
+                let planSteps = [];
+                if (task && task.subtasks && task.subtasks.length > 0) {
+                    planSteps = task.subtasks.map((st) =>
+                        typeof st === "string" ? st : st.text,
+                    );
+                } else {
+                    planSteps = config.steps.map((s) => s.text);
+                }
+
+                // Create config for plan ready state
+                const planReadyConfig = {
+                    ...config,
+                    status: "AI Plan Ready",
+                    statusColor: "green",
+                    steps: planSteps.map((step, idx) => ({
+                        text: step,
+                        status: "pending",
+                    })),
+                };
+
+                renderPanelContent(planReadyConfig);
+
+                // Update panel status
+                updatePanelStatus("AI Plan Ready", "green");
+
+                // Build the plan display HTML
+                const stepsEl = document.getElementById("execution-steps");
+                if (stepsEl) {
+                    stepsEl.innerHTML = `
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 mb-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <span class="text-sm font-medium text-green-700">AI Plan Ready</span>
+                            </div>
+                        </div>
+                        <h4 class="text-xs font-semibold text-gray-500 uppercase mb-2">Execution Plan</h4>
+                        <div class="space-y-2">
+                            ${planSteps
+                                .map(
+                                    (step, idx) => `
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-xs text-gray-500">${idx + 1}</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-700">${step}</p>
+                                        <p class="text-xs text-gray-400">Ready to execute</p>
+                                    </div>
+                                </div>
+                            `,
+                                )
+                                .join("")}
+                        </div>
+                    `;
+                }
+
+                // Hide Q&A section
+                const qaSection = document.getElementById("qa-section");
+                if (qaSection) {
+                    qaSection.classList.add("hidden");
+                }
+
+                executionPanel.classList.remove("hidden", "slide-out");
+            }
+
             function openExecutionPanelCompleted(task = null) {
                 const config = getConfigForTask(task);
+
+                // Highlight the active task
+                highlightActiveTask(task);
 
                 // Mark all steps as completed
                 const completedSteps = config.steps.map((step) => ({
@@ -6300,12 +6918,131 @@ updated: ${this.updated}
                 executionPanel.classList.remove("hidden", "slide-out");
             }
 
+            function highlightActiveTask(task) {
+                // Remove highlight from previously selected task
+                removeTaskHighlight();
+
+                if (task) {
+                    currentPanelTaskId = task.id || null;
+                    currentPanelTaskTitle = task.title || null;
+
+                    let taskContainer = null;
+
+                    // Normalize title for comparison (remove "Task:" prefix)
+                    const normalizeTitle = (title) => {
+                        return title
+                            .trim()
+                            .toLowerCase()
+                            .replace(/^task:\s*/i, "");
+                    };
+
+                    // Helper to check if element is visible (not in hidden parent)
+                    const isVisible = (el) => !el.closest(".hidden");
+
+                    const searchTitle = task.title
+                        ? normalizeTitle(task.title)
+                        : null;
+
+                    // Try to find by ID first, but only if visible
+                    if (task.id) {
+                        const el = document.querySelector(
+                            `.task-item-container[data-task-id="${task.id}"]`,
+                        );
+                        if (el && isVisible(el)) {
+                            taskContainer = el;
+                        }
+                    }
+
+                    // If not found (or was hidden), search by title in VISIBLE .task-item-container elements
+                    if (!taskContainer && searchTitle) {
+                        const allTaskContainers = document.querySelectorAll(
+                            ".task-item-container",
+                        );
+                        for (const container of allTaskContainers) {
+                            if (!isVisible(container)) continue;
+                            const taskContent =
+                                container.querySelector(".task-content");
+                            if (taskContent) {
+                                const contentTitle = normalizeTitle(
+                                    taskContent.textContent,
+                                );
+                                if (contentTitle === searchTitle) {
+                                    taskContainer = container;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    // If still not found, search in VISIBLE Home view task rows
+                    if (!taskContainer && searchTitle) {
+                        const homeTaskRows = document.querySelectorAll(
+                            "#home-today-tasks > div, #home-overdue-tasks > div",
+                        );
+                        for (const row of homeTaskRows) {
+                            if (!isVisible(row)) continue;
+                            const titleEl = row.querySelector(".text-sm");
+                            if (titleEl) {
+                                const rowTitle = normalizeTitle(
+                                    titleEl.textContent,
+                                );
+                                if (rowTitle === searchTitle) {
+                                    taskContainer = row;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (taskContainer) {
+                        taskContainer.classList.add(
+                            "ring-2",
+                            "ring-indigo-500",
+                            "ring-offset-2",
+                            "rounded-lg",
+                            "bg-indigo-100",
+                        );
+                        taskContainer.style.outline = "3px solid #6366f1";
+                        taskContainer.style.outlineOffset = "2px";
+                        taskContainer.style.backgroundColor = "#e0e7ff";
+                    }
+                }
+            }
+
+            function removeTaskHighlight() {
+                // Simply find all highlighted elements and remove highlight
+                // This is more reliable than trying to track the previous element
+                const highlightedElements = document.querySelectorAll(
+                    ".task-item-container.ring-2, #home-today-tasks > div.ring-2, #home-overdue-tasks > div.ring-2",
+                );
+
+                highlightedElements.forEach((el) => {
+                    el.classList.remove(
+                        "ring-2",
+                        "ring-indigo-500",
+                        "ring-offset-2",
+                        "rounded-lg",
+                        "bg-indigo-50",
+                        "bg-indigo-100",
+                    );
+                    el.style.outline = "";
+                    el.style.outlineOffset = "";
+                    el.style.backgroundColor = "";
+                });
+
+                currentPanelTaskId = null;
+                currentPanelTaskTitle = null;
+            }
+
             function closeExecutionPanel() {
                 // Clear any running animation
                 if (stepAnimationInterval) {
                     clearInterval(stepAnimationInterval);
                     stepAnimationInterval = null;
                 }
+
+                // Remove task highlight
+                removeTaskHighlight();
 
                 executionPanel.classList.add("slide-out");
                 setTimeout(() => {
@@ -6333,20 +7070,20 @@ updated: ${this.updated}
             function addToRunningList(taskName) {
                 const runningList = document.getElementById("running-list");
                 runningList.innerHTML = `
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2 bg-indigo-50 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-100">
-                        <div class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></div>
-                        <span>${taskName}</span>
-                    </a>
-                `;
+                                <a href="#" class="flex items-center space-x-3 px-3 py-2 bg-indigo-50 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-100">
+                                    <div class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></div>
+                                    <span>${taskName}</span>
+                                </a>
+                            `;
             }
 
             function clearRunningList() {
                 const runningList = document.getElementById("running-list");
                 runningList.innerHTML = `
-                    <div class="px-3 py-2 text-xs text-gray-400 italic">
-                        No running automations
-                    </div>
-                `;
+                                <div class="px-3 py-2 text-xs text-gray-400 italic">
+                                    No running automations
+                                </div>
+                            `;
             }
 
             // Close panel button
@@ -6359,77 +7096,77 @@ updated: ${this.updated}
                 "ai-news": {
                     title: "Latest AI News",
                     content: `
-                        <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">New Model Release Changes Everything</div>
-                        <p class="text-xs text-gray-500">TechCrunch: 11:05 AM</p>
-                        <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">OpenAI Dev Day Key Takeaways</div>
-                        <p class="text-xs text-gray-500">The Verge: 10:30 AM</p>
-                    `,
+                                    <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">New Model Release Changes Everything</div>
+                                    <p class="text-xs text-gray-500">TechCrunch: 11:05 AM</p>
+                                    <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">OpenAI Dev Day Key Takeaways</div>
+                                    <p class="text-xs text-gray-500">The Verge: 10:30 AM</p>
+                                `,
                 },
                 messages: {
                     title: "Messages",
                     content: `
-                        <div class="text-sm"><strong class="text-indigo-600">LinkedIn:</strong> "Hey, did you see the latest designs?"</div>
-                        <div class="text-sm"><strong class="text-red-600">Gmail:</strong> "Re: Project Alpha - Attaching the deck."</div>
-                        <div class="text-sm"><strong class="text-pink-500">Instagram:</strong> "New message received"</div>
-                    `,
+                                    <div class="text-sm"><strong class="text-indigo-600">LinkedIn:</strong> "Hey, did you see the latest designs?"</div>
+                                    <div class="text-sm"><strong class="text-red-600">Gmail:</strong> "Re: Project Alpha - Attaching the deck."</div>
+                                    <div class="text-sm"><strong class="text-pink-500">Instagram:</strong> "New message received"</div>
+                                `,
                 },
                 reports: {
                     title: "Quarterly Reports",
                     content: `
-                        <div class="text-sm font-medium">Q4 Revenue Report</div>
-                        <p class="text-xs text-gray-500">Updated: Just now</p>
-                        <div class="text-sm font-medium">KPI Dashboard</div>
-                        <p class="text-xs text-gray-500">Last refresh: 5 mins ago</p>
-                    `,
+                                    <div class="text-sm font-medium">Q4 Revenue Report</div>
+                                    <p class="text-xs text-gray-500">Updated: Just now</p>
+                                    <div class="text-sm font-medium">KPI Dashboard</div>
+                                    <p class="text-xs text-gray-500">Last refresh: 5 mins ago</p>
+                                `,
                 },
                 meeting: {
                     title: "Scheduled Meetings",
                     content: `
-                        <div class="text-sm font-medium text-green-600">Team Standup</div>
-                        <p class="text-xs text-gray-500">Tomorrow at 10:00 AM</p>
-                        <div class="text-sm font-medium">Sprint Planning</div>
-                        <p class="text-xs text-gray-500">Friday at 2:00 PM</p>
-                    `,
+                                    <div class="text-sm font-medium text-green-600">Team Standup</div>
+                                    <p class="text-xs text-gray-500">Tomorrow at 10:00 AM</p>
+                                    <div class="text-sm font-medium">Sprint Planning</div>
+                                    <p class="text-xs text-gray-500">Friday at 2:00 PM</p>
+                                `,
                 },
                 presentation: {
                     title: "Client Presentations",
                     content: `
-                        <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">Q4 Client Deck.pdf</div>
-                        <p class="text-xs text-gray-500">Last edited: Just now</p>
-                        <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">Product Roadmap.pptx</div>
-                        <p class="text-xs text-gray-500">Last edited: 2 days ago</p>
-                    `,
+                                    <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">Q4 Client Deck.pdf</div>
+                                    <p class="text-xs text-gray-500">Last edited: Just now</p>
+                                    <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">Product Roadmap.pptx</div>
+                                    <p class="text-xs text-gray-500">Last edited: 2 days ago</p>
+                                `,
                 },
                 logs: {
                     title: "Automation Logs",
                     content: `
-                        <div class="text-sm"><span class="text-green-600 font-medium">SUCCESS:</span> Email sync completed</div>
-                        <p class="text-xs text-gray-500">Today at 9:30 AM</p>
-                        <div class="text-sm"><span class="text-yellow-600 font-medium">WARNING:</span> Rate limit reached</div>
-                        <p class="text-xs text-gray-500">Today at 8:15 AM</p>
-                    `,
+                                    <div class="text-sm"><span class="text-green-600 font-medium">SUCCESS:</span> Email sync completed</div>
+                                    <p class="text-xs text-gray-500">Today at 9:30 AM</p>
+                                    <div class="text-sm"><span class="text-yellow-600 font-medium">WARNING:</span> Rate limit reached</div>
+                                    <p class="text-xs text-gray-500">Today at 8:15 AM</p>
+                                `,
                 },
                 "instagram-followers": {
                     title: "New Instagram Followers",
                     content: `
-                        <div class="text-sm"><strong class="text-pink-500">@user123</strong> started following you.</div>
-                        <div class="text-sm"><strong class="text-pink-500">@design_pro</strong> started following you.</div>
-                        <div class="text-sm"><strong class="text-pink-500">@tech_guru</strong> started following you.</div>
-                    `,
+                                    <div class="text-sm"><strong class="text-pink-500">@user123</strong> started following you.</div>
+                                    <div class="text-sm"><strong class="text-pink-500">@design_pro</strong> started following you.</div>
+                                    <div class="text-sm"><strong class="text-pink-500">@tech_guru</strong> started following you.</div>
+                                `,
                 },
                 "twitter-mentions": {
                     title: "Twitter Mentions",
                     content: `
-                        <div class="text-sm"><strong class="text-blue-500">@startup_news:</strong> "Great insights on automation!"</div>
-                        <div class="text-sm"><strong class="text-blue-500">@tech_daily:</strong> "This is exactly what we needed 🚀"</div>
-                    `,
+                                    <div class="text-sm"><strong class="text-blue-500">@startup_news:</strong> "Great insights on automation!"</div>
+                                    <div class="text-sm"><strong class="text-blue-500">@tech_daily:</strong> "This is exactly what we needed 🚀"</div>
+                                `,
                 },
                 default: {
                     title: "Task Results",
                     content: `
-                        <div class="text-sm text-gray-600">Automation completed successfully.</div>
-                        <p class="text-xs text-gray-500">Results are ready to view.</p>
-                    `,
+                                    <div class="text-sm text-gray-600">Automation completed successfully.</div>
+                                    <p class="text-xs text-gray-500">Results are ready to view.</p>
+                                `,
                 },
             };
 
@@ -6499,32 +7236,32 @@ updated: ${this.updated}
 
             function createWidgetHTML(widgetId, title, content) {
                 return `
-                    <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col" data-widget-id="${widgetId}">
-                        <header class="flex items-center justify-between p-4 border-b border-gray-100">
-                            <h3 class="font-semibold">${title}</h3>
-                            <div class="flex items-center space-x-1">
-                                <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600" title="Refresh">
-                                    <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="23 4 23 10 17 10"/>
-                                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-                                    </svg>
-                                </button>
-                                <button class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600" title="Remove widget">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                        </header>
-                        <div class="widget-content p-4 h-48 overflow-y-auto space-y-3">
-                            ${content}
-                        </div>
-                        <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
-                            Last run: Just now
-                        </footer>
-                    </div>
-                `;
+                                <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col" data-widget-id="${widgetId}">
+                                    <header class="flex items-center justify-between p-4 border-b border-gray-100">
+                                        <h3 class="font-semibold">${title}</h3>
+                                        <div class="flex items-center space-x-1">
+                                            <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600" title="Refresh">
+                                                <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <polyline points="23 4 23 10 17 10"/>
+                                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                                                </svg>
+                                            </button>
+                                            <button class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600" title="Remove widget">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </header>
+                                    <div class="widget-content p-4 h-48 overflow-y-auto space-y-3">
+                                        ${content}
+                                    </div>
+                                    <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
+                                        Last run: Just now
+                                    </footer>
+                                </div>
+                            `;
             }
 
             function addWidgetToDashboard(task) {
