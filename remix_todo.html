@@ -1595,9 +1595,9 @@
                                             </svg>
                                             <span>AI Executing...</span>
                                         </span>
-                                        <!-- Abort Button (always visible when executing) -->
+                                        <!-- Abort Button (visible on hover when executing) -->
                                         <div
-                                            class="flex items-center space-x-1"
+                                            class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
                                         >
                                             <button
                                                 class="abort-execution-btn px-2 py-0.5 rounded text-xs text-red-600 border border-red-300 hover:border-red-400 hover:bg-red-50 transition-colors"
@@ -4585,9 +4585,9 @@
                     task.aiStatus.toLowerCase() === "executing";
                 if (showActions && !isSubtask) {
                     if (isExecuting) {
-                        // Show Abort Execution button (always visible, red styling)
+                        // Show Abort Execution button (visible on hover, red styling)
                         actionButtons = `
-                                        <div class="flex items-center space-x-1">
+                                        <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button class="abort-execution-btn px-2 py-0.5 rounded text-xs text-red-600 border border-red-300 hover:border-red-400 hover:bg-red-50 transition-colors" title="Abort Execution">
                                                 Abort Execution
                                             </button>
