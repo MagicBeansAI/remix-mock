@@ -421,10 +421,10 @@
                             stroke-linecap="round"
                             stroke-linejoin="round"
                         >
-                            <circle cx="12" cy="12" r="3" />
                             <path
-                                d="M12 1v6m0 6v6m0-6h6M6 12H1m5.6-5.6L2.2 2.2m13.6 0l4.4 4.4M6.4 17.6l-4.4 4.4m13.6-4.4l4.4 4.4"
+                                d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
                             />
+                            <circle cx="12" cy="12" r="3" />
                         </svg>
                     </button>
                 </div>
@@ -932,16 +932,18 @@
                         <!-- Widget 1: Messages -->
                         <div
                             class="widget-card bg-white rounded-xl shadow-lg flex flex-col"
+                            data-widget-id="messages-ruchika"
                         >
                             <header
                                 class="flex items-center justify-between p-4 border-b border-gray-100"
                             >
                                 <h3 class="font-semibold">
-                                    Messages from Ruchika
+                                    Messages from Tripti
                                 </h3>
                                 <div class="flex items-center space-x-1">
                                     <button
                                         class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                        title="Refresh"
                                     >
                                         <svg
                                             class="widget-refresh-icon"
@@ -964,7 +966,8 @@
                                         </svg>
                                     </button>
                                     <button
-                                        class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                        class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600"
+                                        title="Remove widget"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -977,9 +980,18 @@
                                             stroke-linecap="round"
                                             stroke-linejoin="round"
                                         >
-                                            <circle cx="12" cy="12" r="1" />
-                                            <circle cx="19" cy="12" r="1" />
-                                            <circle cx="5" cy="12" r="1" />
+                                            <line
+                                                x1="18"
+                                                y1="6"
+                                                x2="6"
+                                                y2="18"
+                                            ></line>
+                                            <line
+                                                x1="6"
+                                                y1="6"
+                                                x2="18"
+                                                y2="18"
+                                            ></line>
                                         </svg>
                                     </button>
                                 </div>
@@ -1016,6 +1028,7 @@
                         <!-- Widget 2: News -->
                         <div
                             class="widget-card bg-white rounded-xl shadow-lg flex flex-col"
+                            data-widget-id="ai-news"
                         >
                             <header
                                 class="flex items-center justify-between p-4 border-b border-gray-100"
@@ -1024,6 +1037,7 @@
                                 <div class="flex items-center space-x-1">
                                     <button
                                         class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                        title="Refresh"
                                     >
                                         <svg
                                             class="widget-refresh-icon"
@@ -1046,7 +1060,8 @@
                                         </svg>
                                     </button>
                                     <button
-                                        class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                        class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600"
+                                        title="Remove widget"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -1059,9 +1074,18 @@
                                             stroke-linecap="round"
                                             stroke-linejoin="round"
                                         >
-                                            <circle cx="12" cy="12" r="1" />
-                                            <circle cx="19" cy="12" r="1" />
-                                            <circle cx="5" cy="12" r="1" />
+                                            <line
+                                                x1="18"
+                                                y1="6"
+                                                x2="6"
+                                                y2="18"
+                                            ></line>
+                                            <line
+                                                x1="6"
+                                                y1="6"
+                                                x2="18"
+                                                y2="18"
+                                            ></line>
                                         </svg>
                                     </button>
                                 </div>
@@ -1137,18 +1161,20 @@
                                 <!-- Widget 1: Messages -->
                                 <div
                                     class="widget-card bg-white rounded-xl shadow-lg flex flex-col"
+                                    data-widget-id="home-messages-ruchika"
                                 >
                                     <header
                                         class="flex items-center justify-between p-4 border-b border-gray-100"
                                     >
                                         <h3 class="font-semibold">
-                                            Messages from Ruchika
+                                            Messages from Tripti
                                         </h3>
                                         <div
                                             class="flex items-center space-x-1"
                                         >
                                             <button
                                                 class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                                title="Refresh"
                                             >
                                                 <svg
                                                     class="widget-refresh-icon"
@@ -1171,7 +1197,8 @@
                                                 </svg>
                                             </button>
                                             <button
-                                                class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                                class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600"
+                                                title="Remove widget"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -1184,21 +1211,18 @@
                                                     stroke-linecap="round"
                                                     stroke-linejoin="round"
                                                 >
-                                                    <circle
-                                                        cx="12"
-                                                        cy="12"
-                                                        r="1"
-                                                    />
-                                                    <circle
-                                                        cx="19"
-                                                        cy="12"
-                                                        r="1"
-                                                    />
-                                                    <circle
-                                                        cx="5"
-                                                        cy="12"
-                                                        r="1"
-                                                    />
+                                                    <line
+                                                        x1="18"
+                                                        y1="6"
+                                                        x2="6"
+                                                        y2="18"
+                                                    ></line>
+                                                    <line
+                                                        x1="6"
+                                                        y1="6"
+                                                        x2="18"
+                                                        y2="18"
+                                                    ></line>
                                                 </svg>
                                             </button>
                                         </div>
@@ -1237,6 +1261,7 @@
                                 <!-- Widget 2: News -->
                                 <div
                                     class="widget-card bg-white rounded-xl shadow-lg flex flex-col"
+                                    data-widget-id="home-ai-news"
                                 >
                                     <header
                                         class="flex items-center justify-between p-4 border-b border-gray-100"
@@ -1249,6 +1274,7 @@
                                         >
                                             <button
                                                 class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                                title="Refresh"
                                             >
                                                 <svg
                                                     class="widget-refresh-icon"
@@ -1271,7 +1297,8 @@
                                                 </svg>
                                             </button>
                                             <button
-                                                class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                                class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600"
+                                                title="Remove widget"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -1284,21 +1311,18 @@
                                                     stroke-linecap="round"
                                                     stroke-linejoin="round"
                                                 >
-                                                    <circle
-                                                        cx="12"
-                                                        cy="12"
-                                                        r="1"
-                                                    />
-                                                    <circle
-                                                        cx="19"
-                                                        cy="12"
-                                                        r="1"
-                                                    />
-                                                    <circle
-                                                        cx="5"
-                                                        cy="12"
-                                                        r="1"
-                                                    />
+                                                    <line
+                                                        x1="18"
+                                                        y1="6"
+                                                        x2="6"
+                                                        y2="18"
+                                                    ></line>
+                                                    <line
+                                                        x1="6"
+                                                        y1="6"
+                                                        x2="18"
+                                                        y2="18"
+                                                    ></line>
                                                 </svg>
                                             </button>
                                         </div>
@@ -1527,7 +1551,7 @@
                                     <!-- Changed font size from text-base to text-sm -->
                                     <div
                                         class="task-content text-sm"
-                                        contenteditable="true"
+                                        contenteditable="false"
                                     >
                                         Task: Pull all messages from Ruchika
                                     </div>
@@ -1551,7 +1575,7 @@
                                         >
                                         <!-- AI Status (always visible) -->
                                         <span
-                                            class="ai-status text-purple-600 font-medium text-xs flex items-center space-x-1"
+                                            class="ai-status text-indigo-600 font-medium text-xs flex items-center space-x-1"
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -1563,22 +1587,23 @@
                                                 stroke-width="2"
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round"
+                                                class="animate-spin"
                                             >
                                                 <path
-                                                    d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5h-1v1.27c.6.34 1 .99 1 1.73a2 2 0 1 1-2-2v-2a2 2 0 0 1-2 2 2 2 0 1 1 0-4c.74 0 1.39.4 1.73 1H11V5.73A2 2 0 1 1 12 2Z"
+                                                    d="M21 12a9 9 0 1 1-6.219-8.56"
                                                 />
                                             </svg>
-                                            <span>AI Plan Ready</span>
+                                            <span>AI Executing...</span>
                                         </span>
-                                        <!-- Hover Actions (appear inline) -->
+                                        <!-- Abort Button (always visible when executing) -->
                                         <div
-                                            class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                            class="flex items-center space-x-1"
                                         >
                                             <button
-                                                class="do-it-for-me-btn px-2 py-0.5 rounded text-xs text-gray-600 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors"
-                                                title="Do it"
+                                                class="abort-execution-btn px-2 py-0.5 rounded text-xs text-red-600 border border-red-300 hover:border-red-400 hover:bg-red-50 transition-colors"
+                                                title="Abort Execution"
                                             >
-                                                Do it
+                                                Abort Execution
                                             </button>
                                             <button
                                                 class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700"
@@ -1750,7 +1775,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 1: Open LinkedIn Messages
                                             </div>
@@ -1816,7 +1841,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 2: Filter by "Ruchika"
                                             </div>
@@ -1882,7 +1907,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 3: Extract latest message
                                                 text
@@ -1949,7 +1974,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 4: Open Gmail
                                             </div>
@@ -2015,7 +2040,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 5: Filter Gmail by
                                                 "Ruchika"
@@ -2082,7 +2107,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 6: Extract Gmail message
                                             </div>
@@ -2148,7 +2173,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 7: Open Instagram
                                             </div>
@@ -2214,7 +2239,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 8: Go to Instagram DMs
                                             </div>
@@ -2280,7 +2305,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 9: Filter by "Ruchika" and
                                                 extract latest message
@@ -2338,7 +2363,7 @@
                                 <div class="flex-grow">
                                     <div
                                         class="task-content text-sm"
-                                        contenteditable="true"
+                                        contenteditable="false"
                                     >
                                         Task: Review automation logs
                                     </div>
@@ -2360,6 +2385,27 @@
                                             class="project-tag text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded"
                                             >Sales</span
                                         >
+                                        <!-- AI Status -->
+                                        <span
+                                            class="ai-status text-purple-600 font-medium text-xs flex items-center space-x-1"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="12"
+                                                height="12"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <path
+                                                    d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5h-1v1.27c.6.34 1 .99 1 1.73a2 2 0 1 1-2-2v-2a2 2 0 0 1-2 2 2 2 0 1 1 0-4c.74 0 1.39.4 1.73 1H11V5.73A2 2 0 1 1 12 2Z"
+                                                />
+                                            </svg>
+                                            <span>AI Plan Ready</span>
+                                        </span>
                                         <!-- Hover Actions (appear inline) -->
                                         <div
                                             class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -2523,7 +2569,7 @@
                                 <div class="flex-grow">
                                     <div
                                         class="task-content text-sm"
-                                        contenteditable="true"
+                                        contenteditable="false"
                                     >
                                         Update quarterly reports
                                     </div>
@@ -2540,6 +2586,27 @@
                                             class="project-tag text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded"
                                             >Sales</span
                                         >
+                                        <!-- AI Status -->
+                                        <span
+                                            class="ai-status text-purple-600 font-medium text-xs flex items-center space-x-1"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="12"
+                                                height="12"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            >
+                                                <path
+                                                    d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5h-1v1.27c.6.34 1 .99 1 1.73a2 2 0 1 1-2-2v-2a2 2 0 0 1-2 2 2 2 0 1 1 0-4c.74 0 1.39.4 1.73 1H11V5.73A2 2 0 1 1 12 2Z"
+                                                />
+                                            </svg>
+                                            <span>AI Plan Ready</span>
+                                        </span>
                                         <div
                                             class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity"
                                         >
@@ -2702,7 +2769,7 @@
                                 <div class="flex-grow">
                                     <div
                                         class="task-content text-sm"
-                                        contenteditable="true"
+                                        contenteditable="false"
                                     >
                                         Schedule team meeting
                                     </div>
@@ -2881,7 +2948,7 @@
                                 <div class="flex-grow">
                                     <div
                                         class="task-content text-sm"
-                                        contenteditable="true"
+                                        contenteditable="false"
                                     >
                                         Prepare presentation slides
                                     </div>
@@ -3055,7 +3122,7 @@
                                 <div class="flex-grow">
                                     <div
                                         class="task-content text-sm completed"
-                                        contenteditable="true"
+                                        contenteditable="false"
                                     >
                                         Task: Fetch latest AI News
                                     </div>
@@ -3193,7 +3260,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm completed"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 1: Open Techcrunch, Reddit
                                                 +16 websites
@@ -3251,7 +3318,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm completed"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 2: Search for AI
                                             </div>
@@ -3308,7 +3375,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm completed"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 3: Extract top 3 headlines
                                             </div>
@@ -3365,7 +3432,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm completed"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 4: Save the Main headline
                                                 and first 3 lines to local text
@@ -3424,7 +3491,7 @@
                                         <div class="flex-grow">
                                             <div
                                                 class="task-content text-sm completed"
-                                                contenteditable="true"
+                                                contenteditable="false"
                                             >
                                                 Step 5: Extract AI news
                                             </div>
@@ -3481,7 +3548,7 @@
                                 <div class="flex-grow">
                                     <div
                                         class="task-content text-sm"
-                                        contenteditable="true"
+                                        contenteditable="false"
                                     >
                                         Update client presentation
                                     </div>
@@ -3625,9 +3692,9 @@
                 <!-- Add Task Bar (Hidden in Dashboard mode) -->
                 <footer
                     id="add-task-footer"
-                    class="hidden flex-shrink-0 p-4 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)]"
+                    class="hidden flex-shrink-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)]"
                 >
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center space-x-3 h-full p-4">
                         <!-- Changed button color to indigo -->
                         <button
                             class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
@@ -3651,7 +3718,7 @@
                             id="add-task-input"
                             type="text"
                             placeholder="Add task... e.g., 'Team meeting tomorrow at 10am #Work P1'"
-                            class="w-full bg-transparent border-none p-0 focus:ring-0"
+                            class="w-full h-full bg-transparent border-none py-3 focus:ring-0 focus:outline-none text-base"
                         />
                     </div>
                 </footer>
@@ -3798,9 +3865,10 @@
                         </div>
                     </div>
 
-                    <!-- Browser Preview -->
+                    <!-- Browser Preview / Artifacts -->
                     <div>
                         <h4
+                            id="browser-preview-title"
                             class="text-xs font-semibold text-gray-500 uppercase mb-2"
                         >
                             Browser Preview
@@ -3999,17 +4067,10 @@
             class="hidden absolute z-10 w-56 bg-white shadow-xl rounded-lg border border-gray-200 p-2"
         >
             <button
-                id="load-sample-tasks-btn"
-                class="w-full flex items-center px-3 py-2 hover:bg-gray-100 rounded text-left text-sm"
+                id="reset-tasks-btn"
+                class="w-full flex items-center px-3 py-2 hover:bg-gray-100 rounded text-left text-sm text-orange-600"
             >
-                <span>Load Sample Tasks</span>
-            </button>
-            <hr class="my-1 border-gray-200" />
-            <button
-                id="clear-all-tasks-btn"
-                class="w-full flex items-center px-3 py-2 hover:bg-gray-100 rounded text-left text-sm text-red-600"
-            >
-                <span>Clear All Tasks</span>
+                <span>Reset Tasks Data</span>
             </button>
         </div>
 
@@ -4467,41 +4528,55 @@ updated: ${this.updated}
 
                 // Action buttons (only show for main tasks with showActions=true)
                 let actionButtons = "";
+                const isExecuting =
+                    task.aiStatus &&
+                    task.aiStatus.toLowerCase() === "executing";
                 if (showActions && !isSubtask) {
-                    const mainButtonText = isCompleted
-                        ? "Create Dashboard"
-                        : "Do it for me";
-                    const mainButtonTitle = isCompleted
-                        ? "Create Dashboard"
-                        : "Do it for me";
-                    actionButtons = `
-                        <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="do-it-for-me-btn px-2 py-0.5 rounded text-xs text-gray-600 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors" title="${mainButtonTitle}">
-                                ${mainButtonText}
-                            </button>
-                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Due Date">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
-                                    <line x1="16" x2="16" y1="2" y2="6"/>
-                                    <line x1="8" x2="8" y1="2" y2="6"/>
-                                    <line x1="3" x2="21" y1="10" y2="10"/>
-                                </svg>
-                            </button>
-                            <button class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" data-task-id="${task.id}" title="Set Priority">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
-                                    <line x1="4" x2="4" y1="22" y2="15"/>
-                                </svg>
-                            </button>
-                            <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="More Actions">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="1"/>
-                                    <circle cx="12" cy="5" r="1"/>
-                                    <circle cx="12" cy="19" r="1"/>
-                                </svg>
-                            </button>
-                        </div>
-                    `;
+                    if (isExecuting) {
+                        // Show Abort Execution button (always visible, red styling)
+                        actionButtons = `
+                            <div class="flex items-center space-x-1">
+                                <button class="abort-execution-btn px-2 py-0.5 rounded text-xs text-red-600 border border-red-300 hover:border-red-400 hover:bg-red-50 transition-colors" title="Abort Execution">
+                                    Abort Execution
+                                </button>
+                            </div>
+                        `;
+                    } else {
+                        const mainButtonText = isCompleted
+                            ? "Create Dashboard"
+                            : "Do it for me";
+                        const mainButtonTitle = isCompleted
+                            ? "Create Dashboard"
+                            : "Do it for me";
+                        actionButtons = `
+                            <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="do-it-for-me-btn px-2 py-0.5 rounded text-xs text-gray-600 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors" title="${mainButtonTitle}">
+                                    ${mainButtonText}
+                                </button>
+                                <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="Set Due Date">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+                                        <line x1="16" x2="16" y1="2" y2="6"/>
+                                        <line x1="8" x2="8" y1="2" y2="6"/>
+                                        <line x1="3" x2="21" y1="10" y2="10"/>
+                                    </svg>
+                                </button>
+                                <button class="priority-btn p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" data-task-id="${task.id}" title="Set Priority">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                                        <line x1="4" x2="4" y1="22" y2="15"/>
+                                    </svg>
+                                </button>
+                                <button class="p-1 rounded text-gray-500 hover:bg-gray-100 hover:text-gray-700" title="More Actions">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="1"/>
+                                        <circle cx="12" cy="5" r="1"/>
+                                        <circle cx="12" cy="19" r="1"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        `;
+                    }
                 }
 
                 // Metadata row (date, priority, tags, AI status)
@@ -4524,16 +4599,30 @@ updated: ${this.updated}
                             : "";
                     // Add a button to add new tags
                     const addTagButton = `<button class="add-tag-btn text-xs text-gray-400 hover:text-gray-600 px-2 py-0.5 rounded border border-dashed border-gray-300 hover:border-gray-400 transition-colors" data-task-id="${task.id}" title="Add tag">+ Tag</button>`;
-                    const aiStatusSpan = aiStatusDisplay
-                        ? `
-                        <span class="ai-status text-purple-600 font-medium text-xs flex items-center space-x-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5h-1v1.27c.6.34 1 .99 1 1.73a2 2 0 1 1-2-2v-2a2 2 0 0 1-2 2 2 2 0 1 1 0-4c.74 0 1.39.4 1.73 1H11V5.73A2 2 0 1 1 12 2Z"/>
-                            </svg>
-                            <span>${aiStatusDisplay}</span>
-                        </span>
-                    `
-                        : "";
+                    let aiStatusSpan = "";
+                    if (aiStatusDisplay) {
+                        if (isExecuting) {
+                            // Executing: indigo color with spinning icon
+                            aiStatusSpan = `
+                                <span class="ai-status text-indigo-600 font-medium text-xs flex items-center space-x-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-spin">
+                                        <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                                    </svg>
+                                    <span>${aiStatusDisplay}</span>
+                                </span>
+                            `;
+                        } else {
+                            // Other statuses: purple color with bot icon
+                            aiStatusSpan = `
+                                <span class="ai-status text-purple-600 font-medium text-xs flex items-center space-x-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5h-1v1.27c.6.34 1 .99 1 1.73a2 2 0 1 1-2-2v-2a2 2 0 0 1-2 2 2 2 0 1 1 0-4c.74 0 1.39.4 1.73 1H11V5.73A2 2 0 1 1 12 2Z"/>
+                                    </svg>
+                                    <span>${aiStatusDisplay}</span>
+                                </span>
+                            `;
+                        }
+                    }
 
                     metadataRow = `
                         <div class="text-xs text-gray-500 mt-0.5 flex items-center gap-2">
@@ -4591,7 +4680,7 @@ updated: ${this.updated}
                                 </svg>
                             </button>
                             <div class="flex-grow">
-                                <div class="task-content text-sm ${isCompleted ? "completed" : ""}" ${editable && !isCompleted ? 'contenteditable="true"' : ""}>${task.title}</div>
+                                <div class="task-content text-sm ${isCompleted ? "completed" : ""}" ${editable && !isCompleted ? 'contenteditable="false"' : ""}>${task.title}</div>
                                 ${metadataRow}
                             </div>
                         </div>
@@ -4755,7 +4844,7 @@ updated: ${this.updated}
                         priority: "p1",
                         status: "active",
                         tags: ["Personal"],
-                        aiStatus: "ready",
+                        aiStatus: "executing",
                         aiPlan: true,
                         subtasks: [
                             "Step 1: Open LinkedIn Messages",
@@ -4775,8 +4864,14 @@ updated: ${this.updated}
                         priority: "p2",
                         status: "active",
                         tags: ["Personal"],
-                        aiStatus: "",
-                        subtasks: [],
+                        aiStatus: "ready",
+                        aiPlan: true,
+                        subtasks: [
+                            "Step 1: Access log dashboard",
+                            "Step 2: Filter by date range",
+                            "Step 3: Identify errors and warnings",
+                            "Step 4: Generate summary report",
+                        ],
                     }),
                     new Task({
                         title: "Update quarterly reports",
@@ -4784,8 +4879,15 @@ updated: ${this.updated}
                         priority: "",
                         status: "active",
                         tags: ["Sales"],
-                        aiStatus: "",
-                        subtasks: [],
+                        aiStatus: "executing",
+                        aiPlan: true,
+                        subtasks: [
+                            "Step 1: Access report templates",
+                            "Step 2: Gather Q4 data from sources",
+                            "Step 3: Update revenue charts",
+                            "Step 4: Update KPI metrics",
+                            "Step 5: Export to PDF",
+                        ],
                     }),
                     new Task({
                         title: "Schedule team meeting",
@@ -4820,6 +4922,55 @@ updated: ${this.updated}
                             "Step 5: Extract AI news",
                         ],
                     }),
+                    new Task({
+                        title: "Task: Show all messages from Tripti",
+                        dueDate: yesterday.toISOString(),
+                        priority: "",
+                        status: "completed",
+                        tags: ["Personal"],
+                        aiStatus: "completed",
+                        subtasks: [
+                            "Step 1: Open LinkedIn Messages",
+                            "Step 2: Filter by Tripti",
+                            "Step 3: Extract latest messages",
+                            "Step 4: Open Gmail inbox",
+                            "Step 5: Search for Tripti",
+                            "Step 6: Extract email snippets",
+                            "Step 7: Open Instagram DMs",
+                            "Step 8: Find conversation with Tripti",
+                            "Step 9: Compile all messages",
+                        ],
+                    }),
+                    new Task({
+                        title: "Task: Track new Instagram followers",
+                        dueDate: yesterday.toISOString(),
+                        priority: "",
+                        status: "completed",
+                        tags: ["Social"],
+                        aiStatus: "completed",
+                        subtasks: [
+                            "Step 1: Open Instagram app",
+                            "Step 2: Navigate to followers list",
+                            "Step 3: Compare with previous count",
+                            "Step 4: Extract new follower usernames",
+                            "Step 5: Save to dashboard",
+                        ],
+                    }),
+                    new Task({
+                        title: "Task: Fetch Twitter mentions",
+                        dueDate: yesterday.toISOString(),
+                        priority: "",
+                        status: "completed",
+                        tags: ["Social"],
+                        aiStatus: "completed",
+                        subtasks: [
+                            "Step 1: Open Twitter/X",
+                            "Step 2: Go to notifications",
+                            "Step 3: Filter mentions only",
+                            "Step 4: Extract recent mentions",
+                            "Step 5: Save to dashboard",
+                        ],
+                    }),
                 ];
 
                 // Save all sample tasks to localStorage
@@ -4835,8 +4986,14 @@ updated: ${this.updated}
                 // Initialize storage and load existing tasks
                 console.log("Initializing task system...");
                 await taskStorage.init();
-                const tasks = await taskStorage.loadTasks();
+                let tasks = await taskStorage.loadTasks();
                 console.log(`Loaded ${tasks.length} tasks from storage`);
+
+                // Auto-load sample tasks if no tasks exist
+                if (tasks.length === 0) {
+                    console.log("No tasks found, loading sample tasks...");
+                    tasks = await loadSampleTasks();
+                }
 
                 // Update sidebar counts after loading tasks
                 updateSidebarCountsNew();
@@ -5025,15 +5182,15 @@ updated: ${this.updated}
                     } else if (title === "Social Media") {
                         dashboardView.innerHTML = `
                             <!-- Widget 1: New Followers -->
-                            <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col">
+                            <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col" data-widget-id="instagram-followers">
                                 <header class="flex items-center justify-between p-4 border-b border-gray-100">
                                     <h3 class="font-semibold">New Instagram Followers</h3>
                                     <div class="flex items-center space-x-1">
-                                        <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                                        <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600" title="Refresh">
                                             <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
                                         </button>
-                                        <button class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                                        <button class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600" title="Remove widget">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                         </button>
                                     </div>
                                 </header>
@@ -5053,15 +5210,15 @@ updated: ${this.updated}
                                 </footer>
                             </div>
                             <!-- Widget 2: Twitter Mentions -->
-                            <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col">
+                            <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col" data-widget-id="twitter-mentions">
                                 <header class="flex items-center justify-between p-4 border-b border-gray-100">
                                     <h3 class="font-semibold">Twitter Mentions</h3>
                                     <div class="flex items-center space-x-1">
-                                        <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                                        <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600" title="Refresh">
                                             <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
                                         </button>
-                                        <button class="p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                                        <button class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600" title="Remove widget">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                         </button>
                                     </div>
                                 </header>
@@ -5544,7 +5701,7 @@ updated: ${this.updated}
                         </button>
                         <div class="flex-grow">
                             <!-- Changed font size from text-base to text-sm -->
-                            <div class="task-content text-sm" contenteditable="true">${text}</div>
+                            <div class="task-content text-sm" contenteditable="false">${text}</div>
                             <div class="flex items-center space-x-3 text-xs text-gray-500 mt-1">
                                 <span class="due-date"></span>
                                 <span class="priority font-bold"></span>
@@ -5575,8 +5732,107 @@ updated: ${this.updated}
             document.addEventListener("click", (e) => {
                 const doItBtn = e.target.closest(".do-it-for-me-btn");
                 if (doItBtn) {
+                    // Skip if this is a "Create Dashboard" button - handled separately
+                    if (doItBtn.textContent.trim() === "Create Dashboard") {
+                        return;
+                    }
+
                     e.preventDefault();
-                    openExecutionPanel();
+                    // Find the task container to get task ID
+                    const taskContainer = doItBtn.closest(
+                        ".task-item-container",
+                    );
+                    const taskId = taskContainer
+                        ? taskContainer.dataset.taskId
+                        : null;
+
+                    // Get task from storage or use mock data based on task title
+                    let task = taskId ? taskStorage.getTask(taskId) : null;
+
+                    // If no task found, try to get task title from the DOM
+                    if (!task && taskContainer) {
+                        const taskContent =
+                            taskContainer.querySelector(".task-content");
+                        if (taskContent) {
+                            const title = taskContent.textContent.trim();
+                            // Find task by title
+                            const allTasks = taskStorage.getAllTasks();
+                            task = allTasks.find((t) => t.title === title);
+                        }
+                    }
+
+                    openExecutionPanel(task);
+                }
+            });
+
+            // --- Handle "Abort Execution" Button Click (opens panel) ---
+            document.addEventListener("click", (e) => {
+                const abortBtn = e.target.closest(".abort-execution-btn");
+                if (abortBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Find the task container to get task ID
+                    const taskContainer = abortBtn.closest(
+                        ".task-item-container",
+                    );
+                    const taskId = taskContainer
+                        ? taskContainer.dataset.taskId
+                        : null;
+
+                    // Get task from storage
+                    let task = taskId ? taskStorage.getTask(taskId) : null;
+
+                    // If no task found, try to get task title from the DOM
+                    if (!task && taskContainer) {
+                        const taskContent =
+                            taskContainer.querySelector(".task-content");
+                        if (taskContent) {
+                            const title = taskContent.textContent.trim();
+                            const allTasks = taskStorage.getAllTasks();
+                            task = allTasks.find((t) => t.title === title);
+                        }
+                    }
+
+                    openExecutionPanel(task);
+                }
+            });
+
+            // --- Handle Task Row Click (for executing and completed tasks) ---
+            document.addEventListener("click", (e) => {
+                const taskItem = e.target.closest(".task-item");
+                if (!taskItem) return;
+
+                // Don't open panel if clicking on buttons, checkboxes, or expanders
+                if (
+                    e.target.closest("button") ||
+                    e.target.closest(".task-checkbox")
+                ) {
+                    return;
+                }
+
+                const taskContainer = taskItem.closest(".task-item-container");
+                if (!taskContainer) return;
+
+                const taskId = taskContainer.dataset.taskId;
+                const task = taskId ? taskStorage.getTask(taskId) : null;
+
+                // Open panel for executing tasks
+                if (
+                    task &&
+                    task.aiStatus &&
+                    task.aiStatus.toLowerCase() === "executing"
+                ) {
+                    openExecutionPanel(task);
+                }
+                // Open panel for completed tasks (showing all steps completed)
+                else if (
+                    task &&
+                    task.status === "completed" &&
+                    task.aiStatus &&
+                    task.aiStatus.toLowerCase() === "completed"
+                ) {
+                    openExecutionPanelCompleted(task);
                 }
             });
 
@@ -5584,17 +5840,473 @@ updated: ${this.updated}
             const executionPanel = document.getElementById("execution-panel");
             const closePanelBtn = document.getElementById("close-panel-btn");
 
-            function openExecutionPanel() {
+            // Mock panel configurations for different task types
+            const mockPanelConfigs = {
+                // Pull messages from Ruchika task
+                messages: {
+                    taskName: "Task: Pull all messages from Ruchika",
+                    status: "Running...",
+                    statusColor: "green",
+                    steps: [
+                        { text: "Open LinkedIn Messages", status: "completed" },
+                        { text: 'Filter by "Ruchika"', status: "in_progress" },
+                        {
+                            text: "Extract latest message text",
+                            status: "pending",
+                        },
+                        { text: "Open Gmail", status: "pending" },
+                        {
+                            text: 'Filter Gmail by "Ruchika"',
+                            status: "pending",
+                        },
+                        { text: "Extract Gmail message", status: "pending" },
+                    ],
+                    browserPreview: "LinkedIn Messages - Filtering...",
+                    showQA: false,
+                },
+                // Review automation logs
+                logs: {
+                    taskName: "Review automation logs",
+                    status: "Planning...",
+                    statusColor: "yellow",
+                    steps: [
+                        { text: "Identify log sources", status: "in_progress" },
+                        {
+                            text: "Parse recent automation runs",
+                            status: "pending",
+                        },
+                        {
+                            text: "Highlight errors and warnings",
+                            status: "pending",
+                        },
+                        { text: "Generate summary report", status: "pending" },
+                    ],
+                    browserPreview: "Analyzing automation history...",
+                    showQA: true,
+                    qaQuestion:
+                        "Which time period should I analyze? (e.g., last 24 hours, last week)",
+                },
+                // Update quarterly reports
+                reports: {
+                    taskName: "Update quarterly reports",
+                    status: "Waiting for input...",
+                    statusColor: "yellow",
+                    steps: [
+                        {
+                            text: "Access report templates",
+                            status: "completed",
+                        },
+                        {
+                            text: "Gather Q4 data from sources",
+                            status: "in_progress",
+                        },
+                        { text: "Update revenue charts", status: "pending" },
+                        { text: "Update KPI metrics", status: "pending" },
+                        { text: "Export to PDF", status: "pending" },
+                    ],
+                    browserPreview: "Google Sheets - Q4 Data...",
+                    showQA: true,
+                    qaQuestion:
+                        "Which data sources should I pull from? (Salesforce, HubSpot, or both)",
+                },
+                // Schedule team meeting
+                meeting: {
+                    taskName: "Schedule team meeting",
+                    status: "Running...",
+                    statusColor: "green",
+                    steps: [
+                        { text: "Check team calendars", status: "completed" },
+                        {
+                            text: "Find available time slots",
+                            status: "completed",
+                        },
+                        {
+                            text: "Create calendar invite",
+                            status: "in_progress",
+                        },
+                        { text: "Send notifications", status: "pending" },
+                    ],
+                    browserPreview: "Google Calendar - Creating event...",
+                    showQA: false,
+                },
+                // Update client presentation
+                presentation: {
+                    taskName: "Update client presentation",
+                    status: "Running...",
+                    statusColor: "green",
+                    steps: [
+                        { text: "Open presentation file", status: "completed" },
+                        {
+                            text: "Update title slide with new date",
+                            status: "completed",
+                        },
+                        { text: "Refresh data charts", status: "in_progress" },
+                        { text: "Update client logo", status: "pending" },
+                        { text: "Export as PDF", status: "pending" },
+                    ],
+                    browserPreview: "Google Slides - Editing...",
+                    showQA: false,
+                },
+                // Fetch AI News (completed task)
+                news: {
+                    taskName: "Task: Fetch latest AI News",
+                    status: "Completed",
+                    statusColor: "blue",
+                    steps: [
+                        {
+                            text: "Open Techcrunch, Reddit",
+                            status: "completed",
+                        },
+                        { text: "Search for AI", status: "completed" },
+                        {
+                            text: "Extract top 3 headlines",
+                            status: "completed",
+                        },
+                        { text: "Save the Main headline", status: "completed" },
+                        { text: "Extract AI news", status: "completed" },
+                    ],
+                    browserPreview: "Results saved to dashboard",
+                    showQA: false,
+                },
+                // Default fallback
+                default: {
+                    taskName: "Running task...",
+                    status: "Initializing...",
+                    statusColor: "yellow",
+                    steps: [
+                        {
+                            text: "Analyzing task requirements",
+                            status: "in_progress",
+                        },
+                        { text: "Creating execution plan", status: "pending" },
+                        { text: "Execute automation steps", status: "pending" },
+                    ],
+                    browserPreview: "Preparing automation...",
+                    showQA: false,
+                },
+            };
+
+            function getConfigForTask(task) {
+                if (!task) return mockPanelConfigs.default;
+
+                const title = task.title.toLowerCase();
+
+                // Check for Tripti messages (completed task)
+                if (title.includes("tripti")) {
+                    return {
+                        taskName: task.title,
+                        status: "Completed",
+                        statusColor: "green",
+                        steps: task.subtasks
+                            ? task.subtasks.map((st) => ({
+                                  text: typeof st === "string" ? st : st.text,
+                                  status: "completed",
+                              }))
+                            : [{ text: "Task completed", status: "completed" }],
+                        browserPreview: "Messages compiled successfully",
+                        showQA: false,
+                    };
+                } else if (title.includes("ruchika")) {
+                    return mockPanelConfigs.messages;
+                } else if (
+                    title.includes("log") ||
+                    title.includes("review automation")
+                ) {
+                    return mockPanelConfigs.logs;
+                } else if (
+                    title.includes("report") ||
+                    title.includes("quarterly")
+                ) {
+                    return mockPanelConfigs.reports;
+                } else if (
+                    title.includes("meeting") ||
+                    title.includes("schedule")
+                ) {
+                    return mockPanelConfigs.meeting;
+                } else if (
+                    title.includes("presentation") ||
+                    title.includes("client")
+                ) {
+                    return mockPanelConfigs.presentation;
+                } else if (
+                    title.includes("news") ||
+                    title.includes("ai news")
+                ) {
+                    return mockPanelConfigs.news;
+                }
+
+                // If task has subtasks, use them as steps
+                if (task.subtasks && task.subtasks.length > 0) {
+                    const isCompleted =
+                        task.aiStatus === "completed" ||
+                        task.status === "completed";
+                    return {
+                        taskName: task.title,
+                        status: isCompleted ? "Completed" : "Running...",
+                        statusColor: "green",
+                        steps: task.subtasks.map((st, idx) => ({
+                            text: typeof st === "string" ? st : st.text,
+                            status: isCompleted
+                                ? "completed"
+                                : idx === 0
+                                  ? "completed"
+                                  : idx === 1
+                                    ? "in_progress"
+                                    : "pending",
+                        })),
+                        browserPreview: isCompleted
+                            ? "Task completed successfully"
+                            : "Executing task...",
+                        showQA: false,
+                    };
+                }
+
+                return mockPanelConfigs.default;
+            }
+
+            function renderPanelContent(config) {
+                // Update task name
+                document.getElementById("panel-task-name").textContent =
+                    config.taskName;
+
+                // Update status
+                const statusEl = document.querySelector(
+                    "#execution-panel header p",
+                );
+                statusEl.textContent = config.status;
+
+                // Update status indicator color
+                const statusDot = document.querySelector(
+                    "#execution-panel header .rounded-full.animate-pulse, #execution-panel header .rounded-full.bg-green-500, #execution-panel header .rounded-full.bg-yellow-500, #execution-panel header .rounded-full.bg-blue-500",
+                );
+                if (statusDot) {
+                    statusDot.className = `w-2 h-2 rounded-full ${config.statusColor === "green" ? "bg-green-500 animate-pulse" : config.statusColor === "yellow" ? "bg-yellow-500 animate-pulse" : "bg-blue-500"}`;
+                }
+
+                // Render steps
+                const stepsContainer =
+                    document.getElementById("execution-steps");
+                stepsContainer.innerHTML = config.steps
+                    .map((step) => {
+                        let iconHTML = "";
+                        let textClass = "";
+                        let statusText = "";
+
+                        if (step.status === "completed") {
+                            iconHTML = `<div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>`;
+                            textClass = "text-gray-800";
+                            statusText = "Completed";
+                        } else if (step.status === "in_progress") {
+                            iconHTML = `<div class="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        </div>`;
+                            textClass = "text-gray-800";
+                            statusText = "In progress...";
+                        } else {
+                            iconHTML = `<div class="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0 mt-0.5"></div>`;
+                            textClass = "text-gray-400";
+                            statusText = "Pending";
+                        }
+
+                        return `
+                        <div class="flex items-start space-x-2">
+                            ${iconHTML}
+                            <div class="flex-1">
+                                <p class="text-sm font-medium ${textClass}">${step.text}</p>
+                                <p class="text-xs ${step.status === "in_progress" ? "text-indigo-600" : "text-gray-500"}">${statusText}</p>
+                            </div>
+                        </div>
+                    `;
+                    })
+                    .join("");
+
+                // Update browser preview text
+                const previewText = document.querySelector(
+                    "#execution-panel .aspect-video p",
+                );
+                if (previewText) {
+                    previewText.textContent = config.browserPreview;
+                }
+
+                // Show/hide Q&A section
+                const qaSection = document.getElementById("qa-section");
+                if (config.showQA) {
+                    qaSection.classList.remove("hidden");
+                    const qaQuestion = qaSection.querySelector("p.font-medium");
+                    if (qaQuestion && config.qaQuestion) {
+                        qaQuestion.textContent = config.qaQuestion;
+                    }
+                } else {
+                    qaSection.classList.add("hidden");
+                }
+            }
+
+            // Track animation interval so we can clear it
+            let stepAnimationInterval = null;
+
+            function openExecutionPanel(task = null) {
+                const config = getConfigForTask(task);
+                renderPanelContent(config);
+
                 executionPanel.classList.remove("hidden", "slide-out");
+
+                // Reset title to "Browser Preview" for non-completed tasks
+                const previewTitle = document.getElementById(
+                    "browser-preview-title",
+                );
+                if (previewTitle) {
+                    previewTitle.textContent = "Browser Preview";
+                }
 
                 // Update running badge
                 updateRunningBadge(1);
 
                 // Add to running list
-                addToRunningList("Pull all messages from Ruchika");
+                addToRunningList(config.taskName);
+
+                // Clear any existing animation
+                if (stepAnimationInterval) {
+                    clearInterval(stepAnimationInterval);
+                    stepAnimationInterval = null;
+                }
+
+                // Start step animation for "Review automation logs" task
+                if (task && task.title === "Review automation logs") {
+                    startStepAnimation(config);
+                }
+            }
+
+            function startStepAnimation(config) {
+                // Clone steps to track progress
+                const animatedSteps = config.steps.map((step, index) => ({
+                    ...step,
+                    status: index === 0 ? "in_progress" : "pending",
+                }));
+
+                // Render initial state (first step in progress)
+                renderSteps(animatedSteps);
+                updatePanelStatus("Running...", "green");
+
+                // After 3 seconds, complete first step and start second step (stays there indefinitely)
+                stepAnimationInterval = setTimeout(() => {
+                    // Mark first step as completed
+                    animatedSteps[0].status = "completed";
+                    // Mark second step as in progress (stays here indefinitely)
+                    if (animatedSteps.length > 1) {
+                        animatedSteps[1].status = "in_progress";
+                    }
+                    renderSteps(animatedSteps);
+                    stepAnimationInterval = null;
+                }, 3000);
+            }
+
+            function renderSteps(steps) {
+                const stepsContainer =
+                    document.getElementById("execution-steps");
+                stepsContainer.innerHTML = steps
+                    .map((step) => {
+                        let iconHTML = "";
+                        let textClass = "";
+                        let statusText = "";
+
+                        if (step.status === "completed") {
+                            iconHTML = `<div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>`;
+                            textClass = "text-gray-800";
+                            statusText = "Completed";
+                        } else if (step.status === "in_progress") {
+                            iconHTML = `<div class="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        </div>`;
+                            textClass = "text-gray-800";
+                            statusText = "In progress...";
+                        } else {
+                            iconHTML = `<div class="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0 mt-0.5"></div>`;
+                            textClass = "text-gray-400";
+                            statusText = "Pending";
+                        }
+
+                        return `
+                        <div class="flex items-start space-x-2">
+                            ${iconHTML}
+                            <div class="flex-1">
+                                <p class="text-sm font-medium ${textClass}">${step.text}</p>
+                                <p class="text-xs ${step.status === "in_progress" ? "text-indigo-600" : "text-gray-500"}">${statusText}</p>
+                            </div>
+                        </div>
+                    `;
+                    })
+                    .join("");
+            }
+
+            function updatePanelStatus(status, color) {
+                const statusEl = document.querySelector(
+                    "#execution-panel header p",
+                );
+                if (statusEl) {
+                    statusEl.textContent = status;
+                }
+
+                const statusDot = document.querySelector(
+                    "#execution-panel header .rounded-full",
+                );
+                if (statusDot) {
+                    statusDot.className = `w-2 h-2 rounded-full ${color === "green" ? "bg-green-500 animate-pulse" : color === "yellow" ? "bg-yellow-500 animate-pulse" : "bg-blue-500"}`;
+                }
+            }
+
+            function openExecutionPanelCompleted(task = null) {
+                const config = getConfigForTask(task);
+
+                // Mark all steps as completed
+                const completedSteps = config.steps.map((step) => ({
+                    ...step,
+                    status: "completed",
+                }));
+
+                // Update config with completed steps and status
+                const completedConfig = {
+                    ...config,
+                    steps: completedSteps,
+                    status: "Completed",
+                    statusColor: "green",
+                };
+
+                renderPanelContent(completedConfig);
+
+                // Remove the pulse animation from the status dot for completed
+                const statusDot = document.querySelector(
+                    "#execution-panel header .rounded-full",
+                );
+                if (statusDot) {
+                    statusDot.className = "w-2 h-2 rounded-full bg-green-500";
+                }
+
+                // Change "Browser Preview" to "Browser Artifacts" for completed tasks
+                const previewTitle = document.getElementById(
+                    "browser-preview-title",
+                );
+                if (previewTitle) {
+                    previewTitle.textContent = "Browser Artifacts";
+                }
+
+                executionPanel.classList.remove("hidden", "slide-out");
             }
 
             function closeExecutionPanel() {
+                // Clear any running animation
+                if (stepAnimationInterval) {
+                    clearInterval(stepAnimationInterval);
+                    stepAnimationInterval = null;
+                }
+
                 executionPanel.classList.add("slide-out");
                 setTimeout(() => {
                     executionPanel.classList.add("hidden");
@@ -5640,16 +6352,295 @@ updated: ${this.updated}
             // Close panel button
             closePanelBtn.addEventListener("click", closeExecutionPanel);
 
+            // --- Dashboard Widget Management ---
+
+            // Mock widget content templates based on task type
+            const widgetTemplates = {
+                "ai-news": {
+                    title: "Latest AI News",
+                    content: `
+                        <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">New Model Release Changes Everything</div>
+                        <p class="text-xs text-gray-500">TechCrunch: 11:05 AM</p>
+                        <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">OpenAI Dev Day Key Takeaways</div>
+                        <p class="text-xs text-gray-500">The Verge: 10:30 AM</p>
+                    `,
+                },
+                messages: {
+                    title: "Messages",
+                    content: `
+                        <div class="text-sm"><strong class="text-indigo-600">LinkedIn:</strong> "Hey, did you see the latest designs?"</div>
+                        <div class="text-sm"><strong class="text-red-600">Gmail:</strong> "Re: Project Alpha - Attaching the deck."</div>
+                        <div class="text-sm"><strong class="text-pink-500">Instagram:</strong> "New message received"</div>
+                    `,
+                },
+                reports: {
+                    title: "Quarterly Reports",
+                    content: `
+                        <div class="text-sm font-medium">Q4 Revenue Report</div>
+                        <p class="text-xs text-gray-500">Updated: Just now</p>
+                        <div class="text-sm font-medium">KPI Dashboard</div>
+                        <p class="text-xs text-gray-500">Last refresh: 5 mins ago</p>
+                    `,
+                },
+                meeting: {
+                    title: "Scheduled Meetings",
+                    content: `
+                        <div class="text-sm font-medium text-green-600">Team Standup</div>
+                        <p class="text-xs text-gray-500">Tomorrow at 10:00 AM</p>
+                        <div class="text-sm font-medium">Sprint Planning</div>
+                        <p class="text-xs text-gray-500">Friday at 2:00 PM</p>
+                    `,
+                },
+                presentation: {
+                    title: "Client Presentations",
+                    content: `
+                        <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">Q4 Client Deck.pdf</div>
+                        <p class="text-xs text-gray-500">Last edited: Just now</p>
+                        <div class="text-sm font-medium hover:text-indigo-600 cursor-pointer">Product Roadmap.pptx</div>
+                        <p class="text-xs text-gray-500">Last edited: 2 days ago</p>
+                    `,
+                },
+                logs: {
+                    title: "Automation Logs",
+                    content: `
+                        <div class="text-sm"><span class="text-green-600 font-medium">SUCCESS:</span> Email sync completed</div>
+                        <p class="text-xs text-gray-500">Today at 9:30 AM</p>
+                        <div class="text-sm"><span class="text-yellow-600 font-medium">WARNING:</span> Rate limit reached</div>
+                        <p class="text-xs text-gray-500">Today at 8:15 AM</p>
+                    `,
+                },
+                "instagram-followers": {
+                    title: "New Instagram Followers",
+                    content: `
+                        <div class="text-sm"><strong class="text-pink-500">@user123</strong> started following you.</div>
+                        <div class="text-sm"><strong class="text-pink-500">@design_pro</strong> started following you.</div>
+                        <div class="text-sm"><strong class="text-pink-500">@tech_guru</strong> started following you.</div>
+                    `,
+                },
+                "twitter-mentions": {
+                    title: "Twitter Mentions",
+                    content: `
+                        <div class="text-sm"><strong class="text-blue-500">@startup_news:</strong> "Great insights on automation!"</div>
+                        <div class="text-sm"><strong class="text-blue-500">@tech_daily:</strong> "This is exactly what we needed 🚀"</div>
+                    `,
+                },
+                default: {
+                    title: "Task Results",
+                    content: `
+                        <div class="text-sm text-gray-600">Automation completed successfully.</div>
+                        <p class="text-xs text-gray-500">Results are ready to view.</p>
+                    `,
+                },
+            };
+
+            function getWidgetTemplateForTask(task) {
+                if (!task) return widgetTemplates.default;
+
+                const title = task.title.toLowerCase();
+
+                if (title.includes("news") || title.includes("ai news")) {
+                    return {
+                        ...widgetTemplates["ai-news"],
+                        title: task.title
+                            .replace("Task: ", "")
+                            .replace("Fetch ", ""),
+                    };
+                } else if (
+                    title.includes("tripti") ||
+                    title.includes("messages")
+                ) {
+                    return {
+                        ...widgetTemplates.messages,
+                        title: "Messages from Tripti",
+                    };
+                } else if (
+                    title.includes("report") ||
+                    title.includes("quarterly")
+                ) {
+                    return { ...widgetTemplates.reports, title: task.title };
+                } else if (
+                    title.includes("meeting") ||
+                    title.includes("schedule")
+                ) {
+                    return {
+                        ...widgetTemplates.meeting,
+                        title: "Scheduled Meetings",
+                    };
+                } else if (
+                    title.includes("presentation") ||
+                    title.includes("client")
+                ) {
+                    return {
+                        ...widgetTemplates.presentation,
+                        title: task.title,
+                    };
+                } else if (title.includes("log")) {
+                    return { ...widgetTemplates.logs, title: task.title };
+                } else if (
+                    title.includes("instagram") ||
+                    title.includes("follower")
+                ) {
+                    return {
+                        ...widgetTemplates["instagram-followers"],
+                        title: "New Instagram Followers",
+                    };
+                } else if (
+                    title.includes("twitter") ||
+                    title.includes("mention")
+                ) {
+                    return {
+                        ...widgetTemplates["twitter-mentions"],
+                        title: "Twitter Mentions",
+                    };
+                }
+
+                return { ...widgetTemplates.default, title: task.title };
+            }
+
+            function createWidgetHTML(widgetId, title, content) {
+                return `
+                    <div class="widget-card bg-white rounded-xl shadow-lg flex flex-col" data-widget-id="${widgetId}">
+                        <header class="flex items-center justify-between p-4 border-b border-gray-100">
+                            <h3 class="font-semibold">${title}</h3>
+                            <div class="flex items-center space-x-1">
+                                <button class="widget-refresh p-1.5 rounded text-gray-400 hover:bg-gray-100 hover:text-gray-600" title="Refresh">
+                                    <svg class="widget-refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="23 4 23 10 17 10"/>
+                                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                                    </svg>
+                                </button>
+                                <button class="widget-remove p-1.5 rounded text-gray-400 hover:bg-red-100 hover:text-red-600" title="Remove widget">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </header>
+                        <div class="widget-content p-4 h-48 overflow-y-auto space-y-3">
+                            ${content}
+                        </div>
+                        <footer class="p-3 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-b-xl">
+                            Last run: Just now
+                        </footer>
+                    </div>
+                `;
+            }
+
+            function addWidgetToDashboard(task) {
+                const dashboardView = document.getElementById("dashboard-view");
+                const template = getWidgetTemplateForTask(task);
+                const widgetId = `widget-${Date.now()}`;
+
+                // Find the "Add Task to Dashboard" button and insert before it
+                const addButton = dashboardView.querySelector("button");
+                if (addButton) {
+                    addButton.insertAdjacentHTML(
+                        "beforebegin",
+                        createWidgetHTML(
+                            widgetId,
+                            template.title,
+                            template.content,
+                        ),
+                    );
+                } else {
+                    dashboardView.insertAdjacentHTML(
+                        "beforeend",
+                        createWidgetHTML(
+                            widgetId,
+                            template.title,
+                            template.content,
+                        ),
+                    );
+                }
+
+                return widgetId;
+            }
+
+            function removeWidget(widgetElement) {
+                // Add fade-out animation
+                widgetElement.style.transition = "opacity 0.3s, transform 0.3s";
+                widgetElement.style.opacity = "0";
+                widgetElement.style.transform = "scale(0.95)";
+
+                setTimeout(() => {
+                    widgetElement.remove();
+                }, 300);
+            }
+
+            // Handle widget remove button clicks
+            document.addEventListener("click", (e) => {
+                const removeBtn = e.target.closest(".widget-remove");
+                if (removeBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const widget = removeBtn.closest(".widget-card");
+                    if (widget) {
+                        const confirmed = confirm(
+                            "Remove this widget from the dashboard?",
+                        );
+                        if (confirmed) {
+                            removeWidget(widget);
+                        }
+                    }
+                }
+            });
+
+            // Handle "Create Dashboard" button click (for completed tasks)
+            document.addEventListener("click", (e) => {
+                const createDashboardBtn =
+                    e.target.closest(".do-it-for-me-btn");
+                if (
+                    createDashboardBtn &&
+                    createDashboardBtn.textContent.trim() === "Create Dashboard"
+                ) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Find the task
+                    const taskContainer = createDashboardBtn.closest(
+                        ".task-item-container",
+                    );
+                    let task = null;
+
+                    if (taskContainer) {
+                        const taskId = taskContainer.dataset.taskId;
+                        task = taskId ? taskStorage.getTask(taskId) : null;
+
+                        // If no task found by ID, try by title
+                        if (!task) {
+                            const taskContent =
+                                taskContainer.querySelector(".task-content");
+                            if (taskContent) {
+                                const title = taskContent.textContent.trim();
+                                const allTasks = taskStorage.getAllTasks();
+                                task = allTasks.find((t) => t.title === title);
+                            }
+                        }
+                    }
+
+                    // Open execution panel showing completed steps
+                    openExecutionPanelCompleted(task);
+
+                    // Create the widget
+                    const widgetId = addWidgetToDashboard(task);
+
+                    // Show success message
+                    alert(
+                        "Dashboard widget created! Go to Daily Briefing to see it.",
+                    );
+
+                    // Optionally navigate to the dashboard
+                    // showDashboardView("Daily Briefing");
+                }
+            });
+
             // --- Settings Dropdown ---
             const settingsToggle = document.getElementById("settings-toggle");
             const settingsDropdown =
                 document.getElementById("settings-dropdown");
-            const loadSampleTasksBtn = document.getElementById(
-                "load-sample-tasks-btn",
-            );
-            const clearAllTasksBtn = document.getElementById(
-                "clear-all-tasks-btn",
-            );
+            const resetTasksBtn = document.getElementById("reset-tasks-btn");
 
             settingsToggle.addEventListener("click", (e) => {
                 e.stopPropagation();
@@ -5670,31 +6661,32 @@ updated: ${this.updated}
                 }
             });
 
-            // Load sample tasks
-            loadSampleTasksBtn.addEventListener("click", async () => {
+            // Reset tasks data (clear all and reload sample tasks)
+            resetTasksBtn.addEventListener("click", async () => {
                 const confirmed = confirm(
-                    "This will add 6 sample tasks. Existing tasks will not be removed. Continue?",
+                    "This will clear all existing tasks and reload the sample tasks. Continue?",
                 );
                 if (!confirmed) return;
 
-                const tasks = await loadSampleTasks();
-                alert(`Successfully loaded ${tasks.length} sample tasks!`);
-                settingsDropdown.classList.add("hidden");
-                refreshCurrentView();
-            });
-
-            // Clear all tasks
-            clearAllTasksBtn.addEventListener("click", async () => {
-                const confirmed = confirm(
-                    "Are you sure you want to delete ALL tasks? This action cannot be undone!",
-                );
-                if (!confirmed) return;
-
+                // Clear existing tasks
                 localStorage.removeItem("remix_tasks");
                 taskStorage.tasks.clear();
-                alert("All tasks have been cleared!");
+
+                // Load sample tasks
+                const tasks = await loadSampleTasks();
                 settingsDropdown.classList.add("hidden");
-                refreshCurrentView();
+
+                // Force page reload to show fresh data
+                window.location.reload();
+            });
+
+            // --- Handle "Add Task to Dashboard" button click ---
+            document.addEventListener("click", (e) => {
+                const btn = e.target.closest("button");
+                if (btn && btn.textContent.includes("Add Task to Dashboard")) {
+                    e.preventDefault();
+                    alert("Not in Demo");
+                }
             });
 
             // --- Theme Toggle ---
