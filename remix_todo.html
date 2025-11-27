@@ -5075,6 +5075,9 @@
                     console.log("First task:", allTasksDebug[0]);
                 }
 
+                // Initialize running tasks list from currently executing tasks
+                initRunningList();
+
                 // --- Handle Sidebar Navigation ---
                 sidebarLinks.forEach((link) => {
                     link.addEventListener("click", (e) => {
@@ -6250,10 +6253,7 @@
                     previewTitle.textContent = "Browser Preview";
                 }
 
-                // Update running badge
-                updateRunningBadge(1);
-
-                // Add to running list
+                // Add to running list (this also updates the badge)
                 addToRunningList(config.taskName);
 
                 // Clear any existing animation
@@ -7045,15 +7045,16 @@
                     executionPanel.classList.remove("slide-out");
                 }, 300);
 
-                // Update running badge
-                updateRunningBadge(0);
-
-                // Clear running list
-                clearRunningList();
+                // Note: We don't clear the running list when closing panel
+                // Tasks continue running in the background
             }
 
-            function updateRunningBadge(count) {
+            // Track running tasks
+            const runningTasks = new Set();
+
+            function updateRunningBadge() {
                 const badge = document.getElementById("running-badge");
+                const count = runningTasks.size;
                 if (count > 0) {
                     badge.classList.remove("hidden");
                     badge.textContent = count;
@@ -7063,22 +7064,62 @@
             }
 
             function addToRunningList(taskName) {
+                if (!taskName || runningTasks.has(taskName)) return;
+
+                runningTasks.add(taskName);
+                renderRunningList();
+                updateRunningBadge();
+            }
+
+            function removeFromRunningList(taskName) {
+                runningTasks.delete(taskName);
+                renderRunningList();
+                updateRunningBadge();
+            }
+
+            function renderRunningList() {
                 const runningList = document.getElementById("running-list");
-                runningList.innerHTML = `
-                                <a href="#" class="flex items-center space-x-3 px-3 py-2 bg-indigo-50 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-100">
-                                    <div class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></div>
-                                    <span>${taskName}</span>
-                                </a>
-                            `;
+
+                if (runningTasks.size === 0) {
+                    runningList.innerHTML = `
+                        <div class="px-3 py-2 text-xs text-gray-400 italic">
+                            No running automations
+                        </div>
+                    `;
+                    return;
+                }
+
+                runningList.innerHTML = Array.from(runningTasks)
+                    .map(
+                        (taskName) => `
+                    <a href="#" class="running-task-item flex items-center space-x-3 px-3 py-2 bg-indigo-50 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-100" data-task-name="${taskName}">
+                        <div class="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></div>
+                        <span>${taskName}</span>
+                    </a>
+                `,
+                    )
+                    .join("");
             }
 
             function clearRunningList() {
-                const runningList = document.getElementById("running-list");
-                runningList.innerHTML = `
-                                <div class="px-3 py-2 text-xs text-gray-400 italic">
-                                    No running automations
-                                </div>
-                            `;
+                runningTasks.clear();
+                renderRunningList();
+                updateRunningBadge();
+            }
+
+            // Initialize running list with currently executing tasks
+            function initRunningList() {
+                const allTasks = taskStorage.getAllTasks();
+                allTasks.forEach((task) => {
+                    if (
+                        task.aiStatus &&
+                        task.aiStatus.toLowerCase() === "executing"
+                    ) {
+                        runningTasks.add(task.title);
+                    }
+                });
+                renderRunningList();
+                updateRunningBadge();
             }
 
             // Close panel button
