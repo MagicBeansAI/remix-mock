@@ -3771,6 +3771,37 @@
 
                 <!-- Panel Content -->
                 <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <!-- Q&A History Accordion (for tasks with existing AI status) -->
+                    <div id="qa-history-section" class="hidden">
+                        <button
+                            id="qa-history-toggle"
+                            class="w-full flex items-center justify-between text-left py-2 text-xs font-semibold text-gray-500 uppercase hover:text-gray-700"
+                        >
+                            <span>Questions & Answers</span>
+                            <svg
+                                id="qa-history-chevron"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="transform transition-transform"
+                            >
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div
+                            id="qa-history-content"
+                            class="hidden space-y-2 mt-2"
+                        >
+                            <!-- Q&A items will be populated dynamically -->
+                        </div>
+                    </div>
+
                     <!-- Progress Steps -->
                     <div>
                         <h4
@@ -6148,6 +6179,202 @@
                 return mockPanelConfigs.default;
             }
 
+            // Get Q&A history for a task based on its type
+            function getQAHistoryForTask(task) {
+                if (!task || !task.title) return null;
+
+                const title = task.title.toLowerCase();
+
+                if (title.includes("ruchika") || title.includes("messages")) {
+                    return [
+                        {
+                            q: "Which platforms should I search for messages?",
+                            a: "LinkedIn and Gmail",
+                        },
+                        { q: "What name should I filter by?", a: "Ruchika" },
+                        {
+                            q: "How far back should I search?",
+                            a: "Last 30 days",
+                        },
+                        {
+                            q: "Should I include attachments?",
+                            a: "Yes, include all attachments",
+                        },
+                    ];
+                } else if (
+                    title.includes("log") ||
+                    title.includes("automation")
+                ) {
+                    return [
+                        {
+                            q: "Which automation logs should I review?",
+                            a: "All failed and warning logs",
+                        },
+                        { q: "What date range to analyze?", a: "Last 7 days" },
+                        {
+                            q: "Should I generate a summary report?",
+                            a: "Yes, with error categories",
+                        },
+                        {
+                            q: "Who should receive the report?",
+                            a: "Engineering team lead",
+                        },
+                    ];
+                } else if (
+                    title.includes("report") ||
+                    title.includes("quarterly")
+                ) {
+                    return [
+                        {
+                            q: "Which quarter's data should I use?",
+                            a: "Q4 2024",
+                        },
+                        {
+                            q: "What metrics to include?",
+                            a: "Revenue, KPIs, and growth rates",
+                        },
+                        {
+                            q: "Should I compare with previous quarter?",
+                            a: "Yes, include Q3 comparison",
+                        },
+                        {
+                            q: "What export format is needed?",
+                            a: "PDF and Excel",
+                        },
+                    ];
+                } else if (
+                    title.includes("meeting") ||
+                    title.includes("schedule")
+                ) {
+                    return [
+                        {
+                            q: "Who should attend this meeting?",
+                            a: "Engineering team + Product",
+                        },
+                        { q: "What is the preferred duration?", a: "1 hour" },
+                        {
+                            q: "Any specific time preferences?",
+                            a: "Afternoon, after 2pm",
+                        },
+                        {
+                            q: "Should I send calendar invites?",
+                            a: "Yes, send to all attendees",
+                        },
+                    ];
+                } else if (
+                    title.includes("presentation") ||
+                    title.includes("client")
+                ) {
+                    return [
+                        { q: "Which client is this for?", a: "Acme Corp" },
+                        {
+                            q: "What sections need updating?",
+                            a: "Q4 results and projections",
+                        },
+                        {
+                            q: "Do you have new data to include?",
+                            a: "Yes, latest sales figures",
+                        },
+                        { q: "When is the deadline?", a: "End of this week" },
+                    ];
+                } else if (title.includes("tripti")) {
+                    return [
+                        {
+                            q: "Which platforms to search?",
+                            a: "Slack and Email",
+                        },
+                        { q: "What name to filter by?", a: "Tripti" },
+                        {
+                            q: "Include group conversations?",
+                            a: "No, only direct messages",
+                        },
+                        {
+                            q: "How should I format the output?",
+                            a: "Chronological list with timestamps",
+                        },
+                    ];
+                }
+
+                // Default Q&A for any other task
+                return [
+                    {
+                        q: "What is the main goal for this task?",
+                        a: "Complete as specified",
+                    },
+                    {
+                        q: "Any specific requirements?",
+                        a: "Follow standard process",
+                    },
+                    {
+                        q: "What resources should I use?",
+                        a: "Default available resources",
+                    },
+                    {
+                        q: "Any deadline constraints?",
+                        a: "As soon as possible",
+                    },
+                ];
+            }
+
+            function renderQAHistory(task) {
+                const qaHistorySection =
+                    document.getElementById("qa-history-section");
+                const qaHistoryContent =
+                    document.getElementById("qa-history-content");
+
+                // Only show Q&A history for tasks with AI status
+                if (!task || !task.aiStatus) {
+                    qaHistorySection.classList.add("hidden");
+                    return;
+                }
+
+                const qaHistory = getQAHistoryForTask(task);
+                if (!qaHistory || qaHistory.length === 0) {
+                    qaHistorySection.classList.add("hidden");
+                    return;
+                }
+
+                qaHistorySection.classList.remove("hidden");
+                qaHistoryContent.innerHTML = qaHistory
+                    .map(
+                        (item, idx) => `
+                    <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                        <div class="flex items-start space-x-2 mb-2">
+                            <div class="w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span class="text-xs font-medium text-indigo-600">Q</span>
+                            </div>
+                            <p class="text-sm text-gray-700">${item.q}</p>
+                        </div>
+                        <div class="flex items-start space-x-2 ml-7">
+                            <div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span class="text-xs font-medium text-green-600">A</span>
+                            </div>
+                            <p class="text-sm font-medium text-gray-900">${item.a}</p>
+                        </div>
+                    </div>
+                `,
+                    )
+                    .join("");
+
+                // Reset accordion to collapsed state
+                qaHistoryContent.classList.add("hidden");
+                document
+                    .getElementById("qa-history-chevron")
+                    .classList.remove("rotate-180");
+            }
+
+            // Toggle Q&A history accordion
+            document
+                .getElementById("qa-history-toggle")
+                .addEventListener("click", function () {
+                    const content =
+                        document.getElementById("qa-history-content");
+                    const chevron =
+                        document.getElementById("qa-history-chevron");
+                    content.classList.toggle("hidden");
+                    chevron.classList.toggle("rotate-180");
+                });
+
             function renderPanelContent(config) {
                 // Update task name
                 document.getElementById("panel-task-name").textContent =
@@ -6239,6 +6466,9 @@
             function openExecutionPanel(task = null) {
                 const config = getConfigForTask(task);
                 renderPanelContent(config);
+
+                // Render Q&A history for tasks with AI status
+                renderQAHistory(task);
 
                 executionPanel.classList.remove("hidden", "slide-out");
 
@@ -6808,6 +7038,9 @@
                 // Highlight the active task
                 highlightActiveTask(task);
 
+                // Render Q&A history
+                renderQAHistory(task);
+
                 // Get plan steps from task subtasks or config
                 let planSteps = [];
                 if (task && task.subtasks && task.subtasks.length > 0) {
@@ -6882,6 +7115,9 @@
 
                 // Highlight the active task
                 highlightActiveTask(task);
+
+                // Render Q&A history
+                renderQAHistory(task);
 
                 // Mark all steps as completed
                 const completedSteps = config.steps.map((step) => ({
