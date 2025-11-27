@@ -5100,14 +5100,14 @@
                 const dailyBriefingDashboardHTML = dashboardView.innerHTML;
                 const homeViewHTML = homeView.innerHTML;
 
-                // --- Set Home as default view on page load ---
-                const homeLink = document.querySelector(
-                    '.sidebar-link[data-title="Home"]',
+                // --- Set All Tasks as default view on page load ---
+                const allTasksLink = document.querySelector(
+                    '.sidebar-link[data-title="All"]',
                 );
-                if (homeLink) {
-                    updateActiveLink(homeLink);
-                    mainHeaderTitle.textContent = "Home";
-                    showHomeView(); // This will call populateHomeTasks()
+                if (allTasksLink) {
+                    updateActiveLink(allTasksLink);
+                    mainHeaderTitle.textContent = "All";
+                    showTaskView("All");
                 }
 
                 // Sidebar counts already updated after task initialization
