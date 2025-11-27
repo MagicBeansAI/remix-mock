@@ -6742,27 +6742,42 @@
                         });
                     }
 
-                    // Build the plan HTML content
-                    const planHTML = `
-                        <div class="space-y-2 mb-4">
-                            ${answeredQuestions
-                                .map(
-                                    (q, i) => `
-                                <div class="flex items-start space-x-2">
-                                    <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    </div>
-                                    <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-800">${q.question}</p>
-                                        <p class="text-xs text-green-600">${q.answer}</p>
-                                    </div>
+                    // Show Q&A history accordion with the answered questions
+                    const qaHistorySection =
+                        document.getElementById("qa-history-section");
+                    const qaHistoryContent =
+                        document.getElementById("qa-history-content");
+
+                    qaHistorySection.classList.remove("hidden");
+                    qaHistoryContent.innerHTML = answeredQuestions
+                        .map(
+                            (item) => `
+                        <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <div class="flex items-start space-x-2 mb-2">
+                                <div class="w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <span class="text-xs font-medium text-indigo-600">Q</span>
                                 </div>
-                            `,
-                                )
-                                .join("")}
+                                <p class="text-sm text-gray-700">${item.question}</p>
+                            </div>
+                            <div class="flex items-start space-x-2 ml-7">
+                                <div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <span class="text-xs font-medium text-green-600">A</span>
+                                </div>
+                                <p class="text-sm font-medium text-gray-900">${item.answer}</p>
+                            </div>
                         </div>
+                    `,
+                        )
+                        .join("");
+
+                    // Keep the accordion collapsed
+                    qaHistoryContent.classList.add("hidden");
+                    document
+                        .getElementById("qa-history-chevron")
+                        .classList.remove("rotate-180");
+
+                    // Build the plan HTML content (without inline Q&A)
+                    const planHTML = `
                         <div class="p-4 bg-green-50 rounded-lg border border-green-200 mb-4">
                             <div class="flex items-center space-x-2 mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
